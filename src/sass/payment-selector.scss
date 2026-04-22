@@ -1,0 +1,79 @@
+// ── Payment Selector ──────────────────────────────────────────────────────────
+// Add class "payment-selector" to any en__component--formblock that wraps a
+// payment-type radio field to get the tab-bar treatment.
+// Optionally combine with a bg-{name} class to set the active colour theme.
+//
+// Example:
+//   <div class="en__component en__component--formblock payment-selector bg-blue">
+
+.payment-selector {
+  // Hide the top-level "Payment Type" label
+  .en__field--paymenttype > .en__field__label:not(.en__field__label--item) {
+    display: none;
+  }
+
+  // Tab strip container
+  .en__field--paymenttype .en__field__element--radio {
+    display: flex;
+    border: 2px solid #1d3557;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  // Each tab cell
+  .en__field--paymenttype .en__field__item {
+    flex: 1;
+    display: flex;
+    position: relative;
+    padding: 0;
+  }
+
+  .en__field--paymenttype .en__field__item:not(:last-child) {
+    border-right: 1px solid #1d3557;
+  }
+
+  // Hide the native radio input but keep it accessible
+  .en__field--paymenttype .en__field__input--radio {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+  }
+
+  // Tab label
+  .en__field--paymenttype .en__field__label--item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 8px;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    color: #1d3557;
+    background-color: #ffffff;
+    transition: background-color 0.2s, color 0.2s;
+    text-align: center;
+    margin: 0;
+  }
+
+  // Active tab
+  .en__field--paymenttype .en__field__input--radio:checked + .en__field__label--item {
+    background-color: #1d3557;
+    color: #ffffff;
+  }
+}
+
+// ── Payment Type Containers ───────────────────────────────────────────────────
+// Add "payment-type-container" + the payment type value class (e.g. "ACH",
+// "card", "paypal") + "hide" to any block that should only be visible when
+// that payment type is selected.
+//
+// Example:
+//   <div class="en__component en__component--formblock payment-type-container ACH hide">
+//
+// JS removes/adds "hide" on selection. The block stays visible in the page
+// builder editor because the hide rule only applies at runtime (not in editor).

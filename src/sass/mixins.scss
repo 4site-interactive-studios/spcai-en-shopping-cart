@@ -141,6 +141,80 @@ $fs-escape-chars: (
   }
 }
 
+// ── Shopping Cart Form — border/label theme ──────────────────────────────────
+// Applied via: .shopping-cart-form.bg-{name}
+// Themes input borders, focus borders, and label colour.
+@mixin shopping-cart-form-border-theme($name, $color) {
+  .shopping-cart-form.bg-#{$name} {
+    .en__field__label:not(.en__field__label--item) {
+      color: #{$color};
+    }
+    .en__field.en__mandatory > .en__field__label::after {
+      color: #{$color};
+    }
+    .en__field__input--text,
+    .en__field__input--number,
+    .en__field__input--telephone,
+    .en__field__input--vgs {
+      border-color: #{$color};
+    }
+    .en__field__input--text:focus,
+    .en__field__input--number:focus,
+    .en__field__input--telephone:focus {
+      border-color: #{$color};
+    }
+    .en__field__input--select {
+      border-color: #{$color};
+      &:focus {
+        border-color: #{$color};
+      }
+    }
+  }
+}
+
+// ── Shopping Cart Form — submit button theme ──────────────────────────────────
+// Applied via: .shopping-cart-form.submit-{name}
+@mixin shopping-cart-form-submit-theme($name, $color, $white-text: true) {
+  .shopping-cart-form.submit-#{$name} {
+    .en__submit button {
+      background-color: #{$color};
+      border-color: #{$color};
+      @if $white-text {
+        color: #ffffff;
+      } @else {
+        color: #333333;
+      }
+      &:hover {
+        filter: brightness(0.88);
+      }
+    }
+  }
+}
+
+// ── Payment Selector theme ──────────────────────────────────────────────────
+// Usage: .payment-selector.bg-{name} inside #en-shopping-cart
+@mixin payment-selector-theme($name, $color, $white-text: true) {
+  .payment-selector.bg-#{$name} {
+    .en__field--paymenttype .en__field__element--radio {
+      border-color: #{$color};
+    }
+    .en__field--paymenttype .en__field__item:not(:last-child) {
+      border-right-color: #{$color};
+    }
+    .en__field--paymenttype .en__field__label--item {
+      color: #{$color};
+    }
+    .en__field--paymenttype .en__field__input--radio:checked + .en__field__label--item {
+      background-color: #{$color};
+      @if $white-text {
+        color: #ffffff;
+      } @else {
+        color: #333333;
+      }
+    }
+  }
+}
+
 @keyframes pulse {
   0%,
   100% {

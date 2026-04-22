@@ -176,4 +176,65 @@
       }
     }
   }
+
+  // ── Payment Selector colour themes ───────────────────────────────────────
+  // Add "payment-selector bg-{name}" to the wrapping formblock to theme the tab bar.
+  @include payment-selector-theme("teal",      "#027f8c",  true);
+  @include payment-selector-theme("peach",     "#f26e50",  true);
+  @include payment-selector-theme("maroon",    "#6d0333",  true);
+  @include payment-selector-theme("lightblue", "#3678ba",  true);
+  @include payment-selector-theme("blue",      "#3678ba",  true);
+  @include payment-selector-theme("white",     "#606062",  false);
+  @include payment-selector-theme("magenta",   "#f40655",  true);
+  @include payment-selector-theme("red",       "#c72b50",  true);
+  @include payment-selector-theme("green",     "#00a859",  true);
+  @include payment-selector-theme("fern",      "#597938",  true);
+  @include payment-selector-theme("yellow",    "#db7d03",  false);
+  @include payment-selector-theme("orange",    "#db7d03",  true);
+  @include payment-selector-theme("purple",    "#8c2d8c",  true);
+  @include payment-selector-theme("pink",      "#c72b50",  false);
+  @include payment-selector-theme("lightgray", "#606062",  false);
+  @include payment-selector-theme("gray",      "#606062",  false);
+  @include payment-selector-theme("darkgray",  "#606062",  true);
+  @include payment-selector-theme("black",     "#000000",  true);
+
+  // ── Shopping Cart Form — border themes (bg-{name}) ───────────────────────
+  @include shopping-cart-form-border-theme("teal",      "#027f8c");
+  @include shopping-cart-form-border-theme("peach",     "#f26e50");
+  @include shopping-cart-form-border-theme("maroon",    "#6d0333");
+  @include shopping-cart-form-border-theme("lightblue", "#3678ba");
+  @include shopping-cart-form-border-theme("blue",      "#3678ba");
+  @include shopping-cart-form-border-theme("white",     "#606062");
+  @include shopping-cart-form-border-theme("magenta",   "#f40655");
+  @include shopping-cart-form-border-theme("red",       "#c72b50");
+  @include shopping-cart-form-border-theme("green",     "#00a859");
+  @include shopping-cart-form-border-theme("fern",      "#597938");
+  @include shopping-cart-form-border-theme("yellow",    "#db7d03");
+  @include shopping-cart-form-border-theme("orange",    "#db7d03");
+  @include shopping-cart-form-border-theme("purple",    "#8c2d8c");
+  @include shopping-cart-form-border-theme("pink",      "#c72b50");
+  @include shopping-cart-form-border-theme("lightgray", "#606062");
+  @include shopping-cart-form-border-theme("gray",      "#606062");
+  @include shopping-cart-form-border-theme("darkgray",  "#606062");
+  @include shopping-cart-form-border-theme("black",     "#000000");
+
+  // ── Shopping Cart Form — submit button themes (submit-{name}) ────────────
+  @include shopping-cart-form-submit-theme("teal",      "#027f8c",  true);
+  @include shopping-cart-form-submit-theme("peach",     "#f26e50",  true);
+  @include shopping-cart-form-submit-theme("maroon",    "#6d0333",  true);
+  @include shopping-cart-form-submit-theme("lightblue", "#3678ba",  true);
+  @include shopping-cart-form-submit-theme("blue",      "#3678ba",  true);
+  @include shopping-cart-form-submit-theme("white",     "#606062",  false);
+  @include shopping-cart-form-submit-theme("magenta",   "#f40655",  true);
+  @include shopping-cart-form-submit-theme("red",       "#c72b50",  true);
+  @include shopping-cart-form-submit-theme("green",     "#00a859",  true);
+  @include shopping-cart-form-submit-theme("fern",      "#597938",  true);
+  @include shopping-cart-form-submit-theme("yellow",    "#db7d03",  false);
+  @include shopping-cart-form-submit-theme("orange",    "#db7d03",  true);
+  @include shopping-cart-form-submit-theme("purple",    "#8c2d8c",  true);
+  @include shopping-cart-form-submit-theme("pink",      "#c72b50",  false);
+  @include shopping-cart-form-submit-theme("lightgray", "#606062",  false);
+  @include shopping-cart-form-submit-theme("gray",      "#606062",  false);
+  @include shopping-cart-form-submit-theme("darkgray",  "#606062",  true);
+  @include shopping-cart-form-submit-theme("black",     "#000000",  true);
 }

@@ -1,0 +1,128 @@
+// ── Shopping Cart Form ────────────────────────────────────────────────────────
+// Add class "shopping-cart-form" to any en__component--formblock to get
+// styled form fields automatically from the build CSS.
+//
+// Optional modifier classes (combinable):
+//   bg-{name}     — themes input borders and label colour
+//   submit-{name} — themes the submit button background
+//
+// Examples:
+//   <div class="en__component en__component--formblock shopping-cart-form">
+//   <div class="en__component en__component--formblock shopping-cart-form bg-blue submit-red">
+
+.form-container {
+  max-width: 1040px !important;
+  margin: 0 auto !important;
+  column-gap: 40px;
+}
+
+.shopping-cart-form {
+
+  // ── Labels ──
+  .en__field__label:not(.en__field__label--item) {
+    display: block;
+    font-weight: 700;
+    font-size: 15px;
+    color: #1d3557;
+    margin-bottom: 6px;
+  }
+
+  // Required asterisk
+  .en__field.en__mandatory>.en__field__label::after {
+    content: "*";
+    margin-left: 2px;
+    color: #1d3557;
+  }
+
+  // ── Field spacing ──
+  .en__field {
+    margin-bottom: 18px;
+  }
+
+  // ── Text / number / tel inputs ──
+  .en__field__input--text,
+  .en__field__input--number,
+  .en__field__input--telephone {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    font-size: 15px;
+    color: #1d3557;
+    background: #ffffff;
+    border: 1.5px solid #a8bcd0;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.2s;
+
+    &::placeholder {
+      color: #9baab8;
+      font-weight: 400;
+    }
+
+    &:focus {
+      border-color: #1d3557;
+    }
+  }
+
+  // ── Select ──
+  .en__field__input--select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 40px 12px 14px;
+    font-size: 15px;
+    color: #1d3557;
+    background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%231d3557' d='M0 0l6 8 6-8z'/%3E%3C/svg%3E") no-repeat right 14px center;
+    background-size: 12px;
+    border: 1.5px solid #a8bcd0;
+    border-radius: 6px;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+
+    &:focus {
+      border-color: #1d3557;
+    }
+  }
+
+  // ── VGS iframe containers (card fields) ──
+  .en__field__input--vgs {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0;
+    border: 1.5px solid #a8bcd0;
+    border-radius: 6px;
+    background: #ffffff;
+    overflow: hidden;
+
+    iframe {
+      display: block;
+      width: 100%;
+      height: 42px;
+      border: none;
+    }
+  }
+
+  // ── Submit button (base — override colour with submit-{name}) ──
+  .en__submit button {
+    display: block;
+    width: 100%;
+    padding: 18px 12px;
+    background-color: #1d3557;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, filter 0.2s;
+    margin-top: 8px;
+
+    &:hover {
+      filter: brightness(0.88);
+    }
+  }
+}

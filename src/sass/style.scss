@@ -1,4 +1,6 @@
 @import "mixins.scss";
+@import "payment-selector.scss";
+@import "shopping-cart-form.scss";
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;800&text=0123456789&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;800&display=swap");
 body:not(#en__pagebuilder):not([data-debug]) {
@@ -68,3 +70,14 @@ body[data-item-selected="true"] #en-shopping-cart {
 html[lang="de-DE"] {
   @import "./peta-germany.scss";
 }
+
+.en__component--row {
+    max-width: 65rem;
+    margin: 0 auto
+}
+
+.en__field:not(.en__hidden) {
+  display: flex;
+  flex-direction: column;
+}
+
