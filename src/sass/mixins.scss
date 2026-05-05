@@ -87,40 +87,21 @@ $fs-escape-chars: (
   .sc-cards,
   .sc-info {
     .bg-#{$name} {
-      &[data-selected="true"] {
-        border-color: #{$border-selected-color};
-      }
       &::before {
         background-color: #{$bg-amount-color};
       }
-      @if $amount-white-text == false {
-        .sc-cards-amount * {
-          color: #606062;
-        }
-      } @else {
-        .sc-cards-amount * {
-          color: #ffffff;
-        }
+      .sc-cards-amount * {
+        color: #{$bg-amount-color};
       }
     }
   }
   .sc-info {
-    &.bg-#{$name} {
-      .gift-box-bold::before {
-        @if $bg-amount-color != $bg-color {
-          content: svg(#{$bg-amount-color});
-        } @else {
-          content: svg(#ffffff);
-        }
-      }
-    }
     .text-#{$name},
     .text-#{$name} * {
       color: #{$bg-color} !important;
     }
   }
-  .bg-#{$name} .en__submit button,
-  .sc-mobile-checkout.#{$name} p {
+  .bg-#{$name} .en__submit button {
     background-color: #{$bg-color};
     border-color: #{$bg-color};
     transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out,
