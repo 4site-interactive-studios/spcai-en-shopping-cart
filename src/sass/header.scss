@@ -3,10 +3,9 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 10px;
   margin: 0;
   padding: 0;
-  background-color: #3678ba;
+  background-color: #163F58;
   color: #fff;
   &:has(div.en__component:nth-child(3)) {
     @media (min-width: 1101px) {
@@ -43,7 +42,8 @@
   }
   .en__component--copyblock:not(.logo-block) {
     width: 100%;
-    margin: 2rem 4rem 2rem 4rem;
+    margin: 8rem 6rem 8rem 5rem;
+    gap: 20px;
     align-self: center;
     h1,
     h2,
@@ -52,7 +52,7 @@
     h5,
     h6 {
       margin-top: 0;
-      font-family: "Nunito", "Raleway", Helvetica, Roboto, Arial, sans-serif;
+      font-family: "Oswald", "Arial Narrow", Arial, sans-serif;
       font-weight: 800;
       text-align: left;
     }

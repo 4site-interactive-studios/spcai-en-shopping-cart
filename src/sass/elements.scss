@@ -1,9 +1,10 @@
 h1 {
-  font-family: "Nunito", "Raleway", Helvetica, Roboto, Arial, sans-serif;
-  font-size: 30px;
+  font-family: "Oswald", "Arial Narrow", Arial, sans-serif;
+  font-size: 52px;
+  line-height: 60px;
   text-align: center;
   font-weight: 400;
-  color: #555;
+  color: #fff;
   margin: 1rem auto;
   strong {
     font-weight: bold;
@@ -12,16 +13,6 @@ h1 {
 h2,
 h3 {
   text-align: center;
-}
-#currency-calculator .en__field--pseudo-currencyConverter {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-#currency-calculator .currencySelectLabel {
-  margin: 0;
 }
 .sc-form-row {
   max-width: 1030px;
@@ -33,36 +24,4 @@ h3 {
   margin: 0;
   display: block;
   padding: 0;
-}
-.amount-summary {
-  dl {
-    display: grid;
-    grid-template-columns: max-content auto;
-    background-color: #f7f7fa;
-    border-top: 1px solid #d7dadd;
-    border-bottom: 1px solid #d7dadd;
-    font-size: 14px;
-  }
-  dt {
-    grid-column-start: 1;
-    border-top: 1px solid #d7dadd;
-    margin: 0;
-    min-width: 130px;
-    padding: 10px 0;
-    font-weight: 700;
-    text-align: right;
-    &:first-child {
-      border-top: 0;
-    }
-  }
-
-  dd {
-    grid-column-start: 2;
-    border-top: 1px solid #d7dadd;
-    margin: 0;
-    padding: 10px 20px;
-    &:nth-child(2) {
-      border-top: 0;
-    }
-  }
 }

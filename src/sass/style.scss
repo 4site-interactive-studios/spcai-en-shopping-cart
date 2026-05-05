@@ -1,6 +1,5 @@
 @import "mixins.scss";
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;800&text=0123456789&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap");
 body:not(#en__pagebuilder):not([data-debug]) {
   .hide {
     display: none;
@@ -43,32 +42,21 @@ body[data-debug] {
     background-color: #ff00001a !important;
   }
 }
-body[data-item-selected="true"] #en-shopping-cart {
-  .sc-mobile-checkout {
-    bottom: 0;
-  }
-}
+
 #en-shopping-cart {
   .en__component--advrow {
     max-width: 100%;
     min-height: unset;
   }
   @import "./header.scss";
-  @import "./frequency.scss";
   @import "./cards.scss";
   @import "./info.scss";
   @import "./elements.scss";
-  @import "./mobile-checkout.scss";
   @import "./mobile.scss";
 }
 
 @import "./colors.scss";
 @import "./page-builder.scss";
-
-// This is for PETA Germany only, break wording for the headings in the cards
-html[lang="de-DE"] {
-  @import "./peta-germany.scss";
-}
 
 .flex {
   display: flex !important;

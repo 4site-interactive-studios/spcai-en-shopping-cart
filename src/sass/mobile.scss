@@ -81,9 +81,6 @@
   }
 }
 @media (max-width: 690px), (max-device-width: 690px) {
-  .sc-mobile-checkout {
-    display: block;
-  }
   .sc-cards {
     gap: 5px;
     [data-card][data-flip] {
@@ -159,16 +156,6 @@
       font-size: 0.95rem;
       line-height: 1.3;
     }
-    > .gift-box {
-      max-width: 80%;
-      margin: 0 auto;
-      h1 {
-        font-size: 28px;
-      }
-    }
-    .gift-box-bold {
-      margin-top: 0;
-    }
     .info-title {
       h1,
       h2,
@@ -212,31 +199,6 @@
           margin-top: 53px;
           margin-bottom: 65px;
         }
-      }
-    }
-  }
-  .sc-frequency {
-    .frequency-buttons {
-      gap: 5px;
-      max-width: 100%;
-      .monthly,
-      .onetime {
-        max-width: 100%;
-        .monthly-icon {
-          margin-left: 10px;
-          margin-right: 5px;
-        }
-      }
-    }
-    .monthly-message {
-      max-width: 100%;
-      display: flex;
-      &::before {
-        position: relative;
-        inset: 0;
-        display: block;
-        margin-right: 10px;
-        margin-bottom: 10px;
       }
     }
   }
