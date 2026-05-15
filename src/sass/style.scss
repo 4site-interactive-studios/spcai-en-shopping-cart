@@ -1,13 +1,19 @@
 @import "mixins.scss";
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap");
-
-$breakpoint-1: 1300px; //being used hard-coded in .spcai-main-nav ul li a {
+@import "./colors.scss";
+@import "./page-builder.scss";
 
 :root {
   --page-padding-x: 80px;
 
-  @media (max-width: $breakpoint-1) {
+  @media (max-width: 1300px),
+  (max-device-width: 1300px) {
     --page-padding-x: 40px;
+  }
+
+  @media (max-width: 690px),
+  (max-device-width: 690px) {
+    --page-padding-x: 24px;
   }
 }
 
@@ -15,7 +21,6 @@ body:not(#en__pagebuilder):not([data-debug]) {
   .hide {
     display: none;
   }
-
   #en-shopping-cart .sc-cards .en__component--copyblock {
     &:not([data-card]) {
       p:first-child {
@@ -30,7 +35,6 @@ body:not(#en__pagebuilder):not([data-debug]) {
           z-index: 20;
           animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
-
         &:after {
           content: "";
           position: absolute;
@@ -42,16 +46,14 @@ body:not(#en__pagebuilder):not([data-debug]) {
           z-index: 19;
         }
       }
-
-      h1+p,
-      h2+p,
-      h3+p {
+      h1 + p,
+      h2 + p,
+      h3 + p {
         margin-bottom: 28px;
       }
     }
   }
 }
-
 body[data-debug] {
   .hide {
     background-color: #ff00001a !important;
@@ -61,32 +63,33 @@ body[data-debug] {
 #en-shopping-cart {
   padding-left: var(--page-padding-x);
   padding-right: var(--page-padding-x);
+  width: 100%;
+  overflow-x: clip;
 
   .en__component--advrow {
     max-width: 100%;
     min-height: unset;
   }
-
-  // /* your-cart-component — bleeds to the left edge */
-  // .your-cart-component {
-  //   margin-left: calc(-1 * var(--page-padding-x));
-  //   width: calc(100% + var(--page-padding-x));
-  // }
-  @import "./header.scss";
   @import "./cards.scss";
   @import "./info.scss";
   @import "./elements.scss";
+  @import "./review-cart.scss";
+  @import "./custom-amount.scss";
+  @import "./fee-cover.scss";
+  @import "./footer.scss";
+  @import "./header.scss";
+  @import "./info.scss";
   @import "./mobile.scss";
-}
-
-@import "./colors.scss";
-@import "./page-builder.scss";
-
-.flex {
-  display: flex !important;
+  @import "./payment-buttons-container.scss";
+  @import "./submit-button.scss";
 }
 
 .form-container {
-  margin: 0 auto !important;
-  column-gap: 40px;
+  display: flex !important;
+  gap: 45px;
 }
+
+.monthly-checkbox-container-mobile {
+  display: none;
+}
+

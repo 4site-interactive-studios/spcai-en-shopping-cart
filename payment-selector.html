@@ -1,0 +1,122 @@
+<div class="en__component en__component--formblock give-by-select">
+    <div class="en__field en__field--radio en__field--000000 en__field--giveBySelect en__field--give-by-select en__mandatory pseudo-en-field">
+        <div class="en__field__element en__field__element--radio payment-buttons-container">
+            <div class="en__field__item card">
+                <input
+                    checked="checked"
+                    class="en__field__input en__field__input--radio"
+                    id="en__field_transaction_giveBySelect2"
+                    name="transaction.giveBySelect"
+                    type="radio"
+                    value="Card"
+                >
+                <label class="en__field__label en__field__label--item" for="en__field_transaction_giveBySelect2">
+                    <img alt="Credit Card Logos" class="credit-card-logos" src="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/cards.png?v=1778692419000">
+                </label>
+            </div>
+            <div class="en__field__item paypal">
+                <input
+                    class="en__field__input en__field__input--radio"
+                    id="en__field_transaction_giveBySelect4"
+                    name="transaction.giveBySelect"
+                    type="radio"
+                    value="paypal"
+                >
+                <label class="en__field__label en__field__label--item" for="en__field_transaction_giveBySelect4">
+                    <img alt="Paypal Logo" class="paypal" src="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/paypal.png?v=1778692423000">
+                </label>
+            </div>
+            <div class="en__field__item en__field--giveBySelect en__mandatory give-by-select pseudo-en-field stripedigitalwallet showif-apple-pay-available">
+                <input
+                    class="en__field__input en__field__input--radio"
+                    id="en__field_transaction_giveBySelect0"
+                    name="transaction.giveBySelect"
+                    type="radio"
+                    value="stripedigitalwallet"
+                >
+                <label class="en__field__label en__field__label--item" for="en__field_transaction_giveBySelect0">
+                    <img alt="Google and Apple Pay Logo" class="google-apple" src="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/google-apple.png?v=1778692421000">
+                </label>
+            </div>
+            <div class="en__field__item ach">
+                <input
+                    class="en__field__input en__field__input--radio"
+                    id="en__field_transaction_giveBySelect3"
+                    name="transaction.giveBySelect"
+                    type="radio"
+                    value="ACH"
+                >
+                <label class="en__field__label en__field__label--item" for="en__field_transaction_giveBySelect3">BANK</label>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function updatePaymentImages() {
+    var configs = [
+        {
+            itemSelector: '.en__field__item.paypal',
+            imgSelector: 'img.paypal',
+            defaultSrc: 'https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/paypal.png?v=1778692423000',
+            selectedSrc: 'https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/paypal-selected.png?v=1778692546000'
+        },
+        {
+            itemSelector: '.en__field__item.stripedigitalwallet',
+            imgSelector: 'img.google-apple',
+            defaultSrc: 'https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/google-apple.png?v=1778692421000',
+            selectedSrc: 'https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/google-apple-selected.png?v=1778692420000'
+        }
+    ];
+
+    configs.forEach(function(cfg) {
+        var item = document.querySelector(cfg.itemSelector);
+        if (!item) return;
+        var img = item.querySelector(cfg.imgSelector);
+        if (!img) return;
+        if (item.classList.contains('selected') || item.classList.contains('hover')) {
+            img.src = cfg.selectedSrc;
+        } else {
+            img.src = cfg.defaultSrc;
+        }
+    });
+}
+
+function updateSubmitButtonVisibility() {
+    var digitalWalletItem = document.querySelector('.en__field__item.stripedigitalwallet');
+    var isDigitalWalletSelected = digitalWalletItem && digitalWalletItem.classList.contains('selected');
+    var submitButtons = document.querySelectorAll('.en__submit button, .submit-button button');
+    submitButtons.forEach(function(btn) {
+        btn.style.display = isDigitalWalletSelected ? 'none' : '';
+    });
+}
+
+function updatePaymentState() {
+    updatePaymentImages();
+    updateSubmitButtonVisibility();
+}
+
+function observePaymentImageSelection() {
+    var container = document.querySelector('.payment-buttons-container');
+    if (!container) return;
+    var radios = container.querySelectorAll('input[name="transaction.giveBySelect"]');
+    radios.forEach(function(radio) {
+        radio.addEventListener('change', updatePaymentState);
+        radio.addEventListener('click', updatePaymentState);
+    });
+    var items = container.querySelectorAll('.en__field__item');
+    items.forEach(function(item) {
+        item.addEventListener('click', function() {
+            setTimeout(updatePaymentState, 0);
+        });
+    });
+    var observer = new MutationObserver(updatePaymentState);
+    observer.observe(container, { attributes: true, subtree: true, attributeFilter: ['class'] });
+    updatePaymentState();
+}
+
+if (document.readyState !== 'loading') {
+    observePaymentImageSelection();
+} else {
+    document.addEventListener('DOMContentLoaded', observePaymentImageSelection);
+}
+</script>
