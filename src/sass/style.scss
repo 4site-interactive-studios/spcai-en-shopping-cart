@@ -1,5 +1,25 @@
 @import "mixins.scss";
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap");
+<<<<<<< Updated upstream
+=======
+@import "./colors.scss";
+@import "./page-builder.scss";
+
+:root {
+  --page-padding-x: 80px;
+
+  @media (max-width: 1300px),
+  (max-device-width: 1300px) {
+    --page-padding-x: 40px;
+  }
+
+  @media (max-width: 690px),
+  (max-device-width: 690px) {
+    --page-padding-x: 24px;
+  }
+}
+
+>>>>>>> Stashed changes
 body:not(#en__pagebuilder):not([data-debug]) {
   .hide {
     display: none;
@@ -44,26 +64,49 @@ body[data-debug] {
 }
 
 #en-shopping-cart {
+<<<<<<< Updated upstream
+=======
+  padding-left: var(--page-padding-x);
+  padding-right: var(--page-padding-x);
+  width: 100%;
+  overflow-x: clip;
+
+>>>>>>> Stashed changes
   .en__component--advrow {
     max-width: 100%;
     min-height: unset;
   }
+<<<<<<< Updated upstream
   @import "./header.scss";
+=======
+
+>>>>>>> Stashed changes
   @import "./cards.scss";
   @import "./info.scss";
   @import "./elements.scss";
+  @import "./review-cart.scss";
+  @import "./custom-amount.scss";
+  @import "./fee-cover.scss";
+  @import "./footer.scss";
+  @import "./header.scss";
+  @import "./info.scss";
   @import "./mobile.scss";
-}
-
-@import "./colors.scss";
-@import "./page-builder.scss";
-
-.flex {
-  display: flex !important;
+  @import "./payment-buttons-container.scss";
+  @import "./submit-button.scss";
 }
 
 .form-container {
+<<<<<<< Updated upstream
   max-width: 1040px !important;
   margin: 0 auto !important;
   column-gap: 40px;
+=======
+  display: flex !important;
+  gap: 45px;
+>>>>>>> Stashed changes
 }
+
+.monthly-checkbox-container-mobile {
+  display: none;
+}
+

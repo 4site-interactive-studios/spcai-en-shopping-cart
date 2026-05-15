@@ -1,6 +1,6 @@
 export class App {
   private cardsNode = document.querySelectorAll(
-    ".sc-cards > div:not(.block-other)"
+    ".sc-cards > div"
   ) as NodeListOf<HTMLDivElement>;
 
   private total = 0;
@@ -18,12 +18,14 @@ export class App {
 
   private cartItems = "";
 
+  private isMonthly = false;
+
   constructor() {
     this.log("Shopping Cart: Debug mode is on");
     if (!this.shouldRun()) {
       this.log("Shopping Cart Not Running");
       return;
-    }
+    } 
 
     // Check for Additional Comments, if not found, create it
     if (!this.additionalComments) {
@@ -68,8 +70,7 @@ export class App {
     this.watchForQuantityChanges();
     this.setQuantityClickEvent();
     this.addLiveVariables();
-    this.addOtherAmount();
-    this.addMonthlyCheckbox();
+    this.addCustomAmountBlock();
     this.checkDebug();
     const monthlyStored =
       localStorage.getItem(`sc-cards-${this.getPageId()}-monthly`) ||
@@ -87,54 +88,219 @@ export class App {
     } else {
       this.updateFrequency("onetime");
     }
-    this.renderFrequency();
+    this.renderMonthly();
+    this.renderMonthlyMobile();
+    this.initStickyInfo();
+    this.initDonateButton();
+    this.initPaymentMethodSelection();
 
     window.setTimeout(() => {
       this.updateTotal();
     }, 500);
   }
 
-  private renderFrequency() {
-    const freqRow = document.querySelector(
-      ".frequency-buttons"
-    ) as HTMLDivElement;
-    if (freqRow) {
-      const freqButtons = freqRow.querySelectorAll("div");
-      const recurrpay = (
-        window as any
-      ).EngagingNetworks.require._defined.enjs.getFieldValue("recurrpay");
+  private renderMonthlyMobile() {
+    const containers = document.querySelectorAll(
+      '.monthly-checkbox-container-mobile'
+    ) as NodeListOf<HTMLDivElement>;
 
-      freqButtons.forEach((button) => {
-        const freqText = button.innerText;
-        const freq = button.className.split(" ")[0];
-        const freqChecked =
-          freq === "monthly" ? recurrpay === "Y" : recurrpay === "N";
-        const freqMarkup = `
-          <input id="frequency-${freq}" type="radio" name="sc-frequency" value="${freq}" ${
-          freqChecked ? "checked" : ""
+    containers.forEach((container) => {
+      const label = container.querySelector('label');
+      const heading = label?.querySelector('h1, h2, h3');
+      const suffixP = container.querySelector('p');
+
+      if (!label || !heading || !suffixP) return;
+
+      const textWrapper = document.createElement('span');
+      textWrapper.classList.add('monthly-text');
+      textWrapper.innerHTML = `<strong>${heading.innerHTML}</strong> ${suffixP.innerHTML}`;
+
+      heading.remove();
+      suffixP.remove();
+      label.appendChild(textWrapper);
+    });
+  }
+
+  private initStickyInfo() {
+    const scInfo = document.querySelector(".sc-info") as HTMLElement;
+    const scCards = document.querySelector(".sc-cards") as HTMLElement;
+
+    if (!scInfo || !scCards) return;
+
+    const infoNaturalTop = scInfo.getBoundingClientRect().top + window.scrollY;
+    const infoHeight = scInfo.offsetHeight;
+
+    const spacer = document.createElement("div");
+    spacer.style.height = `${infoHeight}px`;
+    spacer.style.display = "none";
+    scInfo.parentNode?.insertBefore(spacer, scInfo.nextSibling);
+
+    const update = () => {
+      const cardsBottom = scCards.getBoundingClientRect().bottom;
+
+      if (window.scrollY < infoNaturalTop || cardsBottom <= 0) {
+        // Before sticky or fully scrolled past
+        scInfo.classList.remove("sc-info--sticky");
+        scInfo.style.top = "";
+        spacer.style.display = "none";
+      } else if (cardsBottom >= infoHeight) {
+        // Fully sticky at top
+        scInfo.classList.add("sc-info--sticky");
+        scInfo.style.top = "0px";
+        spacer.style.display = "block";
+      } else {
+        // Being pushed out: sc-cards bottom is crossing the bar
+        scInfo.classList.add("sc-info--sticky");
+        scInfo.style.top = `${cardsBottom - infoHeight}px`;
+        spacer.style.display = "block";
+      }
+    };
+
+    window.addEventListener("scroll", update, { passive: true });
+  }
+
+  private initDonateButton() {
+    const donateButton = document.querySelector(".donate-button") as HTMLElement;
+    const reviewCart = document.querySelector(".review-cart") as HTMLElement;
+
+    if (!donateButton || !reviewCart) return;
+
+    donateButton.addEventListener("click", () => {
+      const top = reviewCart.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top, behavior: "smooth" });
+    });
+  }
+
+  private renderMonthly() {
+    const monthlyCheckboxes = document.querySelectorAll(
+      ".monthly-checkbox"
+    ) as NodeListOf<HTMLDivElement>;
+
+    const recurrpay = (
+      window as any
+    ).EngagingNetworks.require._defined.enjs.getFieldValue("recurrpay");
+
+    if (monthlyCheckboxes.length === 0) return;
+
+    const isMonthlyChecked = recurrpay === "Y";
+    const radioInputs: HTMLInputElement[] = [];
+
+    monthlyCheckboxes.forEach((monthlyCheckbox, index) => {
+      const inputId = `frequency-monthly-${index}`;
+      const monthlyText = monthlyCheckbox.innerText;
+      const input = `
+          <input id="${inputId}" name="${inputId}" type="radio" value="monthly" ${isMonthlyChecked ? "checked" : ""
         } />
-          <label for="frequency-${freq}">
-            <span>${freqText}</span>
+          <label for="${inputId}">
+            <h2>${monthlyText}</h2>
           </label>
         `;
-        button.innerHTML = freqMarkup;
-      });
-      const freqInputs = freqRow.querySelectorAll("input");
-      freqInputs.forEach((input) => {
-        input.addEventListener("change", (e) => {
-          const value = (e.target as HTMLInputElement).value;
-          this.updateFrequency(value);
-          localStorage.setItem(`sc-cards-${this.getPageId()}-monthly`, value);
-          const monthlyCheckbox = document.querySelector(
-            "#sc-monthly"
-          ) as HTMLInputElement;
-          if (monthlyCheckbox) {
-            monthlyCheckbox.checked = value === "monthly";
-            monthlyCheckbox.dispatchEvent(new Event("change"));
+      monthlyCheckbox.innerHTML = input;
+
+      const radioInput = monthlyCheckbox.querySelector(
+        `#${inputId}`
+      ) as HTMLInputElement;
+      if (radioInput) {
+        radioInput.dataset.wasChecked = isMonthlyChecked ? "true" : "false";
+        radioInputs.push(radioInput);
+      }
+    });
+
+    radioInputs.forEach((radioInput) => {
+      radioInput.addEventListener("click", () => {
+        const willBeChecked = radioInput.dataset.wasChecked !== "true";
+        const newState = willBeChecked ? "true" : "false";
+        const frequency = willBeChecked ? "monthly" : "onetime";
+
+        radioInputs.forEach((input) => {
+          input.checked = willBeChecked;
+          input.dataset.wasChecked = newState;
+        });
+
+        const storageValue = willBeChecked ? "Y" : "N";
+        localStorage.setItem(
+          `sc-cards-${this.getPageId()}-monthly`,
+          storageValue
+        );
+
+        monthlyCheckboxes.forEach((container) => {
+          if (willBeChecked) {
+            container.setAttribute("data-selected", "true");
+          } else {
+            container.removeAttribute("data-selected");
           }
         });
+
+        this.updateFrequency(frequency);
+        this.updateTotal();
+
+        const freqButtons = document.querySelectorAll(
+          ".frequency-buttons input"
+        ) as NodeListOf<HTMLInputElement>;
+        freqButtons.forEach((button) => {
+          button.checked =
+            (button.value === "onetime" && storageValue === "N") ||
+            (button.value === "monthly" && storageValue === "Y");
+        });
       });
+    });
+  }
+
+  private initPaymentMethodSelection() {
+    const container = document.querySelector(".payment-buttons-container") as HTMLElement;
+    if (!container) return;
+
+    const radios = container.querySelectorAll(
+      'input[name="transaction.giveBySelect"]'
+    ) as NodeListOf<HTMLInputElement>;
+
+    const items = container.querySelectorAll(
+      ".en__field__item"
+    ) as NodeListOf<HTMLElement>;
+
+    const updateSelected = () => {
+      items.forEach((item) => item.classList.remove("selected"));
+      const checked = container.querySelector(
+        'input[name="transaction.giveBySelect"]:checked'
+      ) as HTMLInputElement | null;
+      if (checked) {
+        checked.closest(".en__field__item")?.classList.add("selected");
+      }
+    };
+
+    radios.forEach((radio) => {
+      radio.addEventListener("change", updateSelected);
+      radio.addEventListener("click", updateSelected);
+    });
+    items.forEach((item) => {
+      item.addEventListener("click", updateSelected);
+      item.addEventListener("mouseenter", function () {
+        item.classList.add("hover");
+        if (!item.classList.contains("hover")) {
+          setTimeout(() => item.classList.add("hover"), 0);
+        }
+      });
+      item.addEventListener("mouseleave", function () {
+        item.classList.remove("hover");
+        if (item.classList.contains("hover")) {
+          setTimeout(() => item.classList.remove("hover"), 0);
+        }
+      });
+    });
+
+    const paymentTypeField = document.querySelector(
+      "#en__field_transaction_paymenttype"
+    ) as HTMLInputElement | null;
+    if (paymentTypeField) {
+      new MutationObserver(updateSelected).observe(paymentTypeField, {
+        attributes: true,
+        attributeFilter: ["value"],
+      });
+      paymentTypeField.addEventListener("change", updateSelected);
+      paymentTypeField.addEventListener("input", updateSelected);
     }
+
+    updateSelected();
   }
 
   private setCardsAtttributes() {
@@ -168,6 +334,7 @@ export class App {
           if (quantity > 0) {
             card.setAttribute("data-selected", "true");
           }
+          amountNode.remove();
         }
       }
     });
@@ -212,9 +379,8 @@ export class App {
           decimalPart += "0";
         }
         // Add a span to the decimal part, with 2 decimals
-        amountHTML = `${
-          amount.toString().split(".")[0]
-        }<span class="decimal">${decimalPart}</span>`;
+        amountHTML = `${amount.toString().split(".")[0]
+          }<span class="decimal">${decimalPart}</span>`;
       }
 
       const currency = this.getCurrencySymbol(card);
@@ -228,18 +394,26 @@ export class App {
   }
   private createCardsQuantity() {
     this.cardsNode.forEach((card) => {
-      const amountNode = card.querySelector(
-        "h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 + p"
-      ) as HTMLParagraphElement;
+      const amountDiv = card.querySelector(
+        ".sc-cards-amount"
+      ) as HTMLDivElement;
       const quantity = this.getCardQuantity(card);
       const div = document.createElement("div");
       div.classList.add("sc-cards-quantity");
       div.innerHTML = `
         <div class="decrease"></div>
+        <div class="quantity-container">
         <div class="quantity">${quantity}</div>
+        <small>Quantity</small>
+        </div>
+
         <div class="increase"></div>
       `;
-      amountNode.parentNode.insertBefore(div, amountNode.nextSibling);
+      if (amountDiv) {
+        amountDiv.parentNode.insertBefore(div, amountDiv.nextSibling);
+      } else {
+        card.appendChild(div);
+      }
     });
   }
 
@@ -376,7 +550,7 @@ export class App {
         if (mutation.type === "attributes") {
           const card = mutation.target as HTMLElement;
           const quantityElement = card.querySelector(
-            ".sc-cards-quantity > .quantity"
+            ".sc-cards-quantity .quantity"
           ) as HTMLDivElement;
           if (quantityElement) {
             quantityElement.innerText = this.getCardQuantity(card).toString();
@@ -393,37 +567,35 @@ export class App {
       });
     });
   }
-  private addOtherAmount() {
-    const blockOther = document.querySelector(".block-other") as HTMLDivElement;
-    if (blockOther) {
+  private addCustomAmountBlock() {
+    const customAmountBlock = document.querySelector(".custom-amount-block") as HTMLDivElement;
+    if (customAmountBlock) {
       const otherStored =
-        localStorage.getItem(`sc-cards-${this.getPageId()}-other`) || "0";
+        localStorage.getItem(`sc-cards-${this.getPageId()}-other`) || "";
       if (otherStored !== "0") {
-        blockOther.setAttribute("data-selected", "true");
+        customAmountBlock.setAttribute("data-selected", "true");
       }
-      const currency = this.getCurrencySymbol(blockOther);
-      const currencyCode = this.getCurrencyCode(blockOther);
-      const otherAmountWrapper = document.createElement("div");
-      otherAmountWrapper.classList.add("block-other-amount");
-      otherAmountWrapper.innerHTML = `
-      <span class="currency-symbol">${currency}</span>
-      <input id="sc-other-amount" aria-label="Enter your custom donation amount" name="transaction.donationAmt.other-standin" type="text" inputmode="decimal" data-lpignore="true" autocomplete="off" value="${otherStored}" tabindex="1" placeholder="0" />
-      <span class="currency-code">${currencyCode}</span>
+      const customAmountInput = document.createElement("div");
+      customAmountInput.classList.add("custom-amount-input");
+      customAmountInput.innerHTML = `
+      <span class="custom-amount-label">Custom Amount</span>
+      <input id="sc-other-amount" aria-label="Enter your custom donation amount" name="transaction.donationAmt.other-standin" type="text" inputmode="decimal" data-lpignore="true" autocomplete="off" value="${otherStored}" tabindex="1" placeholder="$" />
+      <span class="custom-amount-helper">I want my gift to go wherever it’s needed most.</span>
       `;
-      blockOther.appendChild(otherAmountWrapper);
-      const otherAmount = blockOther.querySelector("input") as HTMLInputElement;
-      if (otherAmount) {
-        otherAmount.addEventListener("input", (e) => {
+      customAmountBlock.appendChild(customAmountInput);
+      const input = customAmountBlock.querySelector("input") as HTMLInputElement;
+      if (input) {
+        input.addEventListener("input", (e) => {
           const value = (e.target as HTMLInputElement).value || "0";
           localStorage.setItem(`sc-cards-${this.getPageId()}-other`, value);
           if (value === "0") {
-            blockOther.removeAttribute("data-selected");
+            customAmountBlock.removeAttribute("data-selected");
           } else {
-            blockOther.setAttribute("data-selected", "true");
+            customAmountBlock.setAttribute("data-selected", "true");
           }
           this.updateTotal();
         });
-        otherAmount.addEventListener("focus", function (e) {
+        input.addEventListener("focus", function (e) {
           if ((e.target as HTMLInputElement).value === "0") {
             (e.target as HTMLInputElement).value = "";
           }
@@ -431,75 +603,63 @@ export class App {
       }
     }
   }
-  private addMonthlyCheckbox() {
-    const monthly = document.querySelector(
-      ".monthly-checkbox"
-    ) as HTMLDivElement;
-    if (monthly) {
-      const monthlyStored =
-        localStorage.getItem(`sc-cards-${this.getPageId()}-monthly`) || "N";
-      if (monthlyStored !== "N") {
-        monthly.setAttribute("data-selected", "true");
-      }
-      const monthlyCheckbox = `
-      <input id="sc-monthly" value="Y" type="checkbox" ${
-        monthlyStored === "Y" ? "checked='checked'" : ""
-      }>
-      `;
-      monthly.innerHTML =
-        monthlyCheckbox +
-        `<label for="sc-monthly">` +
-        monthly.innerHTML +
-        `</label>`;
-      const monthlyInput = monthly.querySelector("input") as HTMLInputElement;
-      if (monthlyInput) {
-        monthlyInput.addEventListener("change", (e) => {
-          const value = (e.target as HTMLInputElement).checked ? "Y" : "N";
-          localStorage.setItem(`sc-cards-${this.getPageId()}-monthly`, value);
-          if (value === "N") {
-            monthly.removeAttribute("data-selected");
-          } else {
-            monthly.setAttribute("data-selected", "true");
-          }
-          this.updateFrequency();
-          this.updateTotal();
-          const freqButtons = document.querySelectorAll(
-            ".frequency-buttons input"
-          ) as NodeListOf<HTMLInputElement>;
-          freqButtons.forEach((button) => {
-            button.checked =
-              (button.value === "onetime" && value === "N") ||
-              (button.value === "monthly" && value === "Y");
-          });
-        });
-      }
-    }
-  }
   private addLiveVariables() {
     const textComponents = document.querySelectorAll(
-      ".en__component--copyblock, .en__component--codeblock, .en__submit button"
+      ".en__component--copyblock, .en__component--codeblock, .submit-button button"
     ) as NodeListOf<HTMLDivElement>;
     if (textComponents.length > 0) {
       textComponents.forEach((component) => {
-        if (component.innerText.includes("[[")) {
-          const liveVariables = component.innerText.match(/\[\[(.*?)\]\]/g);
-          if (liveVariables) {
-            liveVariables.forEach((variable) => {
-              const variableName = variable
-                .replace(/\[\[/g, "")
-                .replace(/\]\]/g, "");
-              // this.log(variableName);
-              component.innerHTML = component.innerHTML.replace(
-                `[[${variableName}]]`,
-                "<span class='sc-live-variable' data-variable='" +
-                  variableName +
-                  "'></span>"
-              );
-            });
-          }
-        }
+        this.injectLiveVariableSpans(component);
       });
     }
+
+    const submitButtons = document.querySelectorAll(
+      ".submit-button button, .en__submit button"
+    ) as NodeListOf<HTMLElement>;
+    submitButtons.forEach((btn) => {
+      const observer = new MutationObserver(() => {
+        const needsSpanReinject = btn.innerHTML.includes("[[");
+        const needsMonthlyReinject =
+          this.isMonthly && !btn.querySelector(".donate-button-frequency");
+        if (needsSpanReinject || needsMonthlyReinject) {
+          observer.disconnect();
+          if (needsSpanReinject) {
+            this.injectLiveVariableSpans(btn);
+            const value =
+              this.total % 1 !== 0
+                ? this.total.toFixed(2)
+                : this.total.toString();
+            this.updateLiveVariables("TOTAL", value);
+          }
+          if (needsMonthlyReinject) {
+            this.updateDonateButtonFrequency(true);
+          }
+          observer.observe(btn, {
+            childList: true,
+            subtree: true,
+            characterData: true,
+          });
+        }
+      });
+      observer.observe(btn, {
+        childList: true,
+        subtree: true,
+        characterData: true,
+      });
+    });
+  }
+
+  private injectLiveVariableSpans(component: HTMLElement) {
+    if (!component.innerHTML.includes("[[")) return;
+    const liveVariables = component.innerHTML.match(/\[\[(.*?)\]\]/g);
+    if (!liveVariables) return;
+    liveVariables.forEach((variable) => {
+      const variableName = variable.replace(/\[\[/g, "").replace(/\]\]/g, "");
+      component.innerHTML = component.innerHTML.replace(
+        `[[${variableName}]]`,
+        `<span class='sc-live-variable' data-variable='${variableName}'></span>`
+      );
+    });
   }
   private updateLiveVariables(variableName: string, value: string) {
     const liveVariables = document.querySelectorAll(
@@ -546,9 +706,8 @@ export class App {
         parseFloat(otherAmount.value).toFixed(2)
       );
       if (otherAmountValue > 0) {
-        this.cartItems = `['1','Other','${otherAmountValue.toFixed(2)}'] \r\n${
-          this.cartItems
-        }`;
+        this.cartItems = `['1','Other','${otherAmountValue.toFixed(2)}'] \r\n${this.cartItems
+          }`;
         this.total += otherAmountValue;
       }
     }
@@ -642,6 +801,29 @@ export class App {
     } else {
       this.updateLiveVariables("FREQUENCY", "");
     }
+    this.updateDonateButtonFrequency(monthly === "Y");
+  }
+
+  private updateDonateButtonFrequency(isMonthly: boolean) {
+    this.isMonthly = isMonthly;
+    const donateButtons = document.querySelectorAll(
+      ".donate-button, .submit-button .en__submit button"
+    ) as NodeListOf<HTMLElement>;
+    donateButtons.forEach((donateButton) => {
+      let label = donateButton.querySelector(
+        ".donate-button-frequency"
+      ) as HTMLElement | null;
+      if (isMonthly) {
+        if (!label) {
+          label = document.createElement("span");
+          label.classList.add("donate-button-frequency");
+          donateButton.appendChild(label);
+        }
+        label.innerText = "Monthly";
+      } else if (label) {
+        label.remove();
+      }
+    });
   }
   private setQuantityClickEvent() {
     this.cardsNode.forEach((card) => {
@@ -654,12 +836,21 @@ export class App {
       if (increase && decrease) {
         increase.addEventListener("click", () => {
           this.increaseQuantity(card);
+          this.flashButton(increase);
         });
         decrease.addEventListener("click", () => {
           this.decreaseQuantity(card);
+          this.flashButton(decrease);
         });
       }
     });
+  }
+
+  private flashButton(el: HTMLElement, duration = 200) {
+    el.classList.add("clicking");
+    window.setTimeout(() => {
+      el.classList.remove("clicking");
+    }, duration);
   }
 
   private rememberQuantity() {

@@ -1,4 +1,5 @@
 .sc-header {
+<<<<<<< Updated upstream
   position: relative;
   display: flex;
   justify-content: flex-start;
@@ -14,6 +15,41 @@
         width: 50%;
         margin: 2rem 4.5rem 2rem 2rem;
       }
+=======
+  background-color: var(--color_navy);
+  margin: 0 calc(-1 * var(--page-padding-x));
+  display: grid;
+  grid-template-columns: 445px 1fr;
+  grid-template-rows: 1fr;
+  max-height: 531px;
+  padding-left: var(--page-padding-x);
+  min-height: 471px;
+  margin-bottom: 88px;
+
+  @media (max-width: 1140px) { 
+    grid-template-columns: 389px 1fr;
+  }
+
+  // Vertical transparent divider between text and image
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 525px;
+    width: 85px;
+    height: 100%;
+    background-color: inherit;
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 1;
+
+    @media (max-width: 1300px) {
+      left: 485px;
+    } 
+
+    @media (max-width: 1140px) { 
+      left: 429px;
+>>>>>>> Stashed changes
     }
   }
   .logo-block {
@@ -59,6 +95,42 @@
     * {
       color: #fff;
     }
+<<<<<<< Updated upstream
+=======
+
+    // Smalll Header
+    p:first-child:not(:last-child) {
+      font-family: "Open Sans", sans-serif;
+      font-size: 16px;
+      line-height: 48px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #c5ced6 !important;
+      margin-bottom: 9px !important;
+    }
+
+    // Headline
+    h1 {
+      font-family: "Oswald", "Arial Narrow", Arial, sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 60px;
+      font-size: 52px;
+      color: #fff !important;
+      margin: 0 0 20px 0 !important;
+      text-align: left;
+    }
+
+    //paragraph
+    p,
+    li {
+      font-family: "Open Sans", sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 28px;
+      margin: 0  !important;
+    }
+>>>>>>> Stashed changes
   }
   .en__component--imageblock:last-of-type {
     max-height: 100%;

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Start Google Optimize with page hiding snippet -->
+        <!-- Disable Google Optimize when not in use as it dramatically slows page load times -->
+        <!--
+        <style>
+        .async-hide { opacity: 0 !important} en
+        </style>
+        
+        <script>
+        (function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;
+        h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+        (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);
+        })(window,document.documentElement,'async-hide','dataLayer',4000,{'GTM-123456':true});
+        </script>
+        -->
+        <!-- End Google Optimize with page hiding snippet -->
+        <!-- Start Google Tag Manager Data Layer Initialization Script -->
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        </script>
+        <!-- End Google Tag Manager Data Layer Initialization Script -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport">
+        <link
+            rel="icon"
+            type="image/png"
+            href="https://www.spcai.org/wp-content/themes/spcai/favicon-32x32.png"
+            sizes="32x32"
+        >
+        <link
+            rel="icon"
+            type="image/png"
+            href="https://www.spcai.org/wp-content/themes/spcai/favicon-16x16.png"
+            sizes="16x16"
+        >
+        <title>${page~title} - SPCA International | Global Animal Rescue</title>
+        <meta name="title" content="${page~title} | Organization Name">
+        <meta name="theme-color" content="#000000">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <!-- Social Network Account meta tags -->
+        <!-- <meta property="twitter:account_id" content="123456"> -->
+        <!-- <meta property="fb:app_id" content="TBD"> -->
+        <!-- Default, Twitter Large Card, and Facebook meta tags -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@SPCAINT">
+        <meta name="twitter:creator" content="@SPCAINT">
+        <meta name="twitter:title" content="${page~title}">
+        <meta name="twitter:image" content="https://c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/12345/social.jpg">
+        <meta name="twitter:description" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec iaculis laoreet sapien ac malesuada. Praesent sit amet dapibus ex, fringilla lacinia turpis. Vestibulum ac fringilla mauris.">
+        <meta property="og:type" content="website">
+        <!-- Immeditately get color on the page and hide the contents until engrid.css is rendered by the browser -->
+        <style>
+        /* Oswald, Open Sans and Roboto font */
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&family=Roboto:wght@400&display=swap');
+        </style>
+        <style>
+        :root {
+            --header-menu-height: 100px;
+        }
+
+        /* SPCA International Header */
+        #spcai-site-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.15);
+            height: var(--header-menu-height);
+
+            @media (max-width: 690px),
+                (max-device-width: 690px) {
+                    display: none !important;
+                }
+        }
+
+        .spcai-header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-right: var(--page-padding-x);
+        }
+
+        .spcai-header-logo-container {
+            padding: 15px 87px 15px var(--page-padding-x);
+            flex-shrink: 0;
+
+            @media (max-width: 1200px) { 
+                padding: 15px 40px 15px var(--page-padding-x);
+            }
+        }
+
+        .spcai-logo-link img {
+            height: 70px;
+            width: 281px;
+            display: block;
+        }
+
+        .spcai-main-nav>ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            align-items: center;
+            height: var(--header-menu-height);
+        }
+
+        .spcai-main-nav ul li {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            height: 100%;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .spcai-main-nav ul li a {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding: 0 25px;
+            color: white;
+            text-decoration: none;
+            font-family: 'Oswald', 'Arial Narrow', Arial, sans-serif;
+            font-size: 18px;
+            line-height: 27px;
+            font-weight: 400;
+            text-transform: uppercase;
+
+            @media (max-width: 1140px) { 
+                padding: 0 15px;
+            }
+        }
+
+        .spcai-main-nav ul li:hover {
+            background-color: white;
+        }
+
+        .spcai-main-nav ul li:hover a:not(.spcai-donate-btn) {
+            color: #444;
+        }
+
+        .spcai-donate-btn-container {
+            padding: 0 !important;
+        }
+
+        .spcai-donate-btn-container:hover {
+            background-color: transparent !important;
+            color: white !important;
+        }
+
+        .spcai-donate-btn {
+            background-color: #ee3524;
+            padding: 6px 16px !important;
+            border-radius: 4px;
+            max-height: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .spcai-donate-btn:hover {
+            color: white !important;
+            max-height: var(--header-menu-height);
+            height: var(--header-menu-height);
+            border-radius: 0;
+            background-color: #c8102e;
+            align-self: center;
+        }
+
+
+        @media (max-width: 1032px) {
+            .spcai-main-nav {
+                display: none;
+            }
+        }
+
+        .spcai-submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            background: rgba(255, 255, 255, 0.9);
+            flex-direction: column;
+            min-width: 200px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            height: auto !important;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            z-index: 1001;
+        }
+
+        .spcai-main-nav ul li:hover>.spcai-submenu {
+            display: flex;
+        }
+
+        .spcai-submenu li {
+            height: 50.3px !important;
+            width: 100%;
+            justify-content: flex-start;
+        }
+
+        .spcai-submenu li a {
+            color: #ee3524 !important;
+            padding: 15px !important;
+            height: 50.3px !important;
+            font-size: 14px !important;
+            width: 260px;
+        }
+
+        .spcai-submenu li:hover {
+            background-color: white !important;
+        }
+
+        .spcai-submenu li a:hover {
+            color: #424242 !important;
+        }
+
+        #en__pagebuilder #spcai-site-header {
+            display: none;
+        }
+        </style>
+        <!-- Preconnect and Preload Render Critical CSS, JS, and Fonts -->
+        <link rel="preconnect" href="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com">
+        <link
+            href="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/en-shopping-cart.css?v=1778854264000"
+            rel="stylesheet"
+            type="text/css"
+            media="all"
+        >
+        <!-- Placed here so that downloading begins before Engaging Network's CSS and JS files -->
+        <link rel="preload" href="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/engrid.min.js?6" as="script">
+        <link rel="preload" href="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/engrid.min.css?6" as="style">
+    </head>
+    <body
+        data-engrid-add-input-placeholders
+        data-engrid-theme="spcai"
+        data-conditonally-hide-show-digital-wallet-elements
+        data-highlight-required-fields
+    >
+        <noscript>With Javascript disabled this page may not function as expected.</noscript>
+        <!-- Quickly check to see if the page is in an iFrame and if so set the corresponding Custom Attribute so it can also set the background-color. Must be after <body> otherwise there will be a flash of color -->
+        <script>
+        if (window.self !== window.top) {
+            document.getElementsByTagName("BODY")[0].setAttribute("data-engrid-embedded", "");
+        }
+        </script>
+        <!-- Load ENGrid's CSS here so that it always comes after Engaging Networks CSS which gets injected into <head> -->
+        <link href="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/engrid.min.css?6" rel="stylesheet" type="text/css">
+        <link href="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/en-shopping-cart.css?v=1778854264000" rel="stylesheet" type="text/css">
+        <!-- SPCA International Site Header -->
+        <header id="spcai-site-header">
+            <div class="spcai-header-inner">
+                <div class="spcai-header-logo-container">
+                    <a href="https://www.spcai.org" class="spcai-logo-link">
+                        <img src="https://www.spcai.org/wp-content/uploads/2019/08/HEADER2-WHITE.svg" alt="SPCA International Global Animal Rescue">
+                    </a>
+                </div>
+                <nav class="spcai-main-nav">
+                    <ul>
+                        <li>
+                            <a href="https://www.spcai.org/about">About</a>
+                        </li>
+                        <li>
+                            <a href="https://www.spcai.org/news">News</a>
+                            <ul class="spcai-submenu">
+                                <li>
+                                    <a href="https://www.spcai.org/news/feature-stories">Feature Stories</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/news/ask-emma">Ask Emma</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/news/press">Press</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/news/videos">Videos</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="https://www.spcai.org/our-work">Our Work</a>
+                            <ul class="spcai-submenu">
+                                <li>
+                                    <a href="https://www.spcai.org/our-work/shelter-support-fund">Shelter Support</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/our-work/patriot-pets">Patriot Pets</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/our-work/pawsitive-recovery">Pawsitive Recovery</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/our-work/apollos-aid">Apollo's Aid</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/our-work/veterinary-supply-aid">Veterinary Supply Aid</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/our-work/education">Education</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="https://www.spcai.org/take-action">Get Involved</a>
+                            <ul class="spcai-submenu">
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/adopt-an-animal">Foster/Adopt</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/ways-to-give">Ways to Give</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/planned-giving">Create Your Legacy Gift</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/sign-our-petitions">Sign Our Petitions</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/kangaroos-are-not-shoes">
+                                        Kangaroos Are Not
+                                    Shoes
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/dog-meat-trade">Dog Meat Trade</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/dogfighting">Dogfighting</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/emergency-preparedness">
+                                        Emergency
+                                    Preparedness
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/puppy-mills">Puppy Mills</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/spay-neuter">Spay &amp; Neuter</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/spanish-greyhounds">Spanish Greyhounds</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/trophy-hunting">Trophy Hunting</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/plant-based-lifestyle">
+                                        Living a Plant Based
+                                    Lifestyle
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="https://www.spcai.org/sign-up">Sign Up</a>
+                        </li>
+                        <li>
+                            <a href="https://www.spcai.org/contact">Contact</a>
+                        </li>
+                        <li class="spcai-donate-btn-container">
+                            <a href="https://www.spcai.org/donate" class="spcai-donate-btn">Donate</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <!-- End SPCA International Site Header -->
+        <div id="en-shopping-cart">
+            <!-- Start EN Page Builder -->
+            <!-- End EN Page Builder -->
+            </div>
+        <!-- Load ENgrid's Javascript -->
+        <script src="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/engrid.min.js?6"></script>
+        <!-- 4Site Added -->
+        <!-- Start Google Tag Manager -->
+        <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-NFJF4D');
+        </script>
+        <!-- End Google Tag Manager -->
+        <!-- Shopping Cart -->
+        <script type="text/javascript" src="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/en-shopping-cart.js?v=1778854265000"></script>
+    </body>
+</html>
