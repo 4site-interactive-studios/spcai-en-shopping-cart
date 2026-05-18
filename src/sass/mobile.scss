@@ -408,6 +408,8 @@
     padding: 0;
     overflow: hidden;
     width: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
 
     position: fixed !important;
     bottom: 0;

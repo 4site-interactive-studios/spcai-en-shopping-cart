@@ -168,8 +168,6 @@ export class App {
 
     // Fade in mobile bar on load
     if (mobileBar) {
-      mobileBar.style.opacity = "0";
-      mobileBar.style.transition = "opacity 0.5s ease";
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           mobileBar.style.opacity = "1";
