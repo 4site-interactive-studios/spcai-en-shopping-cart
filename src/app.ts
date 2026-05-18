@@ -160,15 +160,49 @@ export class App {
   }
 
   private initRedirectToReviewCartOnDonateClick() {
-    const donateButton = document.querySelector(".donate-button") as HTMLElement;
+    const donateButtons = document.querySelectorAll(".donate-button") as NodeListOf<HTMLElement>;
     const reviewCart = document.querySelector(".review-cart") as HTMLElement;
+    const mobileBar = document.querySelector(".sc-info-mobile") as HTMLElement;
 
-    if (!donateButton || !reviewCart) return;
+    if (donateButtons.length === 0 || !reviewCart) return;
 
-    donateButton.addEventListener("click", () => {
-      const top = reviewCart.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({ top, behavior: "smooth" });
+    // Fade in mobile bar on load
+    if (mobileBar) {
+      mobileBar.style.opacity = "0";
+      mobileBar.style.transition = "opacity 0.5s ease";
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          mobileBar.style.opacity = "1";
+        });
+      });
+    }
+
+    // Scroll to checkout on click; hide bar immediately
+    donateButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const top = reviewCart.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top, behavior: "smooth" });
+        if (mobileBar) {
+          mobileBar.style.opacity = "0";
+          mobileBar.style.pointerEvents = "none";
+        }
+      });
     });
+
+    // Show/hide mobile bar based on whether checkout is in view
+    if (mobileBar) {
+      const updateBarVisibility = () => {
+        const reviewCartTop = reviewCart.getBoundingClientRect().top;
+        if (reviewCartTop < window.innerHeight) {
+          mobileBar.style.opacity = "0";
+          mobileBar.style.pointerEvents = "none";
+        } else {
+          mobileBar.style.opacity = "1";
+          mobileBar.style.pointerEvents = "";
+        }
+      };
+      window.addEventListener("scroll", updateBarVisibility, { passive: true });
+    }
   }
 
   private addMonthlyCheckbox() {
