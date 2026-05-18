@@ -70,10 +70,6 @@
     }
   }
 
-  .sc-info-mobile {
-    display: unset;
-  }
-
   .custom-amount-block {
     border: 2px solid var(--color_navy);
     border-radius: 5px;
@@ -143,6 +139,6 @@
 
   .sc-info-mobile {
     position: unset !important;
-    display: flex;
+    display: flex !important;
   }
 }
