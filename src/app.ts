@@ -25,7 +25,7 @@ export class App {
     if (!this.shouldRun()) {
       this.log("Shopping Cart Not Running");
       return;
-    } 
+    }
 
     // Check for Additional Comments, if not found, create it
     if (!this.additionalComments) {
@@ -70,7 +70,12 @@ export class App {
     this.watchForQuantityChanges();
     this.setQuantityClickEvent();
     this.addLiveVariables();
+    this.addMonthlyCheckbox();
+    this.addMonthlyCheckboxMobile();
     this.addCustomAmountBlock();
+    this.initStickyInfo();
+    this.initRedirectToReviewCartOnDonateClick();
+    this.togglePaymentMethodSelection();
     this.checkDebug();
     const monthlyStored =
       localStorage.getItem(`sc-cards-${this.getPageId()}-monthly`) ||
@@ -88,18 +93,13 @@ export class App {
     } else {
       this.updateFrequency("onetime");
     }
-    this.renderMonthly();
-    this.renderMonthlyMobile();
-    this.initStickyInfo();
-    this.initDonateButton();
-    this.initPaymentMethodSelection();
 
     window.setTimeout(() => {
       this.updateTotal();
     }, 500);
   }
 
-  private renderMonthlyMobile() {
+  private addMonthlyCheckboxMobile() {
     const containers = document.querySelectorAll(
       '.monthly-checkbox-container-mobile'
     ) as NodeListOf<HTMLDivElement>;
@@ -159,7 +159,7 @@ export class App {
     window.addEventListener("scroll", update, { passive: true });
   }
 
-  private initDonateButton() {
+  private initRedirectToReviewCartOnDonateClick() {
     const donateButton = document.querySelector(".donate-button") as HTMLElement;
     const reviewCart = document.querySelector(".review-cart") as HTMLElement;
 
@@ -171,7 +171,7 @@ export class App {
     });
   }
 
-  private renderMonthly() {
+  private addMonthlyCheckbox() {
     const monthlyCheckboxes = document.querySelectorAll(
       ".monthly-checkbox"
     ) as NodeListOf<HTMLDivElement>;
@@ -246,7 +246,7 @@ export class App {
     });
   }
 
-  private initPaymentMethodSelection() {
+  private togglePaymentMethodSelection() {
     const container = document.querySelector(".payment-buttons-container") as HTMLElement;
     if (!container) return;
 
@@ -287,18 +287,6 @@ export class App {
         }
       });
     });
-
-    const paymentTypeField = document.querySelector(
-      "#en__field_transaction_paymenttype"
-    ) as HTMLInputElement | null;
-    if (paymentTypeField) {
-      new MutationObserver(updateSelected).observe(paymentTypeField, {
-        attributes: true,
-        attributeFilter: ["value"],
-      });
-      paymentTypeField.addEventListener("change", updateSelected);
-      paymentTypeField.addEventListener("input", updateSelected);
-    }
 
     updateSelected();
   }
