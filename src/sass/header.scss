@@ -1,8 +1,8 @@
 .sc-header {
   background-color: #163F58;
   margin: 0 calc(-1 * var(--page-padding-x));
-  display: grid;
   grid-template-columns: 445px 1fr;
+  display: grid;
   grid-template-rows: 1fr;
   max-height: 531px;
   padding-left: var(--page-padding-x);
