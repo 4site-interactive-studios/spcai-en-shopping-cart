@@ -232,16 +232,6 @@ export class App {
         });
 
         this.updateFrequency(frequency);
-        this.updateTotal();
-
-        const freqButtons = document.querySelectorAll(
-          ".frequency-buttons input"
-        ) as NodeListOf<HTMLInputElement>;
-        freqButtons.forEach((button) => {
-          button.checked =
-            (button.value === "onetime" && storageValue === "N") ||
-            (button.value === "monthly" && storageValue === "Y");
-        });
       });
     });
   }
@@ -563,6 +553,7 @@ export class App {
       if (otherStored !== "0") {
         customAmountBlock.setAttribute("data-selected", "true");
       }
+      
       const customAmountInput = document.createElement("div");
       customAmountInput.classList.add("custom-amount-input");
       customAmountInput.innerHTML = `
@@ -571,6 +562,7 @@ export class App {
       <span class="custom-amount-helper">I want my gift to go wherever it’s needed most.</span>
       `;
       customAmountBlock.appendChild(customAmountInput);
+      
       const input = customAmountBlock.querySelector("input") as HTMLInputElement;
       if (input) {
         input.addEventListener("input", (e) => {
