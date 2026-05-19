@@ -1,3 +1,10 @@
+@media (max-width: 1134px),
+(max-device-width: 1134px) {
+  .custom-amount-block {
+    height: 210px !important;
+  }
+}
+
 @media (max-width: 1100px),
 (max-device-width: 1100px) {
   .mobile-hide {
@@ -79,7 +86,40 @@
   .sc-info {
     display: none;
   }
+}
 
+@media (max-width: 835px),
+(max-device-width: 835px) {
+  .sc-info {
+    display: none;
+  }
+
+  .custom-amount-block {
+    flex-direction: column !important;
+    height: 400px !important;
+    padding: 30px 25px !important;
+    justify-content: flex-start !important;
+    gap: 19px !important;
+    margin-bottom: 44px !important;
+
+    h1,
+    h2,
+    h3,
+    p {
+      font-size: 30px;
+      line-height: 48px;
+      margin-top: 0 !important;
+    }
+
+    &::after {
+      bottom: -40px !important;
+    }
+
+    &::before {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
 }
 
 @media (max-width: 690px),
@@ -145,6 +185,7 @@
   }
 
   .sc-cards-title {
+    margin-left: 0px !important;
 
     h1,
     h2,
@@ -160,8 +201,6 @@
     gap: 51px;
 
     .en__component--copyblock {
-      min-width: auto;
-      width: 100%;
       padding: 0 0 24px 0;
 
       p:first-child {
@@ -172,8 +211,9 @@
         img {
           margin: 0;
           margin-left: 19px !important;
-          width: 332px !important;
-          height: 351px !important;
+          width: min(332px, 100%) !important;
+          height: auto !important;
+          aspect-ratio: 332 / 351;
           object-fit: cover;
         }
       }
@@ -204,28 +244,6 @@
       border: 1px solid #bfbfbf;
     }
 
-  }
-
-  .custom-amount-block {
-    flex-direction: column !important;
-    height: 400px !important;
-    padding: 30px 25px !important;
-    justify-content: flex-start !important;
-    gap: 19px !important;
-    margin-bottom: 44px !important;
-
-    h1,
-    h2,
-    h3,
-    p {
-      font-size: 30px;
-      line-height: 48px;
-      margin-top: 0 !important;
-    }
-
-    &::after {
-      bottom: -40px !important;
-    }
   }
 
   .review-cart {
