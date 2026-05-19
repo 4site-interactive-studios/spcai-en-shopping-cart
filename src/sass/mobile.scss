@@ -79,6 +79,40 @@
       }
     }
   }
+
+  .footer {
+    flex-direction: column !important;
+    margin-bottom: 120px !important;
+    align-items: center !important;
+
+    .footer-images {
+      .certificates {
+        justify-content: center !important;
+      }
+    }
+
+    .footer-links {
+      flex-direction: column !important;
+      margin-top: 30px !important;
+
+      .spcai-links {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 20px !important;
+
+        a:last-child {
+          grid-column: 1 / -1;
+          text-align: center;
+        }
+      }
+    }
+
+    .footer-info {
+      text-align: center !important;
+      font-size: 12px !important;
+      line-height: 18px !important;
+    }
+  }
 }
 
 @media (max-width: 980px),
@@ -381,39 +415,6 @@
 
   .fee-cover {
     margin-top: 0 !important;
-  }
-
-  .footer {
-    flex-direction: column !important;
-    margin-bottom: 120px !important;
-
-    .footer-images {
-      .certificates {
-        justify-content: center !important;
-      }
-    }
-
-    .footer-links {
-      flex-direction: column !important;
-      margin-top: 30px !important;
-
-      .spcai-links {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr;
-        gap: 0 20px !important;
-
-        a:last-child {
-          grid-column: 1 / -1;
-          text-align: center;
-        }
-      }
-    }
-
-    .footer-info {
-      text-align: center !important;
-      font-size: 12px !important;
-      line-height: 18px !important;
-    }
   }
 
   .sc-info-mobile {
