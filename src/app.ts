@@ -682,6 +682,24 @@ export class App {
         variable.innerText = value;
       });
     }
+    if (variableName === "TOTAL") {
+      const feeCoverField = document.querySelector(
+        "#en__field_transaction_feeCover"
+      ) as HTMLInputElement;
+      if (feeCoverField?.value === "Y") {
+        const feeCoverToken = document.querySelector(
+          '[data-token="amount-fee"]'
+        ) as HTMLElement;
+        const feeCover = feeCoverToken
+          ? parseFloat(feeCoverToken.innerText.replace(/[^0-9.]/g, "")) || 0
+          : 0;
+        if (feeCover > 0) {
+          liveVariables.forEach((variable) => {
+            variable.innerText = (parseFloat(value) + feeCover).toFixed(2);
+          });
+        }
+      }
+    }
     if (variableName === "FREQUENCY") {
       const freqElements = document.querySelectorAll(
         '[class*="show-frequency-"]'
