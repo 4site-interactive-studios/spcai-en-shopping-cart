@@ -594,7 +594,7 @@ export class App {
       <span class="custom-amount-helper">I want my gift to go wherever it’s needed most.</span>
       `;
       customAmountBlock.appendChild(customAmountInput);
-      
+
       const input = customAmountBlock.querySelector("input") as HTMLInputElement;
       if (input) {
         input.addEventListener("input", (e) => {
@@ -686,7 +686,7 @@ export class App {
       const feeCoverField = document.querySelector(
         "#en__field_transaction_feeCover"
       ) as HTMLInputElement;
-      if (feeCoverField?.value === "Y") {
+      if (feeCoverField?.checked) {
         const feeCoverToken = document.querySelector(
           '[data-token="amount-fee"]'
         ) as HTMLElement;
