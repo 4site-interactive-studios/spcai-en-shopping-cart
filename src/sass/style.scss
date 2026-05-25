@@ -85,6 +85,18 @@ body[data-debug] {
     width: 100%;
   }
 
+  .thank-you-container{
+    max-width: var(--page-max-width);
+    justify-self: center;
+    width: 100%;
+  }
+
+  .en__errorList{
+    position: relative;
+    z-index: 1000;
+    margin: 0 calc(-1 * var(--page-padding-x));
+  }
+
   @import "./cards.scss";
   @import "./info.scss";
   @import "./elements.scss";
