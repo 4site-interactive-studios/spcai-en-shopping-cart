@@ -123,35 +123,37 @@ export class App {
 
   private initStickyInfo() {
     const scInfo = document.querySelector(".sc-info") as HTMLElement;
+    const scInfoContainer = document.querySelector(".sc-info-container") as HTMLElement;
     const scCards = document.querySelector(".sc-cards") as HTMLElement;
 
-    if (!scInfo || !scCards) return;
+    const target = scInfoContainer || scInfo;
+    if (!target || !scCards) return;
 
-    const infoNaturalTop = scInfo.getBoundingClientRect().top + window.scrollY;
-    const infoHeight = scInfo.offsetHeight;
+    const infoNaturalTop = target.getBoundingClientRect().top + window.scrollY;
+    const infoHeight = target.offsetHeight;
 
     const spacer = document.createElement("div");
     spacer.style.height = `${infoHeight}px`;
     spacer.style.display = "none";
-    scInfo.parentNode?.insertBefore(spacer, scInfo.nextSibling);
+    target.parentNode?.insertBefore(spacer, target.nextSibling);
 
     const update = () => {
       const cardsBottom = scCards.getBoundingClientRect().bottom;
 
       if (window.scrollY < infoNaturalTop || cardsBottom <= 0) {
         // Before sticky or fully scrolled past
-        scInfo.classList.remove("sc-info--sticky");
-        scInfo.style.top = "";
+        target.classList.remove("sc-info-container--sticky");
+        target.style.top = "";
         spacer.style.display = "none";
       } else if (cardsBottom >= infoHeight) {
         // Fully sticky at top
-        scInfo.classList.add("sc-info--sticky");
-        scInfo.style.top = "0px";
+        target.classList.add("sc-info-container--sticky");
+        target.style.top = "0px";
         spacer.style.display = "block";
       } else {
         // Being pushed out: sc-cards bottom is crossing the bar
-        scInfo.classList.add("sc-info--sticky");
-        scInfo.style.top = `${cardsBottom - infoHeight}px`;
+        target.classList.add("sc-info-container--sticky");
+        target.style.top = `${cardsBottom - infoHeight}px`;
         spacer.style.display = "block";
       }
     };
@@ -722,9 +724,7 @@ export class App {
       const quantity = this.getCardQuantity(card);
       const title = this.getCardTitle(card);
       if (quantity > 0) {
-        this.cartItems = `['${quantity}','${title}','${amount.toFixed(
-          2
-        )}'] \r\n${this.cartItems}`;
+        this.cartItems = `> ${quantity}x ${title} - ${this.getCurrencySymbol(card)}${amount.toFixed(2)} ${this.cartItems}`;
       }
       this.total += amount * quantity;
     });
@@ -736,8 +736,7 @@ export class App {
         parseFloat(otherAmount.value).toFixed(2)
       );
       if (otherAmountValue > 0) {
-        this.cartItems = `['1','Other','${otherAmountValue.toFixed(2)}'] \r\n${this.cartItems
-          }`;
+        this.cartItems = `> 1x Other - ${this.getCurrencySymbol(null)}${otherAmountValue.toFixed(2)} ${this.cartItems}`;
         this.total += otherAmountValue;
       }
     }

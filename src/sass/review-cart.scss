@@ -3,6 +3,9 @@
   margin-bottom: 39px;
   display: flex;
   align-items: flex-start;
+  max-width: var(--page-max-width);
+  width: 100%;
+  justify-self: center;
   
   h1,
   h2,

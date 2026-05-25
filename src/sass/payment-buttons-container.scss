@@ -5,6 +5,9 @@
   height: 80px;
   grid-gap: 10px;
   margin-bottom: 41px;
+  max-width: var(--page-max-width);
+  align-self: center;
+  width: 100%;
 
   img {
     width: unset;

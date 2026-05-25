@@ -5,6 +5,7 @@
 
 :root {
   --page-padding-x: 80px;
+  --page-max-width: 1157px;
 
   @media (max-width: 1300px),
   (max-device-width: 1300px) {
@@ -21,6 +22,7 @@ body:not(#en__pagebuilder):not([data-debug]) {
   .hide {
     display: none;
   }
+
   #en-shopping-cart .sc-cards .en__component--copyblock {
     &:not([data-card]) {
       p:first-child {
@@ -35,6 +37,7 @@ body:not(#en__pagebuilder):not([data-debug]) {
           z-index: 20;
           animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
+
         &:after {
           content: "";
           position: absolute;
@@ -46,14 +49,16 @@ body:not(#en__pagebuilder):not([data-debug]) {
           z-index: 19;
         }
       }
-      h1 + p,
-      h2 + p,
-      h3 + p {
+
+      h1+p,
+      h2+p,
+      h3+p {
         margin-bottom: 28px;
       }
     }
   }
 }
+
 body[data-debug] {
   .hide {
     background-color: #ff00001a !important;
@@ -64,12 +69,22 @@ body[data-debug] {
   padding-left: var(--page-padding-x);
   padding-right: var(--page-padding-x);
   width: 100%;
+
   overflow-x: clip;
 
   .en__component--advrow {
     max-width: 100%;
     min-height: unset;
   }
+
+  .form-container {
+    display: flex !important;
+    gap: 45px;
+    max-width: var(--page-max-width);
+    justify-self: center;
+    width: 100%;
+  }
+
   @import "./cards.scss";
   @import "./info.scss";
   @import "./elements.scss";
@@ -84,12 +99,8 @@ body[data-debug] {
   @import "./submit-button.scss";
 }
 
-.form-container {
-  display: flex !important;
-  gap: 45px;
-}
+
 
 .monthly-checkbox-container-mobile {
   display: none;
 }
-

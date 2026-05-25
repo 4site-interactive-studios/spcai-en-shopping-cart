@@ -4,6 +4,9 @@
   margin-top: 89px;
   margin-bottom: 25px;
   gap: 10px;
+  max-width: var(--page-max-width);
+  justify-self: center;
+  width: 100%;
 
   .footer-images {
     width: 353px;

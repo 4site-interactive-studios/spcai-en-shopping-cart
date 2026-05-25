@@ -1,3 +1,39 @@
+.sc-info-container {
+  margin: 0 calc(-1 * var(--page-padding-x)) 0;
+  width: calc(100% + 2 * var(--page-padding-x));
+  max-width: none !important;
+  background-color: var(--color_navy);
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: calc((100% - var(--page-max-width)) / 2);
+    background-color: var(--color_white);
+    border-top: 2px solid var(--color_navy);
+    border-bottom: 2px solid var(--color_navy);
+  }
+
+  &.sc-info-container--sticky {
+    position: fixed !important;
+    top: 0;
+    left: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    z-index: 100;
+  }
+
+  &.review {
+    margin-bottom: 87px;
+  }
+}
+
 .sc-info {
   display: flex;
   flex-wrap: nowrap;
@@ -7,18 +43,10 @@
   gap: 0;
   padding: 0;
   overflow: hidden;
-  margin: 0 calc(-1 * var(--page-padding-x)) 0;
-
-  &.review {
-    margin-bottom: 87px;
-  }
-
-  &.sc-info--sticky {
-    position: fixed !important;
-    left: var(--page-padding-x);
-    z-index: 100;
-    width: 100%;
-  }
+  margin: 0 auto;
+  max-width: var(--page-max-width);
+  width: 100%;
+  box-sizing: border-box;
 
   .cart-total {
     display: flex;
@@ -29,7 +57,7 @@
     text-align: center;
     background-color: var(--color_navy);
     color: var(--color_white);
-    min-width: 324px;
+    min-width: 244px;
 
     p {
       margin: 0;
@@ -111,7 +139,7 @@
   }
 
   .monthly-checkbox-container {
-    padding: 20px 23px 26px;
+    padding: 20px 16px 26px 41px;
     border-top: 2px solid var(--color_navy);
     border-bottom: 2px solid var(--color_navy);
     width: 100%;
