@@ -246,6 +246,10 @@
     }
   }
 
+  .sc-info-container {
+    display: none;
+  }
+
   .sc-cards-title {
     margin-left: 0px !important;
 
@@ -254,6 +258,7 @@
     h3,
     p {
       margin-top: 0 !important;
+      font-size: 30px;
     }
   }
 
@@ -317,6 +322,7 @@
     h3 {
       text-align: start;
       margin: 0 !important;
+      font-size: 30px;
     }
   }
 
