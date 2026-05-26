@@ -62,6 +62,12 @@
             --header-menu-height: 100px;
         }
 
+        @media (max-width: 690px) {
+            :root {
+                --header-menu-height: 50px;
+            }
+        }
+
         /* SPCA International Header */
         #spcai-site-header {
             position: absolute;
@@ -74,7 +80,7 @@
 
             @media (max-width: 690px),
                 (max-device-width: 690px) {
-                    display: none !important;
+                    background: rgba(0, 0, 0, 0.10);
                 }
         }
 
@@ -92,12 +98,20 @@
             @media (max-width: 1200px) { 
                 padding: 15px 40px 15px var(--page-padding-x);
             }
+
+            @media (max-width: 690px) { 
+                padding: 7.5px 40px 7.5px var(--page-padding-x);
+            }
         }
 
         .spcai-logo-link img {
             height: 70px;
             width: 281px;
             display: block;
+
+            @media (max-width: 690px) { 
+                height: 35px;
+            }
         }
 
         .spcai-main-nav>ul {

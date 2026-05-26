@@ -612,8 +612,12 @@ export class App {
       const input = customAmountBlock.querySelector("input") as HTMLInputElement;
       if (input) {
         input.addEventListener("input", (e) => {
-          const value = (e.target as HTMLInputElement).value || "0";
-          localStorage.setItem(`sc-cards-${this.getPageId()}-other`, value);
+          const value = (e.target as HTMLInputElement).value;
+          if (value) {
+            localStorage.setItem(`sc-cards-${this.getPageId()}-other`, value);
+          } else {
+            localStorage.removeItem(`sc-cards-${this.getPageId()}-other`);
+          }
           if (value === "0") {
             customAmountBlock.removeAttribute("data-selected");
           } else {
