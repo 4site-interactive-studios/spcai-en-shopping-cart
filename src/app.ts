@@ -1,7 +1,7 @@
 import {
-  Options,
   App as EngridApp,
-} from "@4site/engrid-scripts"; 
+  Options,
+} from "@4site/engrid-scripts";
 
 export class App {
   private cardsNode = document.querySelectorAll(
@@ -88,7 +88,7 @@ export class App {
     this.initRedirectToReviewCartOnDonateClick();
     this.togglePaymentMethodSelection();
     this.checkDebug();
-    this.initScrollToTopOnEmptySubmit();
+    this.initScrollToCartOnEmptySubmit();
     const monthlyStored =
       localStorage.getItem(`sc-cards-${this.getPageId()}-monthly`) ||
       (window as any).EngagingNetworks.require._defined.enjs.getFieldValue(
@@ -984,7 +984,7 @@ export class App {
     this.additionalComments = inputField;
   }
 
-  private initScrollToTopOnEmptySubmit() {
+  private initScrollToCartOnEmptySubmit() {
     const submitButtons = document.querySelectorAll(
       ".submit-button button, .en__submit button"
     ) as NodeListOf<HTMLElement>;
@@ -992,7 +992,11 @@ export class App {
       btn.addEventListener("click", () => {
         const donationAmt = (window as any).EngagingNetworks.require._defined.enjs.getFieldValue("donationAmt");
         if (!donationAmt || parseFloat(donationAmt) === 0) {
-          window.scrollTo({ top: 0, behavior: "smooth" });
+          const cartElement = document.querySelector(".sc-cards");
+          if (cartElement) {
+            const top = cartElement.getBoundingClientRect().top + window.scrollY - 300;
+            window.scrollTo({ top, behavior: "smooth" });
+          }
         }
       });
     });
