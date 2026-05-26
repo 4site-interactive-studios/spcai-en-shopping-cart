@@ -141,4 +141,13 @@
     position: unset !important;
     display: flex !important;
   }
+
+  .hidden-donation-amount {
+    background-color:  rgba(255, 0, 0, .1019607843) !important;
+
+    label,
+    .en__field__element--radio {
+      display: unset !important;
+    }
+  }
 }
