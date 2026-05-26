@@ -77,6 +77,7 @@ export class App {
     this.initRedirectToReviewCartOnDonateClick();
     this.togglePaymentMethodSelection();
     this.checkDebug();
+    this.initScrollToTopOnEmptySubmit();
     const monthlyStored =
       localStorage.getItem(`sc-cards-${this.getPageId()}-monthly`) ||
       (window as any).EngagingNetworks.require._defined.enjs.getFieldValue(
@@ -970,6 +971,20 @@ export class App {
       }
     }
     this.additionalComments = inputField;
+  }
+
+  private initScrollToTopOnEmptySubmit() {
+    const submitButtons = document.querySelectorAll(
+      ".submit-button button, .en__submit button"
+    ) as NodeListOf<HTMLElement>;
+    submitButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const donationAmt = (window as any).EngagingNetworks.require._defined.enjs.getFieldValue("donationAmt");
+        if (!donationAmt || parseFloat(donationAmt) === 0) {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      });
+    });
   }
 
   public log(message: any, ...optionalParams: any[]) {
