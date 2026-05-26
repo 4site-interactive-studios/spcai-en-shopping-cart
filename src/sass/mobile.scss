@@ -121,6 +121,7 @@
     .monthly-checkbox-container {
       width: auto;
       min-width: 382px;
+      padding-left: 16px !important;
 
       p {
         font-size: 14px !important;
@@ -141,14 +142,19 @@
       flex: 0 1 244px;
       min-width: min-content;
 
-       p:last-child{
+      p:last-child {
         font-size: 32px !important;
-       }
-    }
-  }
+      }
 
-  .monthly-checkbox-container{
-    padding-left: 16px !important;
+      &.review {
+        flex-basis: 527px;
+        min-width: min-content;
+
+        p:last-child {
+          font-size: 58px !important;
+        }
+      }
+    }
   }
 }
 
