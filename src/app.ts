@@ -1,3 +1,8 @@
+import {
+  Options,
+  App as EngridApp,
+} from "@4site/engrid-scripts"; 
+
 export class App {
   private cardsNode = document.querySelectorAll(
     ".sc-cards > div"
@@ -63,6 +68,12 @@ export class App {
       }, 10);
       return;
     }
+    const options: Options = {
+      MinAmount: 5,
+      MinAmountMessage: "The minimum donation value is $5",
+      UseAmountValidatorFromEN: false,
+    };
+    new EngridApp(options);
     this.setCardsAtttributes();
     this.createCardsAmounts();
     this.createCardsQuantity();
@@ -588,7 +599,7 @@ export class App {
       if (otherStored !== "0") {
         customAmountBlock.setAttribute("data-selected", "true");
       }
-      
+
       const customAmountInput = document.createElement("div");
       customAmountInput.classList.add("custom-amount-input");
       customAmountInput.innerHTML = `

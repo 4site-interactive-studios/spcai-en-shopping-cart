@@ -97,6 +97,16 @@ body[data-debug] {
     margin: 0 calc(-1 * var(--page-padding-x));
   }
 
+  .hidden-donation-amount{
+    label, .en__field__element--radio {
+      display: none
+    }
+
+    .en__field__error{
+      font-size: 16px !important;
+    }
+  }
+
   @import "./cards.scss";
   @import "./info.scss";
   @import "./elements.scss";
