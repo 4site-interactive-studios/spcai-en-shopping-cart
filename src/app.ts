@@ -89,11 +89,11 @@ export class App {
     this.togglePaymentMethodSelection();
     this.checkDebug();
     this.initScrollToCartOnEmptySubmit();
+    const localStorageMonthly = localStorage.getItem(`sc-cards-${this.getPageId()}-monthly`);
+    const enMonthly = (window as any).EngagingNetworks.require._defined.enjs.getFieldValue("recurrpay");
     const monthlyStored =
-      localStorage.getItem(`sc-cards-${this.getPageId()}-monthly`) ||
-      (window as any).EngagingNetworks.require._defined.enjs.getFieldValue(
-        "recurrpay"
-      );
+      localStorageMonthly ||
+      enMonthly;
     if (monthlyStored === "Y") {
       this.updateFrequency("monthly");
       const monthlyCheckbox = document.querySelector(
@@ -222,13 +222,12 @@ export class App {
       ".monthly-checkbox"
     ) as NodeListOf<HTMLDivElement>;
 
-    const recurrpay = (
-      window as any
-    ).EngagingNetworks.require._defined.enjs.getFieldValue("recurrpay");
-
-    if (monthlyCheckboxes.length === 0) return;
-
-    const isMonthlyChecked = recurrpay === "Y";
+    const localStorageMonthly = localStorage.getItem(`sc-cards-${this.getPageId()}-monthly`);
+    const enMonthly = (window as any).EngagingNetworks.require._defined.enjs.getFieldValue("recurrpay");
+    const monthlyStored =
+      localStorageMonthly ||
+      enMonthly;
+    const isMonthlyChecked = monthlyStored === "Y";
     const radioInputs: HTMLInputElement[] = [];
 
     monthlyCheckboxes.forEach((monthlyCheckbox, index) => {
