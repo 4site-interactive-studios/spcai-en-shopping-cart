@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@4site/engrid-scripts": "*",
+    "@4site/engrid-scripts": "^0.25.5",
     "@4site/engrid-styles": "*",
     "@typescript-eslint/eslint-plugin": "^8.7.0",
     "@typescript-eslint/parser": "^8.7.0",

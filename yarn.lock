@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@4site/engrid-scripts@*":
-  version "0.25.2"
-  resolved "https://registry.yarnpkg.com/@4site/engrid-scripts/-/engrid-scripts-0.25.2.tgz#ef3c943615314913d07b4398c8a0baed4cbbdaab"
-  integrity sha512-HnN7RsyqkjjGoBSlFsqK+4MOG+MNcY2fNHw8fx2wt5V6unZNgR1DEZd5SGeg3T10fqxNFZJW7El3rB0UX6e75g==
+"@4site/engrid-scripts@^0.25.5":
+  version "0.25.5"
+  resolved "https://registry.yarnpkg.com/@4site/engrid-scripts/-/engrid-scripts-0.25.5.tgz#807d8a4471bdcf8ee955d131abd8aa12b2828189"
+  integrity sha512-H7TwukiA1RM4jysNLBMJ+Vw/1/UCELqQhCDL6SngZS9iEzQO3/5wtHI5/meqsN7qmZd4vYtm4bDZrdHeXmDGHA==
   dependencies:
     shuffle-seed "^1.1.6"
     strongly-typed-events "^2.0.9"

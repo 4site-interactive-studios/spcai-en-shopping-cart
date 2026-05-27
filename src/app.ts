@@ -3,6 +3,11 @@ import {
   Options,
 } from "@4site/engrid-scripts";
 
+/* import {
+  App as EngridApp,
+  Options,
+} from "../../engrid/packages/scripts"; // Uses ENGrid via Visual Studio Workspace */
+
 export class App {
   private cardsNode = document.querySelectorAll(
     ".sc-cards > div"
@@ -72,6 +77,7 @@ export class App {
       MinAmount: 5,
       MinAmountMessage: "The minimum donation value is $5",
       UseAmountValidatorFromEN: false,
+      DisableLiveValidation: true
     };
     new EngridApp(options);
     this.setCardsAtttributes();
