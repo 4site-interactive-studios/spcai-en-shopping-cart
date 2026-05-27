@@ -85,26 +85,33 @@ body[data-debug] {
     width: 100%;
   }
 
-  .thank-you-container{
+  .thank-you-container {
     max-width: var(--page-max-width);
     justify-self: center;
     width: 100%;
   }
 
-  .en__errorList{
+  .en__errorList {
     position: relative;
     z-index: 1000;
     margin: 0 calc(-1 * var(--page-padding-x));
   }
 
-  .hidden-donation-amount{
-    label, .en__field__element--radio {
+  .hidden-donation-amount {
+    label,
+    .en__field__element--radio {
       display: none
     }
 
-    .en__field__error{
-      font-size: 16px !important;
+    .en__field {
+      margin-bottom: 0px !important;
     }
+
+    .en__field__error {
+      font-size: 16px !important;
+      margin-bottom: 10px !important;
+    }
+
   }
 
   @import "./cards.scss";
