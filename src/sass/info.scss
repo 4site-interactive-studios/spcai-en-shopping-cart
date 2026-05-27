@@ -14,7 +14,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    width: calc((100% - var(--page-max-width)) / 2);
+    width: calc(100% - min(100%, var(--page-max-width)));
     background-color: var(--color_white);
     border-top: 2px solid var(--color_navy);
     border-bottom: 2px solid var(--color_navy);
@@ -43,7 +43,7 @@
   gap: 0;
   padding: 0;
   overflow: hidden;
-  margin: 0 auto;
+  margin: 0;
   max-width: var(--page-max-width);
   width: 100%;
   box-sizing: border-box;
@@ -57,7 +57,7 @@
     text-align: center;
     background-color: var(--color_navy);
     color: var(--color_white);
-    min-width: 244px;
+    min-width: 324px;
 
     p {
       margin: 0;
