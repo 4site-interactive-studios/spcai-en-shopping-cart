@@ -1,6 +1,6 @@
 import {
-  App as EngridApp,
-  Options,
+    App as EngridApp,
+    Options,
 } from "@4site/engrid-scripts";
 
 /* import {
@@ -141,10 +141,9 @@ export class App {
 
   private initStickyInfo() {
     const scInfo = document.querySelector(".sc-info") as HTMLElement;
-    const scInfoContainer = document.querySelector(".sc-info-container") as HTMLElement;
     const scCards = document.querySelector(".sc-cards") as HTMLElement;
 
-    const target = scInfoContainer || scInfo;
+    const target = scInfo;
     if (!target || !scCards) return;
 
     const infoNaturalTop = target.getBoundingClientRect().top + window.scrollY;
@@ -160,17 +159,17 @@ export class App {
 
       if (window.scrollY < infoNaturalTop || cardsBottom <= 0) {
         // Before sticky or fully scrolled past
-        target.classList.remove("sc-info-container--sticky");
+        target.classList.remove("sc-info--sticky");
         target.style.top = "";
         spacer.style.display = "none";
       } else if (cardsBottom >= infoHeight) {
         // Fully sticky at top
-        target.classList.add("sc-info-container--sticky");
+        target.classList.add("sc-info--sticky");
         target.style.top = "0px";
         spacer.style.display = "block";
       } else {
         // Being pushed out: sc-cards bottom is crossing the bar
-        target.classList.add("sc-info-container--sticky");
+        target.classList.add("sc-info--sticky");
         target.style.top = `${cardsBottom - infoHeight}px`;
         spacer.style.display = "block";
       }

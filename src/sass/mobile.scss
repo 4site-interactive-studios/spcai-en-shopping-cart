@@ -5,6 +5,15 @@
   }
 }
 
+@media (max-width: 1163px),
+(max-device-width: 1163px) {
+  .sc-info {
+    .cart-total {
+      min-width: 224px;
+    }
+  }
+}
+
 @media (max-width: 1100px),
 (max-device-width: 1100px) {
   .mobile-hide {
@@ -40,10 +49,46 @@
       order: 2;
     }
   }
+}
 
+@media (max-width: 1063px),
+(max-device-width: 1063px) {
   .sc-info {
+    .monthly-checkbox-container {
+      width: auto;
+      min-width: 382px;
+
+      p {
+        font-size: 14px !important;
+      }
+    }
+
+    .donate-button {
+      flex-direction: column;
+      flex: 0 1 312px;
+      min-width: min-content;
+
+      p {
+        font-size: 36px;
+      }
+    }
+
     .cart-total {
-      min-width: 224px;
+      flex: 0 1 244px;
+      min-width: min-content;
+
+      p:last-child {
+        font-size: 32px !important;
+      }
+
+      &.review {
+        flex-basis: 527px;
+        min-width: min-content;
+
+        p:last-child {
+          font-size: 58px !important;
+        }
+      }
     }
   }
 }
@@ -115,44 +160,17 @@
   }
 }
 
-@media (max-width: 990px),
-(max-device-width: 990px) {
+@media (max-width: 900px),
+(max-device-width: 900px) {
   .sc-info {
     .monthly-checkbox-container {
       width: auto;
       min-width: 382px;
-      padding-left: 16px !important;
+      padding-left: 8px !important;
+      padding-right: 8px !important;
 
       p {
         font-size: 14px !important;
-      }
-    }
-
-    .donate-button {
-      flex-direction: column;
-      flex: 0 1 312px;
-      min-width: min-content;
-
-      p {
-        font-size: 36px;
-      }
-    }
-
-    .cart-total {
-      flex: 0 1 244px;
-      min-width: min-content;
-
-      p:last-child {
-        font-size: 32px !important;
-      }
-
-      &.review {
-        flex-basis: 527px;
-        min-width: min-content;
-
-        p:last-child {
-          font-size: 58px !important;
-        }
       }
     }
   }
@@ -276,10 +294,6 @@
         min-height: 304px;
       }
     }
-  }
-
-  .sc-info-container {
-    display: none;
   }
 
   .sc-cards-title {

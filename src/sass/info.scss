@@ -1,26 +1,14 @@
-.sc-info-container {
-  margin: 0 calc(-1 * var(--page-padding-x)) 0;
-  width: calc(100% + 2 * var(--page-padding-x));
-  max-width: none !important;
-  background-color: var(--color_navy);
+.sc-info {
   display: flex;
   flex-wrap: nowrap;
   align-items: stretch;
-  position: relative;
+  flex-direction: row;
+  height: 166px;
+  margin: 0 calc(-1 * var(--page-padding-x)) 0;
+  width: calc(100% + 2 * var(--page-padding-x));
+  background-color: var(--color_navy);
 
-  &::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: calc(100% - min(100%, var(--page-max-width)));
-    background-color: var(--color_white);
-    border-top: 2px solid var(--color_navy);
-    border-bottom: 2px solid var(--color_navy);
-  }
-
-  &.sc-info-container--sticky {
+  &.sc-info--sticky {
     position: fixed !important;
     top: 0;
     left: 0 !important;
@@ -32,21 +20,6 @@
   &.review {
     margin-bottom: 87px;
   }
-}
-
-.sc-info {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: stretch;
-  flex-direction: row;
-  height: 166px;
-  gap: 0;
-  padding: 0;
-  overflow: hidden;
-  margin: 0;
-  max-width: var(--page-max-width);
-  width: 100%;
-  box-sizing: border-box;
 
   .cart-total {
     display: flex;
@@ -139,16 +112,15 @@
   }
 
   .monthly-checkbox-container {
-    padding: 20px 16px 26px 41px;
+    padding: 20px 80px 26px 41px;
     border-top: 2px solid var(--color_navy);
     border-bottom: 2px solid var(--color_navy);
     width: 100%;
     background-color: var(--color_white);
 
     > :nth-child(2) {
-      margin-left: 36px;
+      margin-left: 46.5px;
       margin-top: 0;
-      max-width: 380px;
       font-size: 16px;
     }
 
