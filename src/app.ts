@@ -832,12 +832,13 @@ export class App {
         }
       });
     }
-    if (monthly === "Y") {
-      (window as any).EngagingNetworks.require._defined.enjs.setFieldValue(
-        "recurrfreq",
-        "MONTHLY"
-      );
-    }
+
+    const monthlyToRecurrFreq = monthly === "Y" ? "MONTHLY" : "ONETIME";
+    (window as any).EngagingNetworks.require._defined.enjs.setFieldValue(
+      "recurrfreq",
+      monthlyToRecurrFreq
+    );
+  
     const frequency = (
       window as any
     ).EngagingNetworks.require._defined.enjs.getFieldValue("recurrpay");
