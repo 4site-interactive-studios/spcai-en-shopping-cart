@@ -746,7 +746,7 @@ export class App {
       const quantity = this.getCardQuantity(card);
       const title = this.getCardTitle(card);
       if (quantity > 0) {
-        this.cartItems = `> ${quantity}x ${title} - ${this.getCurrencySymbol(card)}${amount.toFixed(2)} ${this.cartItems}`;
+        this.cartItems = `| ${quantity}x ${title} - ${this.getCurrencySymbol(card)}${amount.toFixed(2)} ${this.cartItems}`;
       }
       this.total += amount * quantity;
     });
@@ -758,7 +758,7 @@ export class App {
         parseFloat(otherAmount.value).toFixed(2)
       );
       if (otherAmountValue > 0) {
-        this.cartItems = `> 1x Other - ${this.getCurrencySymbol(null)}${otherAmountValue.toFixed(2)} ${this.cartItems}`;
+        this.cartItems = `| 1x Other - ${this.getCurrencySymbol(null)}${otherAmountValue.toFixed(2)} ${this.cartItems}`;
         this.total += otherAmountValue;
       }
     }
