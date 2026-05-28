@@ -48,7 +48,6 @@
         text-transform: uppercase;
         padding-bottom: 10px;
         margin-bottom: 10px;
-        border-bottom: 1px solid var(--color_white);
       }
 
       &:last-child {
@@ -56,6 +55,18 @@
         font-size: 58px;
         line-height: 60px;
       }
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(calc(100% - 40px), 167px);
+      height: 1px;
+      background-color: var(--color_white);
+      pointer-events: none;
     }
 
     &.review {
