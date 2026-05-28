@@ -15,6 +15,10 @@
     width: 100% !important;
     margin: 0 !important;
     z-index: 100;
+
+    .monthly-checkbox-container {
+      border-top: none;
+    }
   }
 
   &.review {
