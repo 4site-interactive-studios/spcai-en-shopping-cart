@@ -5,15 +5,6 @@
   }
 }
 
-@media (max-width: 1163px),
-(max-device-width: 1163px) {
-  .sc-info {
-    .cart-total {
-      min-width: 224px;
-    }
-  }
-}
-
 @media (max-width: 1100px),
 (max-device-width: 1100px) {
   .mobile-hide {
@@ -204,6 +195,11 @@
 
 @media (max-width: 754px),
 (max-device-width: 754px) {
+  .sc-info {
+    .cart-total {
+      margin-right: 24px;
+    }
+  }
   .form-container {
     display: flex !important;
     flex-direction: column !important;

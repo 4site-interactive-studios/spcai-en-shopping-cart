@@ -57,7 +57,7 @@
     text-align: center;
     background-color: var(--color_navy);
     color: var(--color_white);
-    min-width: 324px;
+    margin-right: min(78px, max(var(--page-padding-x), calc((100% + 2 * var(--page-padding-x) - var(--page-max-width)) / 2)));
 
     p {
       margin: 0;
@@ -86,7 +86,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: min(calc(100% - 40px), 167px);
+      width: min(100%, 167px);
       height: 1px;
       background-color: var(--color_white);
       pointer-events: none;
