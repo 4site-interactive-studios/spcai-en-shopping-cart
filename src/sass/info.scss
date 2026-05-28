@@ -6,7 +6,24 @@
   height: 166px;
   margin: 0 calc(-1 * var(--page-padding-x)) 0;
   width: calc(100% + 2 * var(--page-padding-x));
+  box-sizing: border-box;
+  padding-left: max(var(--page-padding-x), calc((100% + 2 * var(--page-padding-x) - var(--page-max-width)) / 2));
+  padding-right: max(var(--page-padding-x), calc((100% + 2 * var(--page-padding-x) - var(--page-max-width)) / 2));
   background-color: var(--color_navy);
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: calc(max(var(--page-padding-x), calc((100% - var(--page-max-width)) / 2)) + 1px);
+    background-color: var(--color_white);
+    border-top: 2px solid var(--color_navy);
+    border-bottom: 2px solid var(--color_navy);
+    pointer-events: none;
+  }
 
   &.sc-info--sticky {
     position: fixed !important;
@@ -15,6 +32,12 @@
     width: 100% !important;
     margin: 0 !important;
     z-index: 100;
+    padding-left: max(var(--page-padding-x), calc((100% - var(--page-max-width)) / 2)) !important;
+    padding-right: max(var(--page-padding-x), calc((100% - var(--page-max-width)) / 2)) !important;
+
+    &::after {
+      border-top: none;
+    }
 
     .monthly-checkbox-container {
       border-top: none;
@@ -127,7 +150,7 @@
   }
 
   .monthly-checkbox-container {
-    padding: 20px 80px 26px 41px;
+    padding: 20px 0px 26px 41px;
     border-top: 2px solid var(--color_navy);
     border-bottom: 2px solid var(--color_navy);
     width: 100%;

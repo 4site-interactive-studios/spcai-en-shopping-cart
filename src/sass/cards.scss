@@ -1,5 +1,5 @@
 .sc-cards-container {
-  max-width: 1137px;
+  max-width: var(--page-max-width);
   margin-left: auto;
   margin-right: auto;
 
@@ -26,7 +26,7 @@
 }
 
 .sc-cards {
-  max-width: 1137px;
+  max-width: var(--page-max-width);
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 43px;
