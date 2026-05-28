@@ -1,6 +1,6 @@
 import {
-    App as EngridApp,
-    Options,
+  App as EngridApp,
+  Options,
 } from "@4site/engrid-scripts";
 
 /* import {
@@ -95,6 +95,7 @@ export class App {
     this.togglePaymentMethodSelection();
     this.checkDebug();
     this.initScrollToCartOnEmptySubmit();
+    this.initErrorOffset();
     const localStorageMonthly = localStorage.getItem(`sc-cards-${this.getPageId()}-monthly`);
     const enMonthly = (window as any).EngagingNetworks.require._defined.enjs.getFieldValue("recurrpay");
     const monthlyStored =
@@ -1010,6 +1011,30 @@ export class App {
         }
       });
     });
+  }
+
+  private initErrorOffset() {
+    const errorHeader = document.querySelector('.en__errorHeader') as HTMLElement | null;
+    const errorList = document.querySelector('.en__errorList') as HTMLElement | null;
+
+    if (!errorHeader && !errorList) return;
+
+    const update = () => {
+      const headerHeight = errorHeader?.offsetHeight ?? 0;
+      const listHeight = errorList?.offsetHeight ?? 0;
+      document.documentElement.style.setProperty('--error-header-height', `${headerHeight}px`);
+      document.documentElement.style.setProperty('--error-banner-height', `${headerHeight + listHeight}px`);
+    };
+
+    const resizeObserver = new ResizeObserver(update);
+    if (errorHeader) resizeObserver.observe(errorHeader);
+    if (errorList) resizeObserver.observe(errorList);
+
+    const mutationObserver = new MutationObserver(update);
+    if (errorHeader) mutationObserver.observe(errorHeader, { childList: true, subtree: true });
+    if (errorList) mutationObserver.observe(errorList, { childList: true, subtree: true });
+
+    update();
   }
 
   public log(message: any, ...optionalParams: any[]) {

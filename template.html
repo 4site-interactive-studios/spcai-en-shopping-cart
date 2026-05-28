@@ -77,27 +77,29 @@
             z-index: 100;
             background: rgba(0, 0, 0, 0.15);
             height: var(--header-menu-height);
+        }
 
-            @media (max-width: 690px),
-                (max-device-width: 690px) {
-                   display: none;
-                }
+        @media (max-width: 690px), (max-device-width: 690px) {
+            #spcai-site-header {
+                display: none;
+            }
         }
 
         #spcai-mobile-header {
             display: none;
+        }
 
-            @media (max-width: 690px),
-                (max-device-width: 690px) {
-                    display: flex;
-                    align-items: center;
-                    padding: 30px 20px;
-                    height: 137px;
+        @media (max-width: 690px), (max-device-width: 690px) {
+            #spcai-mobile-header {
+                display: flex;
+                align-items: center;
+                padding: 30px 20px;
+                height: 137px;
+            }
 
-                    .header-logo {
-                        max-width: 240px;
-                    }
-                }
+            #spcai-mobile-header .header-logo {
+                max-width: 240px;
+            }
         }
 
         .spcai-header-inner {
@@ -110,12 +112,16 @@
         .spcai-header-logo-container {
             padding: 15px 87px 15px var(--page-padding-x);
             flex-shrink: 0;
+        }
 
-            @media (max-width: 1200px) { 
+        @media (max-width: 1200px) {
+            .spcai-header-logo-container {
                 padding: 15px 40px 15px var(--page-padding-x);
             }
+        }
 
-            @media (max-width: 690px) { 
+        @media (max-width: 690px) {
+            .spcai-header-logo-container {
                 padding: 7.5px 40px 7.5px var(--page-padding-x);
             }
         }
@@ -124,8 +130,10 @@
             height: 70px;
             width: 281px;
             display: block;
+        }
 
-            @media (max-width: 690px) { 
+        @media (max-width: 690px) {
+            .spcai-logo-link img {
                 height: 35px;
             }
         }
@@ -160,8 +168,10 @@
             line-height: 27px;
             font-weight: 400;
             text-transform: uppercase;
+        }
 
-            @media (max-width: 1140px) { 
+        @media (max-width: 1140px) {
+            .spcai-main-nav ul li a {
                 padding: 0 15px;
             }
         }
@@ -261,7 +271,7 @@
         <!-- Preconnect and Preload Render Critical CSS, JS, and Fonts -->
         <link rel="preconnect" href="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com">
         <link
-            href="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/en-shopping-cart.css?v=1779919697000"
+            href="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/en-shopping-cart.css?v=1779977355000"
             rel="stylesheet"
             type="text/css"
             media="all"
@@ -285,7 +295,7 @@
         </script>
         <!-- Load ENGrid's CSS here so that it always comes after Engaging Networks CSS which gets injected into <head> -->
         <link href="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/engrid.min.css?6" rel="stylesheet" type="text/css">
-        <link href="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/en-shopping-cart.css?v=1779919697000" rel="stylesheet" type="text/css">
+        <link href="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/en-shopping-cart.css?v=1779977355000" rel="stylesheet" type="text/css">
         <!-- SPCA International Site Header -->
         <header id="spcai-site-header">
             <div class="spcai-header-inner">
@@ -455,6 +465,6 @@
         </script>
         <!-- End Google Tag Manager -->
         <!-- Shopping Cart -->
-        <script type="text/javascript" src="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/en-shopping-cart.js?v=1779919699000"></script>
+        <script type="text/javascript" src="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/en-shopping-cart.js?v=1779977358000"></script>
     </body>
 </html>

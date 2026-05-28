@@ -72,6 +72,16 @@ body[data-debug] {
 
   overflow-x: clip;
 
+  .en__errorHeader {
+    width: 100vw !important;
+    margin-left: calc(-1 * var(--page-padding-x)) !important;
+  }
+
+  .en__errorList {
+    width: 100vw !important;
+    margin-left: calc(-1 * var(--page-padding-x)) !important;
+  }
+
   .en__component--advrow {
     max-width: 100%;
     min-height: unset;
@@ -91,13 +101,10 @@ body[data-debug] {
     width: 100%;
   }
 
-  .en__errorList {
-    position: relative;
-    z-index: 1000;
-    margin: 0 calc(-1 * var(--page-padding-x));
-  }
+
 
   .hidden-donation-amount {
+
     label,
     .en__field__element--radio {
       display: none
@@ -128,8 +135,10 @@ body[data-debug] {
   @import "./submit-button.scss";
 }
 
-
-
 .monthly-checkbox-container-mobile {
   display: none;
+}
+
+#spcai-site-header {
+  top: var(--error-banner-height, 0px) !important;
 }
