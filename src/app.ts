@@ -608,7 +608,9 @@ export class App {
       customAmountInput.classList.add("custom-amount-input");
       customAmountInput.innerHTML = `
       <span class="custom-amount-label">Custom Amount</span>
-      <input id="sc-other-amount" aria-label="Enter your custom donation amount" name="transaction.donationAmt.other-standin" type="text" inputmode="decimal" data-lpignore="true" autocomplete="off" value="${otherStored}" tabindex="1" placeholder="$" />
+      <div class="input-prefix-wrapper">
+        <input id="sc-other-amount" aria-label="Enter your custom donation amount" name="transaction.donationAmt.other-standin" type="text" inputmode="decimal" data-lpignore="true" autocomplete="off" value="${otherStored}" tabindex="1" placeholder="" />
+      </div>
       <span class="custom-amount-helper">I want my gift to go wherever it’s needed most.</span>
       `;
       customAmountBlock.appendChild(customAmountInput);
