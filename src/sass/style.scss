@@ -73,12 +73,12 @@ body[data-debug] {
   overflow-x: clip;
 
   .en__errorHeader {
-    width: 100vw !important;
+    width: calc(100% + 2 * var(--page-padding-x)) !important;
     margin-left: calc(-1 * var(--page-padding-x)) !important;
   }
 
   .en__errorList {
-    width: 100vw !important;
+    width: calc(100% + 2 * var(--page-padding-x)) !important;
     margin-left: calc(-1 * var(--page-padding-x)) !important;
   }
 
@@ -91,17 +91,17 @@ body[data-debug] {
     display: flex !important;
     gap: 45px;
     max-width: var(--page-max-width);
-    justify-self: center;
+    margin-left: auto;
+    margin-right: auto;
     width: 100%;
   }
 
   .thank-you-container {
     max-width: var(--page-max-width);
-    justify-self: center;
+    margin-left: auto;
+    margin-right: auto;
     width: 100%;
   }
-
-
 
   .hidden-donation-amount {
 
