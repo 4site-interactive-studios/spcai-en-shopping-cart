@@ -129,6 +129,7 @@
     flex-direction: column !important;
     margin-bottom: 120px !important;
     align-items: center !important;
+    margin-top: 121px;
 
     .footer-images {
       .certificates {
@@ -368,6 +369,7 @@
       text-align: start;
       margin: 0 !important;
       font-size: 30px;
+      line-height: 44px !important;
     }
   }
 
@@ -383,6 +385,7 @@
 
     .en__field--giveBySelect {
       margin: 0 !important;
+      padding: 0 !important
     }
   }
 
@@ -390,12 +393,13 @@
     display: block !important;
     border: 0 !important;
     width: 100%;
-    margin-top: 59px !important;
+    margin-top: 30px !important;
 
     .monthly-checkbox {
       display: flex;
       align-items: flex-start;
       flex-direction: column;
+      margin-bottom: 20px;
 
       h1,
       h2,
