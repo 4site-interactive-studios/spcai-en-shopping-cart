@@ -13,6 +13,8 @@ export class App {
     ".sc-cards > div"
   ) as NodeListOf<HTMLDivElement>;
 
+  private minDonationAmount = 5;
+
   private total = 0;
 
   private currencies: { [key: string]: string } = {
@@ -74,8 +76,9 @@ export class App {
       return;
     }
     const options: Options = {
-      MinAmount: 5,
-      MinAmountMessage: "The minimum donation value is $5",
+      MinAmount: this.minDonationAmount,
+      MinAmountMessage: `The minimum donation value is $${this.minDonationAmount}`,
+
       UseAmountValidatorFromEN: false,
       DisableLiveValidation: true
     };
@@ -796,6 +799,12 @@ export class App {
     }
     if (this.total > 0) {
       document.querySelector("body").setAttribute("data-item-selected", "true");
+      const cartElement = document.querySelector(".sc-cards");
+      if (cartElement) {
+        cartElement.classList.remove("en__field--validationFailed");
+        const errorEl = cartElement.querySelector(".en__field__error");
+        if (errorEl) errorEl.remove();
+      }
     } else {
       document.querySelector("body").removeAttribute("data-item-selected");
     }
@@ -838,7 +847,7 @@ export class App {
       "recurrfreq",
       monthlyToRecurrFreq
     );
-  
+
     const frequency = (
       window as any
     ).EngagingNetworks.require._defined.enjs.getFieldValue("recurrpay");
@@ -1004,14 +1013,47 @@ export class App {
       btn.addEventListener("click", () => {
         const donationAmt = (window as any).EngagingNetworks.require._defined.enjs.getFieldValue("donationAmt");
         if (!donationAmt || parseFloat(donationAmt) === 0) {
-          const cartElement = document.querySelector(".sc-cards");
-          if (cartElement) {
-            const top = cartElement.getBoundingClientRect().top + window.scrollY - 300;
-            window.scrollTo({ top, behavior: "smooth" });
+          const cardsTitleElement = document.querySelector(".sc-cards-title");
+          if (cardsTitleElement) {
+            this.setError(".sc-cards-title", `Please add at least one item to your cart or a custom amount donation.${this.minDonationAmount ? ` Minimum donation amount is $${this.minDonationAmount}.` : ""}`);
+            setTimeout(() => {
+              const top = cardsTitleElement.getBoundingClientRect().top + window.scrollY - 120;
+              window.scrollTo({ top, behavior: "smooth" });
+            });
           }
+        } else {
+          this.removeError(".sc-cards-title");
         }
       });
     });
+  }
+
+  private setError(element: string | Element, errorMessage: string) {
+    const errorElement = typeof element === "string" ? document.querySelector(element) : element;
+    if (errorElement) {
+      errorElement.classList.add("en__field--validationFailed");
+      let errorMessageElement = errorElement.querySelector(".en__field__error");
+      if (!errorMessageElement) {
+        errorMessageElement = document.createElement("div");
+        errorMessageElement.classList.add("en__field__error");
+        errorMessageElement.innerHTML = errorMessage;
+        errorElement.insertBefore(errorMessageElement, errorElement.firstChild);
+      }
+      else {
+        errorMessageElement.innerHTML = errorMessage;
+      }
+    }
+  }
+
+  private removeError(element: string | Element) {
+    const errorElement = typeof element === "string" ? document.querySelector(element) : element;
+    if (errorElement) {
+      errorElement.classList.remove("en__field--validationFailed");
+      const errorMessageElement = errorElement.querySelector(".en__field__error");
+      if (errorMessageElement) {
+        errorElement.removeChild(errorMessageElement);
+      }
+    }
   }
 
   private initErrorOffset() {
