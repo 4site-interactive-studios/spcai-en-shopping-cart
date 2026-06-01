@@ -80,7 +80,7 @@ export class App {
       MinAmountMessage: `The minimum donation value is $${this.minDonationAmount}`,
 
       UseAmountValidatorFromEN: false,
-      DisableLiveValidation: true
+      DisableMinMaxLiveValidation: true
     };
     new EngridApp(options);
     this.setCardsAtttributes();
