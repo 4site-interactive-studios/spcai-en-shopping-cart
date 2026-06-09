@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap");
 @import "./colors.scss";
 @import "./page-builder.scss";
+@import "./pricing-switcher.scss";
 
 :root {
   --page-padding-x: 80px;
@@ -133,10 +134,6 @@ body[data-debug] {
   @import "./mobile.scss";
   @import "./payment-buttons-container.scss";
   @import "./submit-button.scss";
-}
-
-.monthly-checkbox-container-mobile {
-  display: none;
 }
 
 #spcai-site-header {

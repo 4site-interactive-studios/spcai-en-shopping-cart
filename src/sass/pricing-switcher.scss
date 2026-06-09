@@ -1,0 +1,97 @@
+.pricing-switcher {
+  $bg-padding: 5px;
+  $button-height: 40px;
+  $animation-time: 0.3s;
+  display: none;
+
+  .fieldset {
+    display: flex;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    padding: $bg-padding;
+    border-radius: 50em;
+    background-color: lightgray;
+    margin-top: 20px;
+  }
+
+  input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  label {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: $button-height;
+    cursor: pointer;
+    color: var(--color_navy);
+    text-transform: uppercase !important;
+    text-decoration: none;
+    font-family: "Oswald", "Arial Narrow", Arial, sans-serif !important;
+    font-weight: 700 !important;
+    transition: color $animation-time ease;
+    transition-delay: 0.1s;
+
+    &::before,
+    &::after {
+      display: none !important;
+      content: none !important;
+    }
+  }
+
+  .switch {
+    position: absolute;
+    top: $bg-padding;
+    left: $bg-padding;
+    height: $button-height;
+    width: calc(50% - #{$bg-padding});
+    background-color: var(--color_navy);
+    border-radius: 50em;
+    transition: transform $animation-time ease;
+  }
+
+  label {
+    &.active {
+      color: #ffffff;
+    }
+  }
+
+  &[data-state="onetime"] {
+    .switch {
+      -webkit-transform: translateX(100%);
+      -moz-transform: translateX(100%);
+      -ms-transform: translateX(100%);
+      -o-transform: translateX(100%);
+      transform: translateX(100%);
+    }
+
+    label[data-value="onetime"] {
+      color: #ffffff;
+    }
+
+    label[data-value="monthly"] {
+      color: var(--color_navy);
+    }
+  }
+
+  &[data-state="monthly"] {
+    label[data-value="monthly"] {
+      color: #ffffff;
+    }
+
+    label[data-value="onetime"] {
+      color: var(--color_navy);
+    }
+  }
+}
+

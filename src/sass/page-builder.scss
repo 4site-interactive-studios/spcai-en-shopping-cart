@@ -122,19 +122,49 @@
     }
   }
 
-  .monthly-checkbox-container-mobile {
+  .monthly-switch-container-mobile {
+    display: block !important;
+    padding: 5px;
+    border-radius: 50em;
+    background-color: lightgray;
+    box-sizing: border-box;
+    width: 100%;
 
-    .monthly-checkbox {
-      font-family: "Open Sans", sans-serif;
-      font-size: 16px;
-      line-height: 24px;
+    &::before {
+      content: "Monthly";
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--color_navy);
+      color: #fff;
+      font-family: "Oswald", "Arial Narrow", Arial, sans-serif;
+      font-size: 14px;
       font-weight: 700;
-      color: var(--color_navy);
-
-      text-transform: capitalize;
+      text-transform: uppercase;
+      height: 40px;
+      width: calc(50% - 5px);
+      border-radius: 50em;
+      vertical-align: middle;
+      box-sizing: border-box;
     }
 
-    display: unset !important;
+    &::after {
+      content: "One-Time";
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent;
+      color: var(--color_navy);
+      font-family: "Oswald", "Arial Narrow", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      height: 40px;
+      width: calc(50% - 5px);
+      border-radius: 50em;
+      vertical-align: middle;
+      box-sizing: border-box;
+    }
   }
 
   .sc-info-mobile {

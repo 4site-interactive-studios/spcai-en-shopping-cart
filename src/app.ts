@@ -91,7 +91,7 @@ export class App {
     this.setQuantityClickEvent();
     this.addLiveVariables();
     this.addMonthlyCheckbox();
-    this.addMonthlyCheckboxMobile();
+    this.addMonthlySwitchMobile();
     this.addCustomAmountBlock();
     this.initStickyInfo();
     this.initRedirectToReviewCartOnDonateClick();
@@ -121,25 +121,53 @@ export class App {
     }, 500);
   }
 
-  private addMonthlyCheckboxMobile() {
+  private addMonthlySwitchMobile() {
     const containers = document.querySelectorAll(
-      '.monthly-checkbox-container-mobile'
+      '.monthly-switch-container-mobile'
     ) as NodeListOf<HTMLDivElement>;
 
-    containers.forEach((container) => {
-      const label = container.querySelector('label');
-      const heading = label?.querySelector('h1, h2, h3');
-      const suffixP = container.querySelector('p');
+    const localStorageMonthly = localStorage.getItem(`sc-cards-${this.getPageId()}-monthly`);
+    const enMonthly = (window as any).EngagingNetworks.require._defined.enjs.getFieldValue("recurrpay");
+    const isMonthlyChecked = (localStorageMonthly || enMonthly) === "Y";
 
-      if (!label || !heading || !suffixP) return;
+    containers.forEach((container, index) => {
+      const groupName = `sc-switch-group-${index}`;
+      const monthlyId = `sc-switch-monthly-${index}`;
+      const onetimeId = `sc-switch-onetime-${index}`;
 
-      const textWrapper = document.createElement('span');
-      textWrapper.classList.add('monthly-text');
-      textWrapper.innerHTML = `<strong>${heading.innerHTML}</strong> ${suffixP.innerHTML}`;
+      const initialState = isMonthlyChecked ? "monthly" : "onetime";
+      container.innerHTML = `
+        <div class="pricing-switcher" data-state="${initialState}">
+          <div class="fieldset">
+            <input type="radio" name="${groupName}" value="monthly" id="${monthlyId}" ${isMonthlyChecked ? "checked" : ""}>
+            <label for="${monthlyId}" data-value="monthly">Monthly</label>
+            <input type="radio" name="${groupName}" value="onetime" id="${onetimeId}" ${!isMonthlyChecked ? "checked" : ""}>
+            <label for="${onetimeId}" data-value="onetime">One-Time</label>
+            <span class="switch"></span>
+          </div>
+        </div>
+      `;
 
-      heading.remove();
-      suffixP.remove();
-      label.appendChild(textWrapper);
+      const monthlyInput = container.querySelector(`#${monthlyId}`) as HTMLInputElement;
+      const onetimeInput = container.querySelector(`#${onetimeId}`) as HTMLInputElement;
+
+      const pricingSwitcher = container.querySelector(".pricing-switcher") as HTMLElement;
+
+      monthlyInput?.addEventListener("change", () => {
+        if (monthlyInput.checked) {
+          if (pricingSwitcher) pricingSwitcher.setAttribute("data-state", "monthly");
+          localStorage.setItem(`sc-cards-${this.getPageId()}-monthly`, "Y");
+          this.updateFrequency("monthly");
+        }
+      });
+
+      onetimeInput?.addEventListener("change", () => {
+        if (onetimeInput.checked) {
+          if (pricingSwitcher) pricingSwitcher.setAttribute("data-state", "onetime");
+          localStorage.setItem(`sc-cards-${this.getPageId()}-monthly`, "N");
+          this.updateFrequency("onetime");
+        }
+      });
     });
   }
 
@@ -864,6 +892,31 @@ export class App {
       this.updateLiveVariables("FREQUENCY", "");
     }
     this.updateDonateButtonFrequency(monthly === "Y");
+
+    // Sync monthly switch state
+    document.querySelectorAll<HTMLElement>('.monthly-switch-container-mobile .pricing-switcher').forEach((switcher) => {
+      switcher.setAttribute("data-state", isMonthly ? "monthly" : "onetime");
+      switcher.querySelectorAll<HTMLInputElement>('input[type="radio"]').forEach((input) => {
+        if (input.value === "monthly") {
+          input.checked = isMonthly;
+        } else if (input.value === "onetime") {
+          input.checked = !isMonthly;
+        }
+      });
+    });
+
+    // Sync monthly checkbox radios
+    document.querySelectorAll<HTMLInputElement>('.monthly-checkbox input[type="radio"]').forEach((input) => {
+      input.checked = isMonthly;
+      input.dataset.wasChecked = isMonthly ? "true" : "false";
+    });
+    document.querySelectorAll<HTMLElement>('.monthly-checkbox').forEach((container) => {
+      if (isMonthly) {
+        container.setAttribute("data-selected", "true");
+      } else {
+        container.removeAttribute("data-selected");
+      }
+    });
   }
 
   private updateDonateButtonFrequency(isMonthly: boolean) {

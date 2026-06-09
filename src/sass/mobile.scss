@@ -156,6 +156,7 @@
       padding-left: 8px !important;
       padding-right: 8px !important;
       min-width: 304px !important;
+
       p {
         font-size: 14px !important;
       }
@@ -200,6 +201,7 @@
       margin-right: 24px;
     }
   }
+
   .form-container {
     display: flex !important;
     flex-direction: column !important;
@@ -380,86 +382,8 @@
     }
   }
 
-  .monthly-checkbox-container-mobile {
+  .pricing-switcher {
     display: block !important;
-    border: 0 !important;
-    width: 100%;
-    margin-top: 30px !important;
-
-    .monthly-checkbox {
-      display: flex;
-      align-items: flex-start;
-      flex-direction: column;
-      margin-bottom: 20px;
-
-      h1,
-      h2,
-      h3 {
-        margin: 0 !important;
-        font-family: "Open Sans", sans-serif;
-        font-size: 16px;
-        line-height: 24px;
-        font-weight: 700;
-        color: var(--color_navy);
-      }
-
-      input {
-        display: none;
-      }
-
-      label {
-        position: relative;
-        cursor: pointer;
-        display: flex;
-        align-items: flex-start;
-        gap: 0 !important;
-
-        .monthly-text {
-          font-size: 16px;
-          line-height: 24px;
-          font-weight: 400;
-          color: inherit;
-
-          strong {
-            font-weight: 700;
-          }
-        }
-
-        &::before {
-          content: "";
-          height: 28px;
-          width: 28px;
-          min-width: 28px;
-          border-radius: 4px !important;
-          border: 2px solid var(--color_navy);
-          background-color: var(--color_white);
-          display: inline-block;
-          box-sizing: border-box;
-          box-shadow: none !important;
-        }
-      }
-
-      input:checked+label {
-        &::before {
-          background-color: var(--color_navy);
-          border-color: var(--color_navy);
-        }
-
-        &::after {
-          content: "";
-          position: absolute;
-          left: 5px;
-          top: 14px;
-          width: 18px;
-          height: 18px;
-          transform: translateY(-50%);
-          background-image: url("data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0.674805' y='8.99988' width='2' height='8.30769' rx='1' transform='rotate(-45 0.674805 8.99988)' fill='white'/%3E%3Cpath d='M15.6386 3.83259C16.0291 3.44207 16.6623 3.44207 17.0528 3.8326C17.4433 4.22312 17.4433 4.85628 17.0528 5.24681L6.99014 15.3095L5.57592 13.8953L15.6386 3.83259Z' fill='white'/%3E%3C/svg%3E");
-          background-size: contain;
-          background-repeat: no-repeat;
-          background-position: center;
-        }
-      }
-    }
   }
 
   .fee-cover {
