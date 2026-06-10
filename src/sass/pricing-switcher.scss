@@ -29,9 +29,10 @@
     position: relative;
     z-index: 1;
     flex: 1;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
     height: $button-height;
     cursor: pointer;
     color: var(--color_navy);
