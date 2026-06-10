@@ -80,6 +80,23 @@
       }
     }
 
+    .cart-total-frequency-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .cart-total-frequency {
+      display: block;
+      font-family: "Oswald", "Arial Narrow", Arial, sans-serif;
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1;
+      text-transform: uppercase;
+      color: var(--color_white);
+      margin-left: 4px;
+    }
+
     &::after {
       content: '';
       position: absolute;

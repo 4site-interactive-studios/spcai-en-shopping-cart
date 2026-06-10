@@ -705,6 +705,7 @@ export class App {
           }
           if (needsMonthlyReinject) {
             this.updateDonateButtonFrequency(true);
+            this.updateCartTotalFrequency(true);
           }
           observer.observe(btn, {
             childList: true,
@@ -896,6 +897,7 @@ export class App {
       this.updateLiveVariables("FREQUENCY", "");
     }
     this.updateDonateButtonFrequency(monthly === "Y");
+    this.updateCartTotalFrequency(monthly === "Y");
 
     // Sync monthly switch state
     document.querySelectorAll<HTMLElement>('.monthly-switch-container-mobile .pricing-switcher').forEach((switcher) => {
@@ -937,6 +939,28 @@ export class App {
           label = document.createElement("span");
           label.classList.add("donate-button-frequency");
           donateButton.appendChild(label);
+        }
+        label.innerText = "Monthly";
+      } else if (label) {
+        label.remove();
+      }
+    });
+  }
+
+  private updateCartTotalFrequency(isMonthly: boolean) {
+    const cartTotalVars = document.querySelectorAll(
+      ".cart-total.review .sc-live-variable[data-variable='TOTAL']"
+    ) as NodeListOf<HTMLElement>;
+    cartTotalVars.forEach((totalEl) => {
+      let label = totalEl.nextElementSibling as HTMLElement | null;
+      if (label && !label.classList.contains("cart-total-frequency")) {
+        label = null;
+      }
+      if (isMonthly) {
+        if (!label) {
+          label = document.createElement("span");
+          label.classList.add("cart-total-frequency");
+          totalEl.insertAdjacentElement("afterend", label);
         }
         label.innerText = "Monthly";
       } else if (label) {
