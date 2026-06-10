@@ -59,6 +59,16 @@
     }
   }
 
+  .custom-amount-helper-text {
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px !important;
+    line-height: 24px !important;
+    font-weight: 400 !important;
+    font-style: italic;
+    color: var(--color_navy);
+    text-transform: none !important;
+  }
+
   .sc-info {
     &> :first-child {
 
@@ -173,7 +183,7 @@
   }
 
   .hidden-donation-amount {
-    background-color:  rgba(255, 0, 0, .1019607843) !important;
+    background-color: rgba(255, 0, 0, .1019607843) !important;
 
     label,
     .en__field__element--radio {

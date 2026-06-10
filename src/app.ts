@@ -636,6 +636,10 @@ export class App {
         customAmountBlock.setAttribute("data-selected", "true");
       }
 
+      const helperTextEl = customAmountBlock.querySelector(".custom-amount-helper-text") as HTMLElement | null;
+      const helperText = helperTextEl?.textContent?.trim() || "I want my gift to go wherever it’s needed most.";
+      helperTextEl?.remove();
+
       const customAmountInput = document.createElement("div");
       customAmountInput.classList.add("custom-amount-input");
       customAmountInput.innerHTML = `
@@ -643,7 +647,7 @@ export class App {
       <div class="input-prefix-wrapper">
         <input id="sc-other-amount" aria-label="Enter your custom donation amount" name="transaction.donationAmt.other-standin" type="text" inputmode="decimal" data-lpignore="true" autocomplete="off" value="${otherStored}" tabindex="1" placeholder="" />
       </div>
-      <span class="custom-amount-helper">I want my gift to go wherever it’s needed most.</span>
+      <span class="custom-amount-helper">${helperText}</span>
       `;
       customAmountBlock.appendChild(customAmountInput);
 
