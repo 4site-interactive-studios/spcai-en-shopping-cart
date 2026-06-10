@@ -13,7 +13,7 @@ export class App {
     ".sc-cards > div"
   ) as NodeListOf<HTMLDivElement>;
 
-  private minDonationAmount = 5;
+  private minDonationAmount = 1;
 
   private total = 0;
 
