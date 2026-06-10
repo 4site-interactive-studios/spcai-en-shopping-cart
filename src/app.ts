@@ -211,7 +211,7 @@ export class App {
   }
 
   private initRedirectToReviewCartOnDonateClick() {
-    const donateButtons = document.querySelectorAll(".donate-button") as NodeListOf<HTMLElement>;
+    const donateButtons = document.querySelectorAll(".donate-button, .custom-amount-donate") as NodeListOf<HTMLElement>;
     const reviewCart = document.querySelector(".review-cart") as HTMLElement;
     const mobileBar = document.querySelector(".sc-info-mobile") as HTMLElement;
 
@@ -640,6 +640,10 @@ export class App {
       const helperText = helperTextEl?.textContent?.trim() || "I want my gift to go wherever it’s needed most.";
       helperTextEl?.remove();
 
+      const donateButtonText = customAmountBlock.querySelector(".custom-amount-donate") as HTMLElement | null;
+      const donateButtonTextContent = donateButtonText?.textContent?.trim() || "Donate";
+      donateButtonText?.remove();
+
       const customAmountInput = document.createElement("div");
       customAmountInput.classList.add("custom-amount-input");
       customAmountInput.innerHTML = `
@@ -648,6 +652,7 @@ export class App {
         <input id="sc-other-amount" aria-label="Enter your custom donation amount" name="transaction.donationAmt.other-standin" type="text" inputmode="decimal" data-lpignore="true" autocomplete="off" value="${otherStored}" tabindex="1" placeholder="" />
       </div>
       <span class="custom-amount-helper">${helperText}</span>
+      <button type="button" class="custom-amount-donate">${donateButtonTextContent.toUpperCase()}</button>
       `;
       customAmountBlock.appendChild(customAmountInput);
 
