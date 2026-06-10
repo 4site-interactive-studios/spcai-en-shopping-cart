@@ -67,6 +67,11 @@
     font-style: italic;
     color: var(--color_navy);
     text-transform: none !important;
+    position: absolute;
+    right: 290px;
+    left: unset;
+    border-radius: 4px;
+    bottom: 28px !important;
   }
 
   .sc-info {

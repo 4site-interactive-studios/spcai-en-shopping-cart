@@ -146,16 +146,20 @@ body[data-debug] {
 }
 
 .custom-amount-disclaimer {
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin-top: 30px;
+  margin-bottom: 50px;
   max-width: var(--page-max-width) !important;
   justify-self: center;
   width: 100% !important;
 
+  p {
+    margin: 0 !important;
+  }
+
   &::after {
     content: "";
     position: absolute;
-    bottom: -40px;
+    bottom: -50px;
     left: 0px;
     width: calc(100% + 2 * var(--page-padding-x));
     margin: 0 calc(-1 * var(--page-padding-x)) 0;
