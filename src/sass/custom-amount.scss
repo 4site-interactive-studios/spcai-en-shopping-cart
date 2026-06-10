@@ -1,8 +1,7 @@
 .custom-amount-block {
   border: 2px solid var(--color_navy);
   border-radius: 5px;
-  margin-top: 38px;
-  margin: 38px auto 80px;
+  margin: 38px auto 0px;
   height: 185px;
   display: flex;
   justify-content: space-between;
@@ -86,15 +85,5 @@
         padding-left: 4px !important;
       }
     }
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: -80px;
-    left: 0px;
-    width: calc(100% + 2 * var(--page-padding-x));
-    margin: 0 calc(-1 * var(--page-padding-x)) 0;
-    border: 1px solid #bfbfbf;
   }
 }

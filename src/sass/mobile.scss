@@ -171,7 +171,6 @@
     padding: 30px 25px !important;
     justify-content: flex-start !important;
     gap: 19px !important;
-    margin-bottom: 44px !important;
 
     h1,
     h2,
@@ -190,6 +189,11 @@
       left: 50%;
       transform: translateX(-50%);
     }
+  }
+
+  .custom-amount-disclaimer {
+    margin-top: 22px !important;
+    margin-bottom: 22px !important;
   }
 }
 
