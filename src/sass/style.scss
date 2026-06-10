@@ -143,6 +143,15 @@ body[data-debug] {
 .under-header-text-container {
   margin-top: 44px;
   margin-bottom: 44px;
+  max-width: calc(var(--page-max-width) / 2) !important;
+  width: 100% !important;
+  justify-content: center;
+  align-self: center;
+  justify-self: center;
+
+  p {
+    margin: 0 !important;
+  }
 }
 
 .custom-amount-disclaimer {
