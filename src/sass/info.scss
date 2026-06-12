@@ -100,10 +100,10 @@
     &::after {
       content: '';
       position: absolute;
-      top: 50%;
+      top: 47%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: min(100%, 167px);
+      width: min(100%, 250px);
       height: 1px;
       background-color: var(--color_white);
       pointer-events: none;
