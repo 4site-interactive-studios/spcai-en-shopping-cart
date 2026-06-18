@@ -1,0 +1,30 @@
+.payment-buttons-container {
+  display: grid !important;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  height: 80px;
+  grid-gap: 10px;
+  margin-bottom: 41px;
+  max-width: var(--page-max-width);
+  align-self: center;
+  width: 100%;
+
+  img {
+    width: unset;
+  }
+
+  .en__field__item {
+    padding: 0 !important;
+  }
+
+  .en__field__label {
+    padding: 21px 24px !important;
+    height: 80px !important;
+    font-size: 32px !important;
+    line-height: 32px !important;
+
+    img {
+      height: 32px;
+    }
+  }
+}

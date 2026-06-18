@@ -1,7 +1,19 @@
+import {
+  App as EngridApp,
+  Options,
+} from "@4site/engrid-scripts";
+
+/* import {
+  App as EngridApp,
+  Options,
+} from "../../engrid/packages/scripts"; // Uses ENGrid via Visual Studio Workspace */
+
 export class App {
   private cardsNode = document.querySelectorAll(
-    ".sc-cards > div:not(.block-other)"
+    ".sc-cards > div"
   ) as NodeListOf<HTMLDivElement>;
+
+  private minDonationAmount = 1;
 
   private total = 0;
 
@@ -17,6 +29,8 @@ export class App {
     document.querySelector("[name='transaction.comments']");
 
   private cartItems = "";
+
+  private isMonthly = false;
 
   constructor() {
     this.log("Shopping Cart: Debug mode is on");
@@ -61,6 +75,14 @@ export class App {
       }, 10);
       return;
     }
+    const options: Options = {
+      MinAmount: this.minDonationAmount,
+      MinAmountMessage: `The minimum donation value is $${this.minDonationAmount}`,
+
+      UseAmountValidatorFromEN: false,
+      DisableMinMaxLiveValidation: true
+    };
+    new EngridApp(options);
     this.setCardsAtttributes();
     this.createCardsAmounts();
     this.createCardsQuantity();
@@ -68,14 +90,20 @@ export class App {
     this.watchForQuantityChanges();
     this.setQuantityClickEvent();
     this.addLiveVariables();
-    this.addOtherAmount();
     this.addMonthlyCheckbox();
+    this.addMonthlySwitchMobile();
+    this.addCustomAmountBlock();
+    this.initStickyInfo();
+    this.initRedirectToReviewCartOnDonateClick();
+    this.togglePaymentMethodSelection();
     this.checkDebug();
+    this.initScrollToCartOnEmptySubmit();
+    this.initErrorOffset();
+    const localStorageMonthly = localStorage.getItem(`sc-cards-${this.getPageId()}-monthly`);
+    const enMonthly = (window as any).EngagingNetworks.require._defined.enjs.getFieldValue("recurrpay");
     const monthlyStored =
-      localStorage.getItem(`sc-cards-${this.getPageId()}-monthly`) ||
-      (window as any).EngagingNetworks.require._defined.enjs.getFieldValue(
-        "recurrpay"
-      );
+      localStorageMonthly ||
+      enMonthly;
     if (monthlyStored === "Y") {
       this.updateFrequency("monthly");
       const monthlyCheckbox = document.querySelector(
@@ -87,54 +115,252 @@ export class App {
     } else {
       this.updateFrequency("onetime");
     }
-    this.renderFrequency();
 
     window.setTimeout(() => {
       this.updateTotal();
     }, 500);
   }
 
-  private renderFrequency() {
-    const freqRow = document.querySelector(
-      ".frequency-buttons"
-    ) as HTMLDivElement;
-    if (freqRow) {
-      const freqButtons = freqRow.querySelectorAll("div");
-      const recurrpay = (
-        window as any
-      ).EngagingNetworks.require._defined.enjs.getFieldValue("recurrpay");
+  private addMonthlySwitchMobile() {
+    const containers = document.querySelectorAll(
+      '.monthly-switch-container-mobile'
+    ) as NodeListOf<HTMLDivElement>;
 
-      freqButtons.forEach((button) => {
-        const freqText = button.innerText;
-        const freq = button.className.split(" ")[0];
-        const freqChecked =
-          freq === "monthly" ? recurrpay === "Y" : recurrpay === "N";
-        const freqMarkup = `
-          <input id="frequency-${freq}" type="radio" name="sc-frequency" value="${freq}" ${
-          freqChecked ? "checked" : ""
-        } />
-          <label for="frequency-${freq}">
-            <span>${freqText}</span>
-          </label>
-        `;
-        button.innerHTML = freqMarkup;
+    const localStorageMonthly = localStorage.getItem(`sc-cards-${this.getPageId()}-monthly`);
+    const enMonthly = (window as any).EngagingNetworks.require._defined.enjs.getFieldValue("recurrpay");
+    const isMonthlyChecked = (localStorageMonthly || enMonthly) === "Y";
+
+    containers.forEach((container, index) => {
+      const groupName = `sc-switch-group-${index}`;
+      const monthlyId = `sc-switch-monthly-${index}`;
+      const onetimeId = `sc-switch-onetime-${index}`;
+
+      const initialState = isMonthlyChecked ? "monthly" : "onetime";
+      container.innerHTML = `
+        <div class="pricing-switcher" data-state="${initialState}">
+          <div class="fieldset">
+            <input type="radio" name="${groupName}" value="monthly" id="${monthlyId}" ${isMonthlyChecked ? "checked" : ""}>
+            <label for="${monthlyId}" data-value="monthly">Monthly</label>
+            <input type="radio" name="${groupName}" value="onetime" id="${onetimeId}" ${!isMonthlyChecked ? "checked" : ""}>
+            <label for="${onetimeId}" data-value="onetime">One-Time</label>
+            <span class="switch"></span>
+          </div>
+        </div>
+      `;
+
+      const monthlyInput = container.querySelector(`#${monthlyId}`) as HTMLInputElement;
+      const onetimeInput = container.querySelector(`#${onetimeId}`) as HTMLInputElement;
+
+      const pricingSwitcher = container.querySelector(".pricing-switcher") as HTMLElement;
+
+      monthlyInput?.addEventListener("change", () => {
+        if (monthlyInput.checked) {
+          if (pricingSwitcher) pricingSwitcher.setAttribute("data-state", "monthly");
+          localStorage.setItem(`sc-cards-${this.getPageId()}-monthly`, "Y");
+          this.updateFrequency("monthly");
+        }
       });
-      const freqInputs = freqRow.querySelectorAll("input");
-      freqInputs.forEach((input) => {
-        input.addEventListener("change", (e) => {
-          const value = (e.target as HTMLInputElement).value;
-          this.updateFrequency(value);
-          localStorage.setItem(`sc-cards-${this.getPageId()}-monthly`, value);
-          const monthlyCheckbox = document.querySelector(
-            "#sc-monthly"
-          ) as HTMLInputElement;
-          if (monthlyCheckbox) {
-            monthlyCheckbox.checked = value === "monthly";
-            monthlyCheckbox.dispatchEvent(new Event("change"));
-          }
+
+      onetimeInput?.addEventListener("change", () => {
+        if (onetimeInput.checked) {
+          if (pricingSwitcher) pricingSwitcher.setAttribute("data-state", "onetime");
+          localStorage.setItem(`sc-cards-${this.getPageId()}-monthly`, "N");
+          this.updateFrequency("onetime");
+        }
+      });
+    });
+  }
+
+  private initStickyInfo() {
+    const scInfo = document.querySelector(".sc-info") as HTMLElement;
+    const scCards = document.querySelector(".sc-cards") as HTMLElement;
+
+    const target = scInfo;
+    if (!target || !scCards) return;
+
+    const infoNaturalTop = target.getBoundingClientRect().top + window.scrollY;
+    const infoHeight = target.offsetHeight;
+
+    const spacer = document.createElement("div");
+    spacer.style.height = `${infoHeight}px`;
+    spacer.style.display = "none";
+    target.parentNode?.insertBefore(spacer, target.nextSibling);
+
+    const update = () => {
+      const cardsBottom = scCards.getBoundingClientRect().bottom;
+
+      if (window.scrollY < infoNaturalTop || cardsBottom <= 0) {
+        // Before sticky or fully scrolled past
+        target.classList.remove("sc-info--sticky");
+        target.style.top = "";
+        spacer.style.display = "none";
+      } else if (cardsBottom >= infoHeight) {
+        // Fully sticky at top
+        target.classList.add("sc-info--sticky");
+        target.style.top = "0px";
+        spacer.style.display = "block";
+      } else {
+        // Being pushed out: sc-cards bottom is crossing the bar
+        target.classList.add("sc-info--sticky");
+        target.style.top = `${cardsBottom - infoHeight}px`;
+        spacer.style.display = "block";
+      }
+    };
+
+    window.addEventListener("scroll", update, { passive: true });
+  }
+
+  private initRedirectToReviewCartOnDonateClick() {
+    const donateButtons = document.querySelectorAll(".donate-button, .custom-amount-donate") as NodeListOf<HTMLElement>;
+    const reviewCart = document.querySelector(".review-cart") as HTMLElement;
+    const mobileBar = document.querySelector(".sc-info-mobile") as HTMLElement;
+
+    if (donateButtons.length === 0 || !reviewCart) return;
+
+    // Fade in mobile bar on load
+    if (mobileBar) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          mobileBar.style.opacity = "1";
         });
       });
     }
+
+    // Scroll to checkout on click; hide bar immediately
+    donateButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const top = reviewCart.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top, behavior: "smooth" });
+        if (mobileBar) {
+          mobileBar.style.opacity = "0";
+          mobileBar.style.pointerEvents = "none";
+        }
+      });
+    });
+
+    // Show/hide mobile bar based on whether checkout is in view
+    if (mobileBar) {
+      const updateBarVisibility = () => {
+        const reviewCartTop = reviewCart.getBoundingClientRect().top;
+        if (reviewCartTop < window.innerHeight) {
+          mobileBar.style.opacity = "0";
+          mobileBar.style.pointerEvents = "none";
+        } else {
+          mobileBar.style.opacity = "1";
+          mobileBar.style.pointerEvents = "";
+        }
+      };
+      window.addEventListener("scroll", updateBarVisibility, { passive: true });
+    }
+  }
+
+  private addMonthlyCheckbox() {
+    const monthlyCheckboxes = document.querySelectorAll(
+      ".monthly-checkbox"
+    ) as NodeListOf<HTMLDivElement>;
+
+    const localStorageMonthly = localStorage.getItem(`sc-cards-${this.getPageId()}-monthly`);
+    const enMonthly = (window as any).EngagingNetworks.require._defined.enjs.getFieldValue("recurrpay");
+    const monthlyStored =
+      localStorageMonthly ||
+      enMonthly;
+    const isMonthlyChecked = monthlyStored === "Y";
+    const radioInputs: HTMLInputElement[] = [];
+
+    monthlyCheckboxes.forEach((monthlyCheckbox, index) => {
+      const inputId = `frequency-monthly-${index}`;
+      const monthlyText = monthlyCheckbox.innerText;
+      const input = `
+          <input id="${inputId}" name="${inputId}" type="radio" value="monthly" ${isMonthlyChecked ? "checked" : ""
+        } />
+          <label for="${inputId}">
+            <h2>${monthlyText}</h2>
+          </label>
+        `;
+      monthlyCheckbox.innerHTML = input;
+
+      const radioInput = monthlyCheckbox.querySelector(
+        `#${inputId}`
+      ) as HTMLInputElement;
+      if (radioInput) {
+        radioInput.dataset.wasChecked = isMonthlyChecked ? "true" : "false";
+        radioInputs.push(radioInput);
+      }
+    });
+
+    radioInputs.forEach((radioInput) => {
+      radioInput.addEventListener("click", () => {
+        const willBeChecked = radioInput.dataset.wasChecked !== "true";
+        const newState = willBeChecked ? "true" : "false";
+        const frequency = willBeChecked ? "monthly" : "onetime";
+
+        radioInputs.forEach((input) => {
+          input.checked = willBeChecked;
+          input.dataset.wasChecked = newState;
+        });
+
+        const storageValue = willBeChecked ? "Y" : "N";
+        localStorage.setItem(
+          `sc-cards-${this.getPageId()}-monthly`,
+          storageValue
+        );
+
+        monthlyCheckboxes.forEach((container) => {
+          if (willBeChecked) {
+            container.setAttribute("data-selected", "true");
+          } else {
+            container.removeAttribute("data-selected");
+          }
+        });
+
+        this.updateFrequency(frequency);
+      });
+    });
+  }
+
+  private togglePaymentMethodSelection() {
+    const container = document.querySelector(".payment-buttons-container") as HTMLElement;
+    if (!container) return;
+
+    const radios = container.querySelectorAll(
+      'input[name="transaction.giveBySelect"]'
+    ) as NodeListOf<HTMLInputElement>;
+
+    const items = container.querySelectorAll(
+      ".en__field__item"
+    ) as NodeListOf<HTMLElement>;
+
+    const updateSelected = () => {
+      items.forEach((item) => item.classList.remove("selected"));
+      const checked = container.querySelector(
+        'input[name="transaction.giveBySelect"]:checked'
+      ) as HTMLInputElement | null;
+      if (checked) {
+        checked.closest(".en__field__item")?.classList.add("selected");
+      }
+    };
+
+    radios.forEach((radio) => {
+      radio.addEventListener("change", updateSelected);
+      radio.addEventListener("click", updateSelected);
+    });
+    items.forEach((item) => {
+      item.addEventListener("click", updateSelected);
+      item.addEventListener("mouseenter", function () {
+        item.classList.add("hover");
+        if (!item.classList.contains("hover")) {
+          setTimeout(() => item.classList.add("hover"), 0);
+        }
+      });
+      item.addEventListener("mouseleave", function () {
+        item.classList.remove("hover");
+        if (item.classList.contains("hover")) {
+          setTimeout(() => item.classList.remove("hover"), 0);
+        }
+      });
+    });
+
+    updateSelected();
   }
 
   private setCardsAtttributes() {
@@ -168,6 +394,7 @@ export class App {
           if (quantity > 0) {
             card.setAttribute("data-selected", "true");
           }
+          amountNode.remove();
         }
       }
     });
@@ -212,9 +439,8 @@ export class App {
           decimalPart += "0";
         }
         // Add a span to the decimal part, with 2 decimals
-        amountHTML = `${
-          amount.toString().split(".")[0]
-        }<span class="decimal">${decimalPart}</span>`;
+        amountHTML = `${amount.toString().split(".")[0]
+          }<span class="decimal">${decimalPart}</span>`;
       }
 
       const currency = this.getCurrencySymbol(card);
@@ -228,18 +454,26 @@ export class App {
   }
   private createCardsQuantity() {
     this.cardsNode.forEach((card) => {
-      const amountNode = card.querySelector(
-        "h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 + p"
-      ) as HTMLParagraphElement;
+      const amountDiv = card.querySelector(
+        ".sc-cards-amount"
+      ) as HTMLDivElement;
       const quantity = this.getCardQuantity(card);
       const div = document.createElement("div");
       div.classList.add("sc-cards-quantity");
       div.innerHTML = `
         <div class="decrease"></div>
+        <div class="quantity-container">
         <div class="quantity">${quantity}</div>
+        <small>Quantity</small>
+        </div>
+
         <div class="increase"></div>
       `;
-      amountNode.parentNode.insertBefore(div, amountNode.nextSibling);
+      if (amountDiv) {
+        amountDiv.parentNode.insertBefore(div, amountDiv.nextSibling);
+      } else {
+        card.appendChild(div);
+      }
     });
   }
 
@@ -376,7 +610,7 @@ export class App {
         if (mutation.type === "attributes") {
           const card = mutation.target as HTMLElement;
           const quantityElement = card.querySelector(
-            ".sc-cards-quantity > .quantity"
+            ".sc-cards-quantity .quantity"
           ) as HTMLDivElement;
           if (quantityElement) {
             quantityElement.innerText = this.getCardQuantity(card).toString();
@@ -393,37 +627,52 @@ export class App {
       });
     });
   }
-  private addOtherAmount() {
-    const blockOther = document.querySelector(".block-other") as HTMLDivElement;
-    if (blockOther) {
+  private addCustomAmountBlock() {
+    const customAmountBlock = document.querySelector(".custom-amount-block") as HTMLDivElement;
+    if (customAmountBlock) {
       const otherStored =
-        localStorage.getItem(`sc-cards-${this.getPageId()}-other`) || "0";
+        localStorage.getItem(`sc-cards-${this.getPageId()}-other`) || "";
       if (otherStored !== "0") {
-        blockOther.setAttribute("data-selected", "true");
+        customAmountBlock.setAttribute("data-selected", "true");
       }
-      const currency = this.getCurrencySymbol(blockOther);
-      const currencyCode = this.getCurrencyCode(blockOther);
-      const otherAmountWrapper = document.createElement("div");
-      otherAmountWrapper.classList.add("block-other-amount");
-      otherAmountWrapper.innerHTML = `
-      <span class="currency-symbol">${currency}</span>
-      <input id="sc-other-amount" aria-label="Enter your custom donation amount" name="transaction.donationAmt.other-standin" type="text" inputmode="decimal" data-lpignore="true" autocomplete="off" value="${otherStored}" tabindex="1" placeholder="0" />
-      <span class="currency-code">${currencyCode}</span>
+
+      const helperTextEl = customAmountBlock.querySelector(".custom-amount-helper-text") as HTMLElement | null;
+      const helperText = helperTextEl?.textContent?.trim() || "I want my gift to go wherever it’s needed most.";
+      helperTextEl?.remove();
+
+      const donateButtonText = customAmountBlock.querySelector(".custom-amount-donate") as HTMLElement | null;
+      const donateButtonTextContent = donateButtonText?.textContent?.trim() || "Donate";
+      donateButtonText?.remove();
+
+      const customAmountInput = document.createElement("div");
+      customAmountInput.classList.add("custom-amount-input");
+      customAmountInput.innerHTML = `
+      <span class="custom-amount-label">Custom Amount</span>
+      <div class="input-prefix-wrapper">
+        <input id="sc-other-amount" aria-label="Enter your custom donation amount" name="transaction.donationAmt.other-standin" type="text" inputmode="decimal" data-lpignore="true" autocomplete="off" value="${otherStored}" tabindex="1" placeholder="" />
+      </div>
+      <span class="custom-amount-helper">${helperText}</span>
+      <button type="button" class="custom-amount-donate">${donateButtonTextContent.toUpperCase()}</button>
       `;
-      blockOther.appendChild(otherAmountWrapper);
-      const otherAmount = blockOther.querySelector("input") as HTMLInputElement;
-      if (otherAmount) {
-        otherAmount.addEventListener("input", (e) => {
-          const value = (e.target as HTMLInputElement).value || "0";
-          localStorage.setItem(`sc-cards-${this.getPageId()}-other`, value);
-          if (value === "0") {
-            blockOther.removeAttribute("data-selected");
+      customAmountBlock.appendChild(customAmountInput);
+
+      const input = customAmountBlock.querySelector("input") as HTMLInputElement;
+      if (input) {
+        input.addEventListener("input", (e) => {
+          const value = (e.target as HTMLInputElement).value;
+          if (value) {
+            localStorage.setItem(`sc-cards-${this.getPageId()}-other`, value);
           } else {
-            blockOther.setAttribute("data-selected", "true");
+            localStorage.removeItem(`sc-cards-${this.getPageId()}-other`);
+          }
+          if (value === "0") {
+            customAmountBlock.removeAttribute("data-selected");
+          } else {
+            customAmountBlock.setAttribute("data-selected", "true");
           }
           this.updateTotal();
         });
-        otherAmount.addEventListener("focus", function (e) {
+        input.addEventListener("focus", function (e) {
           if ((e.target as HTMLInputElement).value === "0") {
             (e.target as HTMLInputElement).value = "";
           }
@@ -431,75 +680,64 @@ export class App {
       }
     }
   }
-  private addMonthlyCheckbox() {
-    const monthly = document.querySelector(
-      ".monthly-checkbox"
-    ) as HTMLDivElement;
-    if (monthly) {
-      const monthlyStored =
-        localStorage.getItem(`sc-cards-${this.getPageId()}-monthly`) || "N";
-      if (monthlyStored !== "N") {
-        monthly.setAttribute("data-selected", "true");
-      }
-      const monthlyCheckbox = `
-      <input id="sc-monthly" value="Y" type="checkbox" ${
-        monthlyStored === "Y" ? "checked='checked'" : ""
-      }>
-      `;
-      monthly.innerHTML =
-        monthlyCheckbox +
-        `<label for="sc-monthly">` +
-        monthly.innerHTML +
-        `</label>`;
-      const monthlyInput = monthly.querySelector("input") as HTMLInputElement;
-      if (monthlyInput) {
-        monthlyInput.addEventListener("change", (e) => {
-          const value = (e.target as HTMLInputElement).checked ? "Y" : "N";
-          localStorage.setItem(`sc-cards-${this.getPageId()}-monthly`, value);
-          if (value === "N") {
-            monthly.removeAttribute("data-selected");
-          } else {
-            monthly.setAttribute("data-selected", "true");
-          }
-          this.updateFrequency();
-          this.updateTotal();
-          const freqButtons = document.querySelectorAll(
-            ".frequency-buttons input"
-          ) as NodeListOf<HTMLInputElement>;
-          freqButtons.forEach((button) => {
-            button.checked =
-              (button.value === "onetime" && value === "N") ||
-              (button.value === "monthly" && value === "Y");
-          });
-        });
-      }
-    }
-  }
   private addLiveVariables() {
     const textComponents = document.querySelectorAll(
-      ".en__component--copyblock, .en__component--codeblock, .en__submit button"
+      ".en__component--copyblock, .en__component--codeblock, .submit-button button"
     ) as NodeListOf<HTMLDivElement>;
     if (textComponents.length > 0) {
       textComponents.forEach((component) => {
-        if (component.innerText.includes("[[")) {
-          const liveVariables = component.innerText.match(/\[\[(.*?)\]\]/g);
-          if (liveVariables) {
-            liveVariables.forEach((variable) => {
-              const variableName = variable
-                .replace(/\[\[/g, "")
-                .replace(/\]\]/g, "");
-              // this.log(variableName);
-              component.innerHTML = component.innerHTML.replace(
-                `[[${variableName}]]`,
-                "<span class='sc-live-variable' data-variable='" +
-                  variableName +
-                  "'></span>"
-              );
-            });
-          }
-        }
+        this.injectLiveVariableSpans(component);
       });
     }
+
+    const submitButtons = document.querySelectorAll(
+      ".submit-button button, .en__submit button"
+    ) as NodeListOf<HTMLElement>;
+    submitButtons.forEach((btn) => {
+      const observer = new MutationObserver(() => {
+        const needsSpanReinject = btn.innerHTML.includes("[[");
+        const needsMonthlyReinject =
+          this.isMonthly && !btn.querySelector(".donate-button-frequency");
+        if (needsSpanReinject || needsMonthlyReinject) {
+          observer.disconnect();
+          if (needsSpanReinject) {
+            this.injectLiveVariableSpans(btn);
+            const value =
+              this.total % 1 !== 0
+                ? this.total.toFixed(2)
+                : this.total.toString();
+            this.updateLiveVariables("TOTAL", value);
+          }
+          if (needsMonthlyReinject) {
+            this.updateDonateButtonFrequency(true);
+            this.updateCartTotalFrequency(true);
+          }
+          observer.observe(btn, {
+            childList: true,
+            subtree: true,
+            characterData: true,
+          });
+        }
+      });
+      observer.observe(btn, {
+        childList: true,
+        subtree: true,
+        characterData: true,
+      });
+    });
+  }
+
+  private injectLiveVariableSpans(component: HTMLElement) {
+    if (!component.innerHTML.includes("[[")) return;
+    const liveVariables = component.innerHTML.match(/\[\[(.*?)\]\]/g);
+    if (!liveVariables) return;
+    liveVariables.forEach((variable) => {
+      const variableName = variable.replace(/\[\[/g, "").replace(/\]\]/g, "");
+      component.innerHTML = component.innerHTML.replace(
+        `[[${variableName}]]`,
+        `<span class='sc-live-variable' data-variable='${variableName}'></span>`
+      );
+    });
   }
   private updateLiveVariables(variableName: string, value: string) {
     const liveVariables = document.querySelectorAll(
@@ -509,6 +747,24 @@ export class App {
       liveVariables.forEach((variable) => {
         variable.innerText = value;
       });
+    }
+    if (variableName === "TOTAL") {
+      const feeCoverField = document.querySelector(
+        "#en__field_transaction_feeCover"
+      ) as HTMLInputElement;
+      if (feeCoverField?.checked) {
+        const feeCoverToken = document.querySelector(
+          '[data-token="amount-fee"]'
+        ) as HTMLElement;
+        const feeCover = feeCoverToken
+          ? parseFloat(feeCoverToken.innerText.replace(/[^0-9.]/g, "")) || 0
+          : 0;
+        if (feeCover > 0) {
+          liveVariables.forEach((variable) => {
+            variable.innerText = (parseFloat(value) + feeCover).toFixed(2);
+          });
+        }
+      }
     }
     if (variableName === "FREQUENCY") {
       const freqElements = document.querySelectorAll(
@@ -532,9 +788,7 @@ export class App {
       const quantity = this.getCardQuantity(card);
       const title = this.getCardTitle(card);
       if (quantity > 0) {
-        this.cartItems = `['${quantity}','${title}','${amount.toFixed(
-          2
-        )}'] \r\n${this.cartItems}`;
+        this.cartItems = `| ${quantity}x ${title} - ${this.getCurrencySymbol(card)}${amount.toFixed(2)} ${this.cartItems}`;
       }
       this.total += amount * quantity;
     });
@@ -546,9 +800,7 @@ export class App {
         parseFloat(otherAmount.value).toFixed(2)
       );
       if (otherAmountValue > 0) {
-        this.cartItems = `['1','Other','${otherAmountValue.toFixed(2)}'] \r\n${
-          this.cartItems
-        }`;
+        this.cartItems = `| 1x Other - ${this.getCurrencySymbol(null)}${otherAmountValue.toFixed(2)} ${this.cartItems}`;
         this.total += otherAmountValue;
       }
     }
@@ -585,6 +837,12 @@ export class App {
     }
     if (this.total > 0) {
       document.querySelector("body").setAttribute("data-item-selected", "true");
+      const cartElement = document.querySelector(".sc-cards");
+      if (cartElement) {
+        cartElement.classList.remove("en__field--validationFailed");
+        const errorEl = cartElement.querySelector(".en__field__error");
+        if (errorEl) errorEl.remove();
+      }
     } else {
       document.querySelector("body").removeAttribute("data-item-selected");
     }
@@ -621,12 +879,13 @@ export class App {
         }
       });
     }
-    if (monthly === "Y") {
-      (window as any).EngagingNetworks.require._defined.enjs.setFieldValue(
-        "recurrfreq",
-        "MONTHLY"
-      );
-    }
+
+    const monthlyToRecurrFreq = monthly === "Y" ? "MONTHLY" : "ONETIME";
+    (window as any).EngagingNetworks.require._defined.enjs.setFieldValue(
+      "recurrfreq",
+      monthlyToRecurrFreq
+    );
+
     const frequency = (
       window as any
     ).EngagingNetworks.require._defined.enjs.getFieldValue("recurrpay");
@@ -642,6 +901,77 @@ export class App {
     } else {
       this.updateLiveVariables("FREQUENCY", "");
     }
+    this.updateDonateButtonFrequency(monthly === "Y");
+    this.updateCartTotalFrequency(monthly === "Y");
+
+    // Sync monthly switch state
+    document.querySelectorAll<HTMLElement>('.monthly-switch-container-mobile .pricing-switcher').forEach((switcher) => {
+      switcher.setAttribute("data-state", isMonthly ? "monthly" : "onetime");
+      switcher.querySelectorAll<HTMLInputElement>('input[type="radio"]').forEach((input) => {
+        if (input.value === "monthly") {
+          input.checked = isMonthly;
+        } else if (input.value === "onetime") {
+          input.checked = !isMonthly;
+        }
+      });
+    });
+
+    // Sync monthly checkbox radios
+    document.querySelectorAll<HTMLInputElement>('.monthly-checkbox input[type="radio"]').forEach((input) => {
+      input.checked = isMonthly;
+      input.dataset.wasChecked = isMonthly ? "true" : "false";
+    });
+    document.querySelectorAll<HTMLElement>('.monthly-checkbox').forEach((container) => {
+      if (isMonthly) {
+        container.setAttribute("data-selected", "true");
+      } else {
+        container.removeAttribute("data-selected");
+      }
+    });
+  }
+
+  private updateDonateButtonFrequency(isMonthly: boolean) {
+    this.isMonthly = isMonthly;
+    const donateButtons = document.querySelectorAll(
+      ".donate-button, .submit-button .en__submit button"
+    ) as NodeListOf<HTMLElement>;
+    donateButtons.forEach((donateButton) => {
+      let label = donateButton.querySelector(
+        ".donate-button-frequency"
+      ) as HTMLElement | null;
+      if (isMonthly) {
+        if (!label) {
+          label = document.createElement("span");
+          label.classList.add("donate-button-frequency");
+          donateButton.appendChild(label);
+        }
+        label.innerText = "Monthly";
+      } else if (label) {
+        label.remove();
+      }
+    });
+  }
+
+  private updateCartTotalFrequency(isMonthly: boolean) {
+    const cartTotalVars = document.querySelectorAll(
+      ".cart-total.review .sc-live-variable[data-variable='TOTAL']"
+    ) as NodeListOf<HTMLElement>;
+    cartTotalVars.forEach((totalEl) => {
+      let label = totalEl.nextElementSibling as HTMLElement | null;
+      if (label && !label.classList.contains("cart-total-frequency")) {
+        label = null;
+      }
+      if (isMonthly) {
+        if (!label) {
+          label = document.createElement("span");
+          label.classList.add("cart-total-frequency");
+          totalEl.insertAdjacentElement("afterend", label);
+        }
+        label.innerText = "Monthly";
+      } else if (label) {
+        label.remove();
+      }
+    });
   }
   private setQuantityClickEvent() {
     this.cardsNode.forEach((card) => {
@@ -654,12 +984,21 @@ export class App {
       if (increase && decrease) {
         increase.addEventListener("click", () => {
           this.increaseQuantity(card);
+          this.flashButton(increase);
         });
         decrease.addEventListener("click", () => {
           this.decreaseQuantity(card);
+          this.flashButton(decrease);
         });
       }
     });
+  }
+
+  private flashButton(el: HTMLElement, duration = 200) {
+    el.classList.add("clicking");
+    window.setTimeout(() => {
+      el.classList.remove("clicking");
+    }, duration);
   }
 
   private rememberQuantity() {
@@ -750,6 +1089,81 @@ export class App {
       }
     }
     this.additionalComments = inputField;
+  }
+
+  private initScrollToCartOnEmptySubmit() {
+    const submitButtons = document.querySelectorAll(
+      ".submit-button button, .en__submit button"
+    ) as NodeListOf<HTMLElement>;
+    submitButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const donationAmt = (window as any).EngagingNetworks.require._defined.enjs.getFieldValue("donationAmt");
+        if (!donationAmt || parseFloat(donationAmt) === 0) {
+          const cardsTitleElement = document.querySelector(".sc-cards-title");
+          if (cardsTitleElement) {
+            this.setError(".sc-cards-title", `Please add at least one item to your cart or a custom amount donation.${this.minDonationAmount ? ` Minimum donation amount is $${this.minDonationAmount}.` : ""}`);
+            setTimeout(() => {
+              const top = cardsTitleElement.getBoundingClientRect().top + window.scrollY - 120;
+              window.scrollTo({ top, behavior: "smooth" });
+            });
+          }
+        } else {
+          this.removeError(".sc-cards-title");
+        }
+      });
+    });
+  }
+
+  private setError(element: string | Element, errorMessage: string) {
+    const errorElement = typeof element === "string" ? document.querySelector(element) : element;
+    if (errorElement) {
+      errorElement.classList.add("en__field--validationFailed");
+      let errorMessageElement = errorElement.querySelector(".en__field__error");
+      if (!errorMessageElement) {
+        errorMessageElement = document.createElement("div");
+        errorMessageElement.classList.add("en__field__error");
+        errorMessageElement.innerHTML = errorMessage;
+        errorElement.insertBefore(errorMessageElement, errorElement.firstChild);
+      }
+      else {
+        errorMessageElement.innerHTML = errorMessage;
+      }
+    }
+  }
+
+  private removeError(element: string | Element) {
+    const errorElement = typeof element === "string" ? document.querySelector(element) : element;
+    if (errorElement) {
+      errorElement.classList.remove("en__field--validationFailed");
+      const errorMessageElement = errorElement.querySelector(".en__field__error");
+      if (errorMessageElement) {
+        errorElement.removeChild(errorMessageElement);
+      }
+    }
+  }
+
+  private initErrorOffset() {
+    const errorHeader = document.querySelector('.en__errorHeader') as HTMLElement | null;
+    const errorList = document.querySelector('.en__errorList') as HTMLElement | null;
+
+    if (!errorHeader && !errorList) return;
+
+    const update = () => {
+      const headerHeight = errorHeader?.offsetHeight ?? 0;
+      const listHeight = errorList?.offsetHeight ?? 0;
+      document.documentElement.style.setProperty('--error-header-height', `${headerHeight}px`);
+      document.documentElement.style.setProperty('--error-banner-height', `${headerHeight + listHeight}px`);
+    };
+
+    const resizeObserver = new ResizeObserver(update);
+    if (errorHeader) resizeObserver.observe(errorHeader);
+    if (errorList) resizeObserver.observe(errorList);
+
+    const mutationObserver = new MutationObserver(update);
+    if (errorHeader) mutationObserver.observe(errorHeader, { childList: true, subtree: true });
+    if (errorList) mutationObserver.observe(errorList, { childList: true, subtree: true });
+
+    update();
   }
 
   public log(message: any, ...optionalParams: any[]) {

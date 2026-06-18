@@ -1,13 +1,21 @@
 @import "mixins.scss";
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap");
-
-$breakpoint-1: 1300px; //being used hard-coded in .spcai-main-nav ul li a {
+@import "./colors.scss";
+@import "./page-builder.scss";
+@import "./pricing-switcher.scss";
 
 :root {
   --page-padding-x: 80px;
+  --page-max-width: 1157px;
 
-  @media (max-width: $breakpoint-1) {
+  @media (max-width: 1300px),
+  (max-device-width: 1300px) {
     --page-padding-x: 40px;
+  }
+
+  @media (max-width: 690px),
+  (max-device-width: 690px) {
+    --page-padding-x: 24px;
   }
 }
 
@@ -61,32 +69,109 @@ body[data-debug] {
 #en-shopping-cart {
   padding-left: var(--page-padding-x);
   padding-right: var(--page-padding-x);
+  width: 100%;
+
+  overflow-x: clip;
+
+  .en__errorHeader {
+    width: calc(100% + 2 * var(--page-padding-x)) !important;
+    margin-left: calc(-1 * var(--page-padding-x)) !important;
+  }
+
+  .en__errorList {
+    width: calc(100% + 2 * var(--page-padding-x)) !important;
+    margin-left: calc(-1 * var(--page-padding-x)) !important;
+  }
 
   .en__component--advrow {
     max-width: 100%;
     min-height: unset;
   }
 
-  // /* your-cart-component — bleeds to the left edge */
-  // .your-cart-component {
-  //   margin-left: calc(-1 * var(--page-padding-x));
-  //   width: calc(100% + var(--page-padding-x));
-  // }
-  @import "./header.scss";
+  .form-container {
+    display: flex !important;
+    gap: 45px;
+    max-width: var(--page-max-width);
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+
+  .thank-you-container {
+    max-width: var(--page-max-width);
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+
+  .hidden-donation-amount {
+
+    label,
+    .en__field__element--radio {
+      display: none
+    }
+
+    .en__field {
+      margin-bottom: 0px !important;
+    }
+
+    .en__field__error {
+      font-size: 16px !important;
+      margin-bottom: 10px !important;
+    }
+
+  }
+
   @import "./cards.scss";
   @import "./info.scss";
   @import "./elements.scss";
+  @import "./review-cart.scss";
+  @import "./custom-amount.scss";
+  @import "./fee-cover.scss";
+  @import "./footer.scss";
+  @import "./header.scss";
+  @import "./info.scss";
   @import "./mobile.scss";
+  @import "./payment-buttons-container.scss";
+  @import "./submit-button.scss";
 }
 
-@import "./colors.scss";
-@import "./page-builder.scss";
-
-.flex {
-  display: flex !important;
+#spcai-site-header {
+  top: var(--error-banner-height, 0px) !important;
 }
 
-.form-container {
-  margin: 0 auto !important;
-  column-gap: 40px;
+.under-header-text-container {
+  margin-top: 44px;
+  margin-bottom: 44px;
+  max-width: calc(var(--page-max-width) / 2) !important;
+  width: 100% !important;
+  justify-content: center;
+  align-self: center;
+  justify-self: center;
+
+  p {
+    margin: 0 !important;
+  }
+}
+
+.custom-amount-disclaimer {
+  margin-top: 30px;
+  margin-bottom: 50px;
+  max-width: var(--page-max-width) !important;
+  justify-self: center;
+  width: 100% !important;
+
+  p {
+    margin: 0 !important;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -50px;
+    left: 0px;
+    width: calc(100% + 2 * var(--page-padding-x));
+    margin: 0 calc(-1 * var(--page-padding-x)) 0;
+    border: 1px solid #bfbfbf;
+  }
 }

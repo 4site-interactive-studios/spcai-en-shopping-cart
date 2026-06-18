@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Start Google Optimize with page hiding snippet -->
+        <!-- Disable Google Optimize when not in use as it dramatically slows page load times -->
+        <!--
+        <style>
+        .async-hide { opacity: 0 !important} en
+        </style>
+        
+        <script>
+        (function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;
+        h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+        (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);
+        })(window,document.documentElement,'async-hide','dataLayer',4000,{'GTM-123456':true});
+        </script>
+        -->
+        <!-- End Google Optimize with page hiding snippet -->
+        <!-- Start Google Tag Manager Data Layer Initialization Script -->
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        </script>
+        <!-- End Google Tag Manager Data Layer Initialization Script -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport">
+        <link
+            rel="icon"
+            type="image/png"
+            href="https://www.spcai.org/wp-content/themes/spcai/favicon-32x32.png"
+            sizes="32x32"
+        >
+        <link
+            rel="icon"
+            type="image/png"
+            href="https://www.spcai.org/wp-content/themes/spcai/favicon-16x16.png"
+            sizes="16x16"
+        >
+        <title>${page~title} - SPCA International | Global Animal Rescue</title>
+        <meta name="title" content="${page~title} | Organization Name">
+        <meta name="theme-color" content="#000000">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <!-- Social Network Account meta tags -->
+        <!-- <meta property="twitter:account_id" content="123456"> -->
+        <!-- <meta property="fb:app_id" content="TBD"> -->
+        <!-- Default, Twitter Large Card, and Facebook meta tags -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@SPCAINT">
+        <meta name="twitter:creator" content="@SPCAINT">
+        <meta name="twitter:title" content="${page~title}">
+        <meta name="twitter:image" content="https://c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/12345/social.jpg">
+        <meta name="twitter:description" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec iaculis laoreet sapien ac malesuada. Praesent sit amet dapibus ex, fringilla lacinia turpis. Vestibulum ac fringilla mauris.">
+        <meta property="og:type" content="website">
+        <!-- Immeditately get color on the page and hide the contents until engrid.css is rendered by the browser -->
+        <style>
+        /* Oswald, Open Sans and Roboto font */
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&family=Roboto:wght@400&display=swap');
+        </style>
+        <style>
+        :root {
+            --header-menu-height: 100px;
+        }
+
+        @media (max-width: 690px) {
+            :root {
+                --header-menu-height: 50px;
+            }
+        }
+
+        /* SPCA International Header */
+        #spcai-site-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.15);
+            height: var(--header-menu-height);
+        }
+
+        @media (max-width: 690px), (max-device-width: 690px) {
+            #spcai-site-header {
+                display: none;
+            }
+        }
+
+        #spcai-mobile-header {
+            display: none;
+        }
+
+        @media (max-width: 690px), (max-device-width: 690px) {
+            #spcai-mobile-header {
+                display: flex;
+                align-items: center;
+                padding: 30px 20px;
+                height: 137px;
+            }
+
+            #spcai-mobile-header .header-logo {
+                max-width: 240px;
+            }
+        }
+
+        .spcai-header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-right: var(--page-padding-x);
+        }
+
+        .spcai-header-logo-container {
+            padding: 15px 87px 15px var(--page-padding-x);
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 1200px) {
+            .spcai-header-logo-container {
+                padding: 15px 40px 15px var(--page-padding-x);
+            }
+        }
+
+        @media (max-width: 690px) {
+            .spcai-header-logo-container {
+                padding: 7.5px 40px 7.5px var(--page-padding-x);
+            }
+        }
+
+        .spcai-logo-link img {
+            height: 70px;
+            width: 281px;
+            display: block;
+        }
+
+        @media (max-width: 690px) {
+            .spcai-logo-link img {
+                height: 35px;
+            }
+        }
+
+        .spcai-main-nav>ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            align-items: center;
+            height: var(--header-menu-height);
+        }
+
+        .spcai-main-nav ul li {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            height: 100%;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .spcai-main-nav ul li a {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding: 0 25px;
+            color: white;
+            text-decoration: none;
+            font-family: 'Oswald', 'Arial Narrow', Arial, sans-serif;
+            font-size: 18px;
+            line-height: 27px;
+            font-weight: 400;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 1140px) {
+            .spcai-main-nav ul li a {
+                padding: 0 15px;
+            }
+        }
+
+        .spcai-main-nav ul li:hover {
+            background-color: white;
+        }
+
+        .spcai-main-nav ul li:hover a:not(.spcai-donate-btn) {
+            color: #444;
+        }
+
+        .spcai-donate-btn-container {
+            padding: 0 !important;
+        }
+
+        .spcai-donate-btn-container:hover {
+            background-color: transparent !important;
+            color: white !important;
+        }
+
+        .spcai-donate-btn {
+            background-color: #ee3524;
+            padding: 6px 16px !important;
+            border-radius: 4px;
+            max-height: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .spcai-donate-btn:hover {
+            color: white !important;
+            max-height: var(--header-menu-height);
+            height: var(--header-menu-height);
+            border-radius: 0;
+            background-color: #c8102e;
+            align-self: center;
+        }
+
+
+        @media (max-width: 1032px) {
+            .spcai-main-nav {
+                display: none;
+            }
+        }
+
+        .spcai-submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            background: rgba(255, 255, 255, 0.9);
+            flex-direction: column;
+            min-width: 200px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            height: auto !important;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            z-index: 101;
+        }
+
+        .spcai-main-nav ul li:hover>.spcai-submenu {
+            display: flex;
+        }
+
+        .spcai-submenu li {
+            height: 50.3px !important;
+            width: 100%;
+            justify-content: flex-start;
+        }
+
+        .spcai-submenu li a {
+            color: #ee3524 !important;
+            padding: 15px !important;
+            height: 50.3px !important;
+            font-size: 14px !important;
+            width: 260px;
+        }
+
+        .spcai-submenu li:hover {
+            background-color: white !important;
+        }
+
+        .spcai-submenu li a:hover {
+            color: #424242 !important;
+        }
+
+        #en__pagebuilder #spcai-site-header {
+            display: none;
+        }
+
+         #en__pagebuilder #spcai-mobile-header {
+            display: none;
+        }
+        </style>
+        <!-- Preconnect and Preload Render Critical CSS, JS, and Fonts -->
+        <link rel="preconnect" href="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com">
+        <link
+            href="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/en-shopping-cart.css?v=1781267855000"
+            rel="stylesheet"
+            type="text/css"
+            media="all"
+        >
+        <!-- Placed here so that downloading begins before Engaging Network's CSS and JS files -->
+        <link rel="preload" href="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/engrid.min.js?6" as="script">
+        <link rel="preload" href="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/engrid.min.css?6" as="style">
+    </head>
+    <body
+        data-engrid-add-input-placeholders
+        data-engrid-theme="spcai"
+        data-conditonally-hide-show-digital-wallet-elements
+        data-highlight-required-fields
+    >
+        <noscript>With Javascript disabled this page may not function as expected.</noscript>
+        <!-- Quickly check to see if the page is in an iFrame and if so set the corresponding Custom Attribute so it can also set the background-color. Must be after <body> otherwise there will be a flash of color -->
+        <script>
+        if (window.self !== window.top) {
+            document.getElementsByTagName("BODY")[0].setAttribute("data-engrid-embedded", "");
+        }
+        </script>
+        <!-- Load ENGrid's CSS here so that it always comes after Engaging Networks CSS which gets injected into <head> -->
+        <link href="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/engrid.min.css?6" rel="stylesheet" type="text/css">
+        <link href="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/en-shopping-cart.css?v=1781267855000" rel="stylesheet" type="text/css">
+        <!-- SPCA International Site Header -->
+        <header id="spcai-site-header">
+            <div class="spcai-header-inner">
+                <div class="spcai-header-logo-container">
+                    <a href="https://www.spcai.org" class="spcai-logo-link">
+                        <img src="https://www.spcai.org/wp-content/uploads/2019/08/HEADER2-WHITE.svg" alt="SPCA International Global Animal Rescue">
+                    </a>
+                </div>
+                <nav class="spcai-main-nav">
+                    <ul>
+                        <li>
+                            <a href="https://www.spcai.org/about">About</a>
+                        </li>
+                        <li>
+                            <a href="https://www.spcai.org/news">News</a>
+                            <ul class="spcai-submenu">
+                                <li>
+                                    <a href="https://www.spcai.org/news/feature-stories">Feature Stories</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/news/ask-emma">Ask Emma</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/news/press">Press</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/news/videos">Videos</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="https://www.spcai.org/our-work">Our Work</a>
+                            <ul class="spcai-submenu">
+                                <li>
+                                    <a href="https://www.spcai.org/our-work/shelter-support-fund">Shelter Support</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/our-work/patriot-pets">Patriot Pets</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/our-work/pawsitive-recovery">Pawsitive Recovery</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/our-work/apollos-aid">Apollo's Aid</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/our-work/veterinary-supply-aid">Veterinary Supply Aid</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/our-work/education">Education</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="https://www.spcai.org/take-action">Get Involved</a>
+                            <ul class="spcai-submenu">
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/adopt-an-animal">Foster/Adopt</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/ways-to-give">Ways to Give</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/planned-giving">Create Your Legacy Gift</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/sign-our-petitions">Sign Our Petitions</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/kangaroos-are-not-shoes">
+                                        Kangaroos Are Not
+                                    Shoes
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/dog-meat-trade">Dog Meat Trade</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/dogfighting">Dogfighting</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/emergency-preparedness">
+                                        Emergency
+                                    Preparedness
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/puppy-mills">Puppy Mills</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/spay-neuter">Spay &amp; Neuter</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/spanish-greyhounds">Spanish Greyhounds</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/trophy-hunting">Trophy Hunting</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.spcai.org/take-action/plant-based-lifestyle">
+                                        Living a Plant Based
+                                    Lifestyle
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="https://www.spcai.org/sign-up">Sign Up</a>
+                        </li>
+                        <li>
+                            <a href="https://www.spcai.org/contact">Contact</a>
+                        </li>
+                        <li class="spcai-donate-btn-container">
+                            <a href="https://www.spcai.org/donate" class="spcai-donate-btn">Donate</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <div id="spcai-mobile-header">
+            <p>
+                <a href="https://www.spcai.org/" target="_blank" title="SPCA International">
+                    <svg
+                        alt="SPCA International"
+                        class="header-logo"
+                        height="77"
+                        viewBox="0 0 309 77"
+                        width="309"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                    >
+                        <title></title>
+                        <defs>
+                            <path d="M0 76.028h308.16V0H0z" id="a"></path>
+                        </defs>
+                        <g fill="none" fill-rule="evenodd">
+                            <path d="M253.732 17.223h4.487v8.09h-1.327l-.507-1.192c-.818.971-1.48 1.413-2.763 1.413-2.167 0-3.67-1.546-3.67-4.09v-8.22c0-2.257 1.327-4.09 4.025-4.09 2.74 0 4.109 1.988 4.109 4.375v1.018h-2.607c0-2.387-.484-3.007-1.57-3.007-.663 0-1.216.398-1.216 1.747v8.201c0 1.015.334 1.679 1.284 1.679 1.103 0 1.502-.619 1.502-2.21V19.39h-1.747v-2.167zM260.427 25.313V9.355h2.742v13.572h4.31v2.386zM271.454 21.38c0 1.192.357 1.77 1.46 1.77 1.105 0 1.46-.578 1.46-1.77v-8.09c0-1.194-.355-1.77-1.46-1.77-1.103 0-1.46.576-1.46 1.77v8.09zm-2.74-8.156c0-2.256 1.326-4.09 4.2-4.09 2.873 0 4.198 1.834 4.198 4.09v8.22c0 2.254-1.325 4.09-4.199 4.09-2.873 0-4.198-1.836-4.198-4.09v-8.22zM282.063 23.059h1.15c1.458 0 1.988-.841 1.988-2.453 0-1.637-.62-2.453-2.254-2.453h-.884v4.906zm0-7.16h.994c1.04 0 1.835-.709 1.835-2.036 0-1.48-.573-2.254-1.79-2.254h-1.039v4.29zm-2.741-6.544h4.068c2.936 0 4.242 1.504 4.242 4.221 0 1.37-.574 2.807-1.9 3.338 1.392.618 2.21 1.723 2.21 3.781 0 2.63-1.172 4.617-4.289 4.617h-4.331V9.355zM292.405 19.39h2.208l-1.08-6.854h-.043l-1.085 6.855zm-.883 5.923h-2.655l2.94-15.958h3.405l2.939 15.958h-2.652l-.486-3.535h-3.006l-.485 3.535zM299.164 25.313V9.355h2.743v13.572h4.31v2.386zM252.428 41.488h2.212l-1.084-6.853h-.044l-1.084 6.853zm-.884 5.923h-2.651l2.94-15.957h3.402l2.94 15.957h-2.651l-.487-3.537h-3.005l-.488 3.537zM259.321 47.411V31.453h2.543l3.337 9.128h.044v-9.128h2.476v15.958h-2.387l-3.492-9.968h-.044v9.968z" fill="#E22028"></path>
+                            <mask fill="#fff" id="b">
+                                <use xlink:href="#a"></use>
+                            </mask>
+                            <path d="M270.306 47.411h2.74V31.453h-2.74zM286.615 31.454v15.958h-2.385V34.946h-.044l-2.477 12.466h-1.325l-2.478-12.466h-.044v12.466h-2.387V31.454h3.603l1.946 9.328h.044l1.945-9.328zM291.167 41.488h2.208l-1.08-6.853h-.045l-1.083 6.853zm-.884 5.923h-2.655l2.941-15.957h3.405l2.94 15.957h-2.653l-.487-3.537h-3.007l-.484 3.537zM297.928 47.411V31.453h2.741v13.572h4.31v2.386zM252.693 60.71h.974c1.479 0 2.033-.551 2.033-2.451 0-1.902-.554-2.454-2.033-2.454h-.974v4.906zm0 8.798h-2.74V53.552h3.847c3.073 0 4.64 1.302 4.64 4.707 0 2.563-.995 3.602-1.923 4.022l2.321 7.227h-2.784l-1.947-6.608c-.352.044-.927.064-1.414.064v6.544zM260.56 69.508V53.551h7.337v2.386H263.3v4.112h3.536v2.388h-3.536v4.685h4.908v2.386zM274.925 57.485c-.11-1.37-.84-1.768-1.46-1.768-.882 0-1.37.574-1.37 1.568 0 2.72 5.572 4.022 5.572 8.356 0 2.631-1.77 4.088-4.334 4.088-2.54 0-4-2.033-4.11-4.42l2.607-.374c.11 1.612.753 2.408 1.636 2.408.951 0 1.59-.508 1.59-1.458 0-3.162-5.567-4.003-5.567-8.576 0-2.543 1.547-3.98 4.242-3.98 2.233 0 3.558 1.614 3.803 3.867l-2.609.29zM284.825 58.878V57.64c0-1.35-.62-1.924-1.325-1.924-1.106 0-1.462.575-1.462 1.769v8.088c0 1.194.356 1.77 1.462 1.77.993 0 1.325-.576 1.325-1.615v-1.923h2.741v1.836c0 2.254-1.328 4.09-4.066 4.09-2.876 0-4.2-1.836-4.2-4.09v-8.222c0-2.255 1.324-4.09 4.2-4.09 2.738 0 4.066 1.99 4.066 4.377v1.172h-2.741zM289.906 53.551h2.742v12.045c0 1.172.462 1.747 1.457 1.747.994 0 1.46-.575 1.46-1.747V53.551h2.74v11.935c0 2.741-1.591 4.244-4.2 4.244s-4.199-1.503-4.199-4.244V53.55zM300.513 69.508V53.551h7.34v2.386h-4.598v4.112h3.535v2.388h-3.535v4.685h4.904v2.386z" fill="#E22028" mask="url(#b)"></path>
+                            <path d="M238.563 74.017h1.375V6.707h-1.375zM90.84 68.477h1.415v-10.65H90.84zM98.372 57.828l5.61 8.637h.028v-8.637h1.343v10.65h-1.55l-5.564-8.547h-.03v8.547h-1.342v-10.65zM108.753 59.02v-1.192h8.52v1.192h-3.55v9.458h-1.417V59.02zM128.044 57.828v1.192h-5.94v3.388h5.537V63.6h-5.536v3.684h5.984v1.193h-7.4v-10.65zM137.353 62.662a2.04 2.04 0 0 0 .781-.292c.225-.143.403-.337.538-.581.135-.243.2-.56.2-.947 0-.538-.15-.977-.446-1.314-.3-.336-.783-.507-1.447-.507h-3.52v3.714h2.953c.33 0 .641-.024.94-.073zm-.3-4.834c1.016 0 1.808.249 2.379.744.571.499.858 1.18.858 2.047 0 .643-.149 1.211-.44 1.698-.293.49-.762.821-1.41 1v.03c.31.06.56.16.753.3.195.138.348.303.464.498.112.194.199.412.254.647.054.241.095.49.125.746.02.261.035.524.044.794.012.269.037.53.077.79.039.258.097.506.17.736.076.235.188.443.336.62h-1.581a.873.873 0 0 1-.202-.446c-.034-.19-.057-.4-.065-.635a52.69 52.69 0 0 1-.032-.754 5.52 5.52 0 0 0-.087-.79 9.079 9.079 0 0 0-.15-.738 1.74 1.74 0 0 0-.285-.61 1.363 1.363 0 0 0-.508-.42c-.208-.105-.487-.155-.835-.155h-3.46v4.548h-1.417v-10.65h5.012zM145.989 57.828l5.609 8.637h.03v-8.637h1.342v10.65h-1.552l-5.564-8.547h-.031v8.547h-1.34v-10.65zM162.948 64.079l-1.773-4.968h-.03l-1.805 4.968h3.608zm-.984-6.251l4.164 10.65h-1.567l-1.162-3.207h-4.507l-1.194 3.207h-1.447l4.146-10.65h1.567zM166.902 59.02v-1.192h8.517v1.192h-3.55v9.458h-1.417V59.02zM178.898 68.477h1.416v-10.65h-1.416zM185.967 64.742c.138.521.357.993.657 1.407.297.42.681.756 1.147 1.01.469.253 1.027.38 1.671.38.646 0 1.204-.127 1.672-.38a3.34 3.34 0 0 0 1.148-1.01 4.29 4.29 0 0 0 .656-1.407 6.19 6.19 0 0 0 0-3.178 4.364 4.364 0 0 0-.656-1.411 3.399 3.399 0 0 0-1.148-1.006c-.468-.251-1.026-.38-1.672-.38-.644 0-1.202.129-1.671.38-.466.255-.85.59-1.147 1.006a4.3 4.3 0 0 0-.657 1.411 6.15 6.15 0 0 0 0 3.178m-1.304-3.685a5.221 5.221 0 0 1 .961-1.782c.427-.518.958-.93 1.597-1.24.634-.308 1.377-.46 2.221-.46.847 0 1.586.152 2.223.46.637.31 1.17.722 1.594 1.24.43.516.751 1.11.965 1.782.213.67.321 1.37.321 2.097 0 .725-.108 1.423-.321 2.097a5.253 5.253 0 0 1-.965 1.781 4.572 4.572 0 0 1-1.594 1.23c-.637.303-1.376.456-2.223.456-.844 0-1.587-.153-2.221-.455a4.6 4.6 0 0 1-1.597-1.23 5.246 5.246 0 0 1-.961-1.782 6.845 6.845 0 0 1-.324-2.097c0-.727.108-1.427.324-2.097M200.003 57.828l5.612 8.637h.027v-8.637h1.342v10.65h-1.55l-5.563-8.547h-.031v8.547h-1.343v-10.65zM216.964 64.079l-1.775-4.968h-.03l-1.805 4.968h3.61zm-.984-6.251l4.162 10.65h-1.566l-1.163-3.207h-4.505l-1.194 3.207h-1.447l4.147-10.65h1.566zM224.84 57.828v9.457h5.64v1.193h-7.057v-10.65z" fill="#5C5D60" mask="url(#b)"></path>
+                            <path d="M122.424 19.31l-9.936 2.519c-.285-1.15-.992-2.058-2.125-2.717-1.133-.66-2.375-.99-3.736-.99-2.547 0-3.82.85-3.82 2.548 0 .548.176 1.02.538 1.416.357.393 1.365.886 3.028 1.474l6.139 2.19c1.6.569 3.092 1.405 4.471 2.507 1.38 1.105 2.371 2.312 2.976 3.622.603 1.311.907 2.71.907 4.2 0 3.902-1.534 7.128-4.6 9.675-3.066 2.545-7.157 3.817-12.27 3.817-4.38 0-8.196-.886-11.453-2.66-3.254-1.774-5.523-4.484-6.808-8.126l11.156-2.178c.962 2.737 3.338 4.104 7.133 4.104 1.583 0 2.729-.288 3.437-.864.707-.575 1.064-1.23 1.064-1.966 0-.47-.137-.888-.412-1.245-.275-.359-.567-.62-.877-.78-.312-.16-1.779-.723-4.398-1.69-3.547-1.308-6.034-2.343-7.46-3.106-1.427-.764-2.615-1.9-3.569-3.41-.954-1.508-1.431-3.281-1.431-5.32 0-3.524 1.299-6.51 3.892-8.95 2.597-2.444 6.564-3.666 11.904-3.666 4.078 0 7.567.86 10.475 2.576 2.905 1.72 4.83 4.058 5.775 7.02M138.01 26.53h2.663c4.062 0 6.095-1.373 6.095-4.12 0-2.462-1.699-3.692-5.097-3.692h-2.35l-1.31 7.812zm-1.39 8.265l-2.382 14.183h-11.221l6.454-38.64h12.767c3 0 5.185.125 6.553.38 1.37.256 2.783.868 4.248 1.841 1.46.974 2.62 2.276 3.482 3.907a11.123 11.123 0 0 1 1.286 5.252c0 3.622-1.178 6.708-3.537 9.255-2.358 2.548-5.732 3.822-10.124 3.822h-7.525zM182.01 34.03l10.362 1.332c-1.208 4.226-3.28 7.69-6.213 10.39-2.935 2.696-6.64 4.046-11.113 4.046-4.85 0-8.705-1.646-11.562-4.939-2.858-3.294-4.29-7.526-4.29-12.697 0-5.962 1.766-11.242 5.293-15.836 3.531-4.598 8.38-6.894 14.552-6.894 4.491 0 8.127 1.377 10.912 4.133 2.783 2.754 4.205 6.398 4.259 10.926l-10.897.793c-.039-2.379-.407-4.153-1.104-5.321-.699-1.17-1.877-1.757-3.54-1.757-2.87 0-4.826 2.124-5.873 6.37-1.047 4.246-1.572 7.586-1.572 10.02 0 3.962 1.548 5.946 4.644 5.946 1.529 0 2.764-.51 3.707-1.53.944-1.019 1.756-2.678 2.436-4.981M213.54 33.096l-1.538-11.182-5.095 11.182h6.632zm.688 7.984h-10.343l-3.61 7.897h-9.574l17.883-38.64h12.123l6.002 38.64h-11.403l-1.078-7.897z" fill="#000" mask="url(#b)"></path>
+                            <path d="M38.012 0C17.02 0 0 17.02 0 38.014 0 59.006 17.02 76.029 38.012 76.029c20.996 0 38.014-17.023 38.014-38.015C76.026 17.017 59.008 0 38.012 0" fill="#E22028" mask="url(#b)"></path>
+                            <path d="M61.844 27.953h-5.521c-4.415 0-8.025-3.608-8.025-8.02v-5.526c0-4.414-3.61-8.022-8.024-8.022h-4.918c-4.412 0-8.024 3.608-8.024 8.022v5.527c0 4.411-3.611 8.02-8.024 8.02h-5.523c-4.413 0-8.025 3.612-8.025 8.027v4.916c0 4.413 3.612 8.022 8.025 8.022h4.973a3.021 3.021 0 0 1-.111-.321c-.17-.744.142-4.457.142-5.223 0-.77.527-2.374 1.654-4.217 1.127-1.848 3.66-2.19 4.313-2.516 1.365-.682 2.019-2.57 2.228-4.111.21-1.539.442-2.26.932-2.608.493-.352.443-1.916.817-2.078.372-.16.707.381 1.353 1.726.282.583 1.985-.023 2.658 1.191.465.838.258 1.142.631 1.211.374.07 1.05.119 1.074.608.022.49-.26 1.14-.33 1.725-.07.583-1.737.647-1.7 1.048l.03.4c.143 1.1.695 1.964.288 2.54-.405.574-.84 2.084-.885 3.261-.05 1.172-.768 2.897-1.223 3.977-.458 1.078-.145 1.987-.693 3.307-.554 1.319-.219 1.437.046 1.581.263.141 1.077.575.885 1.32-.19.74-2.18.501-2.563.453-.381-.048-.335-.67-.456-.91-.12-.238-.358-.646-.335-.145.023.505-.36.814-.743.89-.1.016-.548-.004-1.172-.044a8.1 8.1 0 0 1 1.265 2.29c1.558-.24 2.905-.612 3.223-.642.835-.085 1.466.025 1.365.405-.17.65-1.007 1.081-4.232 1.627.07.418.113.843.113 1.28v5.523c0 4.414 3.612 8.024 8.024 8.024h4.918c4.414 0 8.024-3.61 8.024-8.024v-5.522c0-1.423.38-2.76 1.037-3.924-1.157.084-2.355-.046-3.062-.681-.846-.76 1.674-1.092 1.52-1.522-.593-1.645-2.366-2.572-3.336-4.558-.173-.354-.836 2.016-1.265 3.208-.573 1.596-.296 2.695-2.366 2.95-2.065.252-2.444-1.139-1.39-1.773 1.054-.63 1.457-.858 1.56-1.264.253-1.008 1.508-7.644-.224-7.01-.376.168-1.893 7.232-2.988 7.82-1.054.423-.924 1.635-1.893 1.635-.974 0-1.942-.422-1.816-1.393.127-.97 2.023-.673 2.573-2.698 1.647-4.39.34-7.682.424-9.622.085-1.943-.465-2.79-1.012-5.067-.55-2.277.379-4.727.842-5.824.466-1.096.508-.886 0-1.434-.505-.55-2.111.802-2.996-.254-1.134-1.181-1.22-2.281-.762-2.658.466-.38 2.281-1.223 1.82-1.392-.467-.17-.216-1.604 0-2.45.208-.843 1.223-.97 2.529-1.182 1.307-.211 2.406-.296 3.926 0 1.521.296 2.238.761 3.584 1.563 1.353.801.677 2.154.3 2.868-.38.716-.508.297-1.097.97-.593.677-.299 1.565 0 1.858.294.296 1.301.992 1.763 1.966.466.968.471.567 1.315 2.425.847 1.856 2.409 4.641 6.372 9.876 2.96 3.9 3.299 5.834 2.992 7.264 1.961-1.933 4.426-4.656 4.33-6.362-.126-2.34-.396-4.341 1.058-2.564 1.37 1.676 1.285 6.25-4.58 11.203h4.388c4.412 0 8.025-3.61 8.025-8.022v-4.916c0-4.415-3.613-8.028-8.025-8.028" fill="#FFF" mask="url(#b)"></path>
+                        </g>
+                    </svg>
+                </a>
+            </p>
+        </div>
+        <!-- End SPCA International Site Header -->
+        <div id="en-shopping-cart">
+            <!-- Start EN Page Builder -->
+<!-- End EN Page Builder --></div>
+        <!-- Load ENgrid's Javascript -->
+        <script src="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/engrid.min.js?6"></script>
+        <!-- 4Site Added -->
+        <!-- Start Google Tag Manager -->
+        <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-NFJF4D');
+        </script>
+        <!-- End Google Tag Manager -->
+        <!-- Shopping Cart -->
+        <script type="text/javascript" src="https://aaf1a18515da0e792f78-c27fdabe952dfc357fe25ebf5c8897ee.ssl.cf5.rackcdn.com/2452/en-shopping-cart.js?v=1781109714000"></script>
+    </body>
+</html>
